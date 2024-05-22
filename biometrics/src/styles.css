@@ -1,0 +1,75 @@
+.backGround {
+  width: 2000px;
+  height: 1025px;
+  background-image: url("backGround.png") lightgray 50% / cover no-repeat;
+}
+
+.login {
+  margin-top: 282px;
+  margin-left: 467px;
+  width: 507px;
+  height: 556px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: linear-gradient(
+    39deg,
+    rgba(255, 255, 255, 0.55) -0.9%,
+    rgba(153, 153, 153, 0.55) 101.3%
+  );
+  box-shadow: 0px 4px 9.4px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(7.5px);
+}
+
+.formInput {
+  border-radius: 5px;
+  width: 311px;
+  height: 55px;
+  text-align: center;
+}
+
+#usuario {
+  position: absolute;
+  left: 16%;
+  top: 200px;
+  font-size: 24px;
+  text-align: center;
+}
+
+#usuario::placeholder {
+  font-size: 24px;
+  position: relative;
+  text-align: center;
+}
+
+#password {
+  position: absolute;
+  left: 16%;
+  top: 275px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.titulo {
+  font-size: 64px;
+  text-align: center;
+}
+
+#loginHead {
+  position: relative;
+  text-align: center;
+}
+
+.Btnenviar {
+  width: 212.291px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #4eabed;
+}
+
+#entrarLogin {
+  position: relative;
+  margin-top: 649px;
+  margin-left: 614px;
+}
