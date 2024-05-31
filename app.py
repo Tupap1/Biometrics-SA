@@ -1,20 +1,16 @@
 from flask import Flask, request, jsonify
-#from models import db, user
+from routes.biometria import biometria
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+app.config["SQLALCHEMY_DATABASE_URI"] = "mssql://root:@localhost:3306/biometricssa"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-@app.route('/')
-def holamundo():
-    return("hola mundo")
+SQLAlchemy(app)
+
+db = SQLAlchemy(app)
 
 
-@app.route('/Login')
-def method_name():
-    return(
-        "Bienvenido a Biometrics SA"
-    ) 
-        
-        
-if __name__ == "__main__":        
-    app.run(debug=True)
+app.register_blueprint(biometria)
+                
