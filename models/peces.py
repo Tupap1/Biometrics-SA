@@ -1,4 +1,5 @@
 from app import db 
+from app import db 
 
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)

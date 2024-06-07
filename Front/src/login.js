@@ -1,8 +1,24 @@
 import "./styles.css";
+import React, { useState, useEffect } from 'react'
 
 export function Login() {
+
+
+  const [data, setData] = useState ([{}])
+  useEffect(() => {
+    fetch ("/API").then(
+      res => res.json()
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, [])
+
+
   return (
-    <div style={{backgroundImage: 'url("biometrics/public/backGround.png")'}}>
+   <div style={{backgroundImage: 'url("biometrics/public/backGround.png")'}}>
       <div className="login">
         <form action="POST">
           <h1 className="titulo" id="loginHead">
@@ -23,5 +39,6 @@ export function Login() {
         </form>
       </div>
     </div>
+
   );
 }
