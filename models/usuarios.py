@@ -1,17 +1,27 @@
-from utils.db import db
+from app import createdb
+
+db = createdb()
 
 class Usuario(db.Model):
-    iduser = db.Column(db.Integer, primary_key = True)
+    __tablename__ = 'usuario'
+    
+    iduser = db.Column(db.INT, primary_key = True)
     nombres = db.Column (db.String(200))
     apellidos = db.Column (db.String(200))
     email = db.Column(db.String(100))
-    nuip = db.Column (db.Int(20))
-    rol = db.Column (db.Bolean(50)) 
+    nuip = db.Column (db.INT)
+    rol = db.Column (db.INT) 
+    contrasena = db.Column (db.VARCHAR(30))
     
     
-def __int__(self, nombres, apellidos, email, nuip, rol ):
+def __int__(self, nombres, apellidos, email, nuip, rol, contrasena ):
         self.nombres = nombres
         self.apellidos = apellidos
         self.email = email
         self.nuip = nuip
         self.rol = rol
+        self.contrasena = contrasena
+        
+        
+def __repr__(self):
+    return f'nombre usuario{self.nombres}, apellido usuario{self.apellidos}'

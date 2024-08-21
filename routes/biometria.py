@@ -7,7 +7,7 @@ biometria = Blueprint('biometrias',__name__)
 def holamundo():
     return("Aca podras registar tu biometria")
 
-@biometria.route("/APIasd")
+@biometria.route("/APIasd" method =["POST"])
 def API():
     return{"prueba api": ["prueba API1","Prueba Api2","Prueba API3"]}   
 
