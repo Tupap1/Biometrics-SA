@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from routes.biometria import biometria
 from routes.usuarios import usuarios 
+from flask_bcrypt import Bcrypt
 
 
 def createdb():
@@ -17,7 +18,7 @@ def create_app():
     from regroutes import register_routes
     app.register_blueprint(biometria)
     app.register_blueprint(usuarios)
-    
+    bcrypt = Bcrypt(app)
     
     db = createdb()
     
@@ -31,5 +32,7 @@ def create_app():
     return app
 
 
-
+def encriptacion(app):
+    bcrypt = Bcrypt(app)
+    return bcrypt
                 
