@@ -4,18 +4,19 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const biometri = 'fotopescao.png'
+
 
   return (
     <>
-    <h1>login</h1>
+      <div>
+        <button type="button" class="btn btn-info m-3">Entrar</button>
+      </div>
 
-    <input type="text" />
-    <br />
-    <input type="text" />
+      <div class="center-container">
+        <img src="../src/assets/fotopescao.png" alt="Descripción de la imagen" />
+      </div>
 
-    <br /><br /><br />
-    <button>Ingresar</button>
     </>
   )
 }
