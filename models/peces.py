@@ -1,7 +1,4 @@
-from app import createdb
-
-db = createdb()
-
+from extensions import db
 
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)

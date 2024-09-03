@@ -1,6 +1,4 @@
-from app import createdb
-
-db = createdb()
+from extensions import db
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'

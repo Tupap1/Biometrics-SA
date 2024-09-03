@@ -15,22 +15,4 @@ def holamundo():
 def API():
     return{"prueba api": ["prueba API1","Prueba Api2","Prueba API3"]}   
 
-
-@biometria.route('/')
-def signup():
-    email = request.json["email"]
-    password = request.json["password"]
-    
-    
-    userexist = Usuario.query.filter_by(email=email).first() is not None
-    
-    if userexist:
-        return jsonify ({"error": "email already exist"}), 409
-    
-    
-    
-    return jsonify ({
-        "id": "1",
-        "email": email
-    })
     

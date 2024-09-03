@@ -1,23 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React, { } from 'react';
+import './App.css';
+  
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+  
+import LandingPage from "./LandingPage";
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
+ 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    <h1>login</h1>
-
-    <input type="text" />
-    <br />
-    <input type="text" />
-
-    <br /><br /><br />
-    <button>Ingresar</button>
-    </>
-  )
+    <div className="vh-100 gradient-custom">
+    <div className="container">
+      <h1 className="page-header text-center"></h1>
+   
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+    </div>
+  );
 }
-
-export default App
+   
+export default App;
