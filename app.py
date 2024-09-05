@@ -4,10 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
-
+CORS(app, origins=['http://localhost:5173'])
 db = SQLAlchemy(app)
 
 class peces(db.Model):
@@ -39,22 +40,26 @@ bcrypt = Bcrypt(app)
 def signup():
     email = request.json["email"]
     contrasena = request.json["contrasena"]
- 
+    nombres = request.json ["nombres"]
+    apellidos = request.json ["apellidos"]
+    nuip = request.json["nuip"]
+    """ rol = request.json["rol"] """
     user_exists = Usuario.query.filter_by(email=email).first() is not None
  
     if user_exists:
         return jsonify({"error": "Email already exists"}), 409
      
     hashed_contrasena = bcrypt.generate_password_hash(contrasena)
-    new_user = Usuario(email=email, contrasena=hashed_contrasena)
-    db.session.add(new_user)
+    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip), """ rol = rol """
+    db.session.add(nuevousuario)
     db.session.commit()
  
-    session["user_id"] = new_user.iduser
+    session["user_id"] = nuevousuario.iduser
  
     return jsonify({
-        "iduser": new_user.iduser,
-        "email": new_user.email
+        "iduser": nuevousuario.iduser,
+        "nombres": nuevousuario.nombres,
+        "email": nuevousuario.email
     })
  
 @app.route("/login", methods=["POST"])
