@@ -5,6 +5,8 @@ from flask_bcrypt import Bcrypt
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
@@ -26,6 +28,29 @@ class Usuario(db.Model):
     nuip = db.Column (db.INT)
     rol = db.Column (db.INT) 
     contrasena = db.Column (db.VARCHAR(30))
+
+class Biometria(db.Model):
+    _tablename_ = 'biometria'
+
+    id_biometria = db.Column(Integer, primary_key=True)
+    id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
+    id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque'))  
+    fecha = db.Column(Date) 
+    peso = db.Column(Float)
+    longitud = db.Column(Float)
+    tamano_muestra = db.Column(Integer)
+    cantidad_biomasa = db.Column(Float)
+    natalidad = db.Column(Integer)
+    mortalidad = db.Column(Integer)
+    
+class Estanque(db.Model):
+    _tablename_ = 'estanque'
+
+    id_estanque = db.Column(Integer, primary_key=True)
+    id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
+    capacidad_maxima = db.Column(Integer)  
+    tipo = db.Column(String(50))
+
 
 with app.app_context():
     db.create_all()
