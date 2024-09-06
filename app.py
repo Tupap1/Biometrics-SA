@@ -5,12 +5,17 @@ from flask_bcrypt import Bcrypt
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
-db = SQLAlchemy(app)
 
+
+db = SQLAlchemy(app)
+Base = declarative_base() 
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)
     nombre_cientifico = db.Column (db.String(1000))
@@ -26,11 +31,32 @@ class Usuario(db.Model):
     nuip = db.Column (db.INT)
     rol = db.Column (db.INT) 
     contrasena = db.Column (db.VARCHAR(30))
+    
+class Biometria(db.Model):
+    __tablename__ = 'biometria'
 
+    id_biometria = db.Column(Integer, primary_key=True)
+    id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
+    id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque'))  
+    fecha = db.Column(Date) 
+    peso = db.Column(Float)
+    longitud = db.Column(Float)
+    tamano_muestra = db.Column(Integer)
+    cantidad_biomasa = db.Column(Float)
+    natalidad = db.Column(Integer)
+    mortalidad = db.Column(Integer)
+    
+class Estanque(db.Model):
+    __tablename__ = 'estanque'
+
+    id_estanque = db.Column(Integer, primary_key=True)
+    id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
+    capacidad_maxima = db.Column(Integer)  
+    tipo = db.Column(String(50))
+    
 with app.app_context():
     db.create_all()
     print("Tablas creadas")
-
 
 
 bcrypt = Bcrypt(app)
@@ -43,14 +69,14 @@ def signup():
     nombres = request.json ["nombres"]
     apellidos = request.json ["apellidos"]
     nuip = request.json["nuip"]
-    """ rol = request.json["rol"] """
+    rol = request.json["rol"] 
     user_exists = Usuario.query.filter_by(email=email).first() is not None
  
     if user_exists:
         return jsonify({"error": "Email already exists"}), 409
      
     hashed_contrasena = bcrypt.generate_password_hash(contrasena)
-    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip), """ rol = rol """
+    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip, rol = rol)
     db.session.add(nuevousuario)
     db.session.commit()
  
