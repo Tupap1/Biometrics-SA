@@ -8,13 +8,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine
+from sqlalchemy.orm import declarative_base,Session
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
+
+engine = create_engine('mysql://root:@localhost/biometricssa')
 
 
 db = SQLAlchemy(app)
@@ -67,23 +69,31 @@ bcrypt = Bcrypt(app)
 
 @app.route("/signup", methods=["POST"])
 def signup():
-    email = request.json["email"]
-    contrasena = request.json["contrasena"]
-    nombres = request.json ["nombres"]
-    apellidos = request.json ["apellidos"]
-    nuip = request.json["nuip"]
-    rol = request.json["rol"] 
-    user_exists = Usuario.query.filter_by(email=email).first() is not None
+    try:    
+        email = request.json["email"]
+        contrasena = request.json["contrasena"]
+        nombres = request.json ["nombres"]
+        apellidos = request.json ["apellidos"]
+        nuip = request.json["nuip"]
+
+        
+        
  
+    except KeyError as e:
+            print(jsonify({"error": f"Missing key: {e.args[0]}"}), 400) 
+    
+    user_exists = Usuario.query.filter_by(email=email).first() is not None
+
     if user_exists:
         return jsonify({"error": "Email already exists"}), 409
      
     hashed_contrasena = bcrypt.generate_password_hash(contrasena)
-    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip, rol = rol)
+    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip)
     db.session.add(nuevousuario)
     db.session.commit()
  
-    session["user_id"] = nuevousuario.iduser
+    with Session(engine) as session:
+        session["user_id"] = nuevousuario.iduser
  
     return jsonify({
         "iduser": nuevousuario.iduser,

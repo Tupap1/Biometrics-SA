@@ -19,11 +19,10 @@ export default function LoginPage(){
         }
         else{
             fetch('http://127.0.0.1:5000/login', {
-
-                data :
-                  "email: email",
-                  "contrasena: contrasena"
-
+                data : {
+                  email: email,
+                  contrasena: contrasena
+                }
             })
             .then(function (response) {
                 console.log(response);

@@ -10,7 +10,7 @@ export default function RegisterPage(){
     const [nombres,setnombres] = useState('');
     const [nuip,setnuip] = useState('');
     const [apellidos,setapellidos] = useState('');
-    const [rol,setrol] = useState('');
+    
 
     const navigate = useNavigate();
   
@@ -21,7 +21,7 @@ export default function RegisterPage(){
             nombres:nombres,
             nuip:nuip,
             apellidos:apellidos,
-   /*          rol:rol */
+
         })
         .then(function (response) {
              console.log(response);
@@ -103,7 +103,7 @@ export default function RegisterPage(){
 
 
                   <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={registerUser()} >Sign Up</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick= {registerUser()} >Sign Up</button>
                     <p className="small fw-bold mt-2 pt-1 mb-0">Ingresar <a href="/login" className="link-danger">Login</a></p>
                   </div>
 
