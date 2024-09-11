@@ -18,18 +18,16 @@ export default function LoginPage(){
           alert("contrasena has left Blank!");
         }
         else{
-            /* axios.post('http://127.0.0.1:5000/login',  */
             fetch('http://127.0.0.1:5000/login', {
 
-                data :[
+                data :
                   "email: email",
-                  contrasena: contrasena]/* 
-                email: email,
-                contrasena: contrasena */
+                  "contrasena: contrasena"
+
             })
             .then(function (response) {
                 console.log(response);
-                //console.log(response.data);
+                console.log(response.data);
                 navigate("/");
             })
             .catch(function (error) {

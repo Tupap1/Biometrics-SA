@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String
+from sqlalchemy.orm import declarative_base
 
 
 app = Flask(__name__)
@@ -15,7 +16,7 @@ CORS(app, origins=['http://localhost:5173'])
 
 
 db = SQLAlchemy(app)
-Base = declarative_base() 
+Base = declarative_base()
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)
     nombre_cientifico = db.Column (db.String(1000))
