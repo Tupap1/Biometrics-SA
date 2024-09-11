@@ -14,15 +14,17 @@ export default function RegisterPage(){
 
     const navigate = useNavigate();
   
-    const registerUser = () => {
+/*     const registerUser = async() => {
+
+      try{
         axios.post('http://127.0.0.1:5000/signup', {
             email: email,
             contrasena: contrasena,
             nombres:nombres,
             nuip:nuip,
             apellidos:apellidos,
-
-        })
+          
+        })}
         .then(function (response) {
              console.log(response);
             navigate("/");
@@ -33,6 +35,35 @@ export default function RegisterPage(){
                 alert("Invalid credentials");
             }
         });
+    }; */
+
+    const registerUser = async () => {
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/signup', {
+          email: email,
+          contrasena: contrasena,
+          nombres:nombres,
+          nuip:nuip,
+          apellidos:apellidos,
+        });
+        console.log(response);
+        navigate("/");
+
+
+
+      } catch (error) {
+        console.error(error, 'error');
+        if (error.response?.status === 401) {
+          alert("Invalid credentials");
+        }
+      }
+      alert("Usuario creado con éxito");
+
+      setEmail('');
+      setContrasena('');
+      setnombres('');
+      setnuip('');
+      setapellidos('');
     };
      
 
@@ -103,7 +134,7 @@ export default function RegisterPage(){
 
 
                   <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="button" className="btn btn-primary btn-lg" onClick= {registerUser()} >Sign Up</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick= {registerUser} >Sign Up</button>
                     <p className="small fw-bold mt-2 pt-1 mb-0">Ingresar <a href="/login" className="link-danger">Login</a></p>
                   </div>
 
@@ -115,7 +146,7 @@ export default function RegisterPage(){
             </div>
           </div>
         </div>
-    </div>
+    </div>  
   );
 
   }
