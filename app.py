@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify,session
+from flask import Flask, request, jsonify
 from flask_migrate import Migrate
+from flask_cors import cross_origin, CORS
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.declarative import declarative_base
 from flask_bcrypt import Bcrypt
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -91,20 +93,22 @@ def signup():
  
 @app.route("/login", methods=["POST"])
 def login_user():
-    email = request.json["email"]
-    contrasena = request.json["contrasena"]
-  
-    user = Usuario.query.filter_by(email=email).first()
-  
-    if user is None:
-        return jsonify({"error": "Unauthorized Access"}), 401
-  
-    if not bcrypt.check_password_hash(Usuario.contrasena, contrasena):
-        return jsonify({"error": "Unauthorized"}), 401
-      
-    session["user_id"] = user.iduser
-  
-    return jsonify({
-        "iduser": user.iduser,
-        "email": user.email
-    })
+        email = request.json["email"]
+        contrasena = request.json["password"]
+    
+        user = Usuario.query.filter_by(email=email).first()
+    
+        if user is None:
+            return jsonify({"error": "Unauthorized Access"}), 401
+    
+        if not bcrypt.check_password_hash(user.contrasena, contrasena):
+            return jsonify({"error": "Unauthorized"}), 401
+        
+        session["user_id"] = user.id
+    
+        return jsonify({
+            "id": user.id,
+            "email": user.email
+        })
+        
+        
