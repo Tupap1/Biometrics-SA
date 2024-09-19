@@ -10,32 +10,17 @@ export default function RegisterPage(){
     const [nombres,setnombres] = useState('');
     const [nuip,setnuip] = useState('');
     const [apellidos,setapellidos] = useState('');
-    
+    const [rol, setrol] = useState('');
+    const roles = [
+      { value: 'Admin', label: 'Admin' },
+      { value: 'Aprendiz', label: 'Aprendiz' },
+      { value: 'Instructor', label: 'Instructor' },
+    ];
+
+  
 
     const navigate = useNavigate();
   
-/*     const registerUser = async() => {
-
-      try{
-        axios.post('http://127.0.0.1:5000/signup', {
-            email: email,
-            contrasena: contrasena,
-            nombres:nombres,
-            nuip:nuip,
-            apellidos:apellidos,
-          
-        })}
-        .then(function (response) {
-             console.log(response);
-            navigate("/");
-        })
-        .catch(function (error) {
-            console.log(error, 'error');
-            if (error === 401) {
-                alert("Invalid credentials");
-            }
-        });
-    }; */
 
     const registerUser = async () => {
       try {
@@ -130,6 +115,15 @@ export default function RegisterPage(){
                     Aprendiz
                   </label>
                 </div> */}
+
+
+                <select value={rol} onChange={(e) => setrol(e.target.value)}>
+                      {roles.map((opcion) => (
+                        <option key={opcion.value} value={opcion.value}> 
+                          {opcion.label}
+                        </option>
+                      ))}
+                    </select>
 
 
 

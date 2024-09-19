@@ -75,6 +75,7 @@ def signup():
         nombres = request.json ["nombres"]
         apellidos = request.json ["apellidos"]
         nuip = request.json["nuip"]
+        rol = request.json["rol"]
 
         
         
@@ -88,7 +89,7 @@ def signup():
         return jsonify({"error": "Email already exists"}), 409
      
     hashed_contrasena = bcrypt.generate_password_hash(contrasena)
-    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip)
+    nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip, rol = rol)
     db.session.add(nuevousuario)
     db.session.commit()
  
