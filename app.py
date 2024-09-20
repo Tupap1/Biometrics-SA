@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_migrate import Migrate
 from flask_cors import cross_origin, CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine
-from sqlalchemy.orm import declarative_base,Session
+from sqlalchemy.orm import declarative_base
 
 
 app = Flask(__name__)
@@ -18,9 +18,10 @@ CORS(app, origins=['http://localhost:5173'])
 
 engine = create_engine('mysql://root:@localhost/biometricssa')
 
-
 db = SQLAlchemy(app)
 Base = declarative_base()
+app.secret_key = "Andres137"
+
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)
     nombre_cientifico = db.Column (db.String(1000))
@@ -77,8 +78,6 @@ def signup():
         nuip = request.json["nuip"]
         rol = request.json["rol"]
 
-        
-        
  
     except KeyError as e:
             print(jsonify({"error": f"Missing key: {e.args[0]}"}), 400) 
@@ -92,9 +91,8 @@ def signup():
     nuevousuario = Usuario(email = email, contrasena = hashed_contrasena, apellidos = apellidos, nombres = nombres, nuip = nuip, rol = rol)
     db.session.add(nuevousuario)
     db.session.commit()
- 
-    with Session(engine) as session:
-        session["user_id"] = nuevousuario.iduser
+
+    session["user_id"] = nuevousuario.iduser
  
     return jsonify({
         "iduser": nuevousuario.iduser,
