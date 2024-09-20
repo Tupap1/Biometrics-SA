@@ -103,7 +103,7 @@ def signup():
 @app.route("/login", methods=["POST"])
 def login_user():
         email = request.json["email"]
-        contrasena = request.json["password"]
+        contrasena = request.json["contrasena"]
     
         user = Usuario.query.filter_by(email=email).first()
     

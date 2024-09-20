@@ -10,7 +10,7 @@ export default function LoginPage(){
    
     const navigate = useNavigate();
      
-    const logInUser = () => {
+/*     const logInUser = () => {
         if(email.length === 0){
           alert("Email has left Blank!");
         }
@@ -37,7 +37,29 @@ export default function LoginPage(){
             });
         }
     }
- 
+  */
+
+    const LogInUser = async () => {
+      try{
+        if(email.length === 0){
+        alert("Email has left Blank!");
+      }
+      else if(contrasena.length === 0){
+        alert("contrasena has left Blank!");
+      }
+      else{const response = await axios.post("http://127.0.0.1:5000/login", {
+        email: email,
+        contrasena: contrasena,
+      });}
+    }
+
+    
+    catch (error) {
+      console.error(error, "error");
+      if (error.response?.status === 401) {
+        alert("Invalid credentials");
+      }
+   }}
 
   return (
     <div>
