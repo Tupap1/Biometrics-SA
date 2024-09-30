@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./components/styles/register.css";
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState("");
+  const [email, setemail] = useState("");
   const [contrasena, setcontrasena] = useState("");
   const [nombres, setnombres] = useState("");
   const [nuip, setnuip] = useState("");
@@ -35,11 +35,15 @@ export default function RegisterPage() {
       if (error.response?.status === 401) {
         alert("Invalid credentials");
       }
-    }
+      else if (email.length === 0){
+        return alert("Email has left Blank!");
+    }}
+
+
     alert("Usuario creado con éxito");
 
-    setEmail("");
-    setContrasena("");
+    setemail("");
+    setcontrasena("");
     setnombres("");
     setnuip("");
     setapellidos("");
@@ -53,17 +57,18 @@ export default function RegisterPage() {
             <div className="col-md-12 col-lg-12 col-xl-4 offset-xl-1">
               <form>
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                  <p className="lead fw-normal mb-0 me-3">Registrar Usuario </p>
+                  <p className="lead fw-normal mb-0 me-3">Registrar Usuario</p>
                 </div>
 
                 <div className="form-outline mb-4">
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setemail(e.target.value)}
                     id="form3Example3"
                     className="form-control form-control-lg"
                     placeholder="Ingresa tu email"
+                    
                   />
                   <label className="form-label" for="form3Example3">
                     Email
@@ -120,6 +125,7 @@ export default function RegisterPage() {
                     id="form3Example4"
                     className="form-control form-control-lg"
                     placeholder="Ingresa NUIP del usuario"
+                    maxlength="10"
                   />
                   <label className="form-label" for="form3Example4">
                     NUIP

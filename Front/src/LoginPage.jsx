@@ -4,13 +4,13 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
  
 export default function LoginPage(){
- 
-    const [email,setEmail] = useState('');
+ /*
+    const [email,setemail] = useState('');
     const [contrasena,setcontrasena] = useState('');
    
     const navigate = useNavigate();
      
-/*     const logInUser = () => {
+    const logInUser = () => {
         if(email.length === 0){
           alert("Email has left Blank!");
         }
@@ -37,7 +37,7 @@ export default function LoginPage(){
             });
         }
     }
-  */
+  
 
     const LogInUser = async () => {
       try{
@@ -50,7 +50,12 @@ export default function LoginPage(){
       else{const response = await axios.post("http://127.0.0.1:5000/login", {
         email: email,
         contrasena: contrasena,
-      });}
+      });
+        then(function (response) {
+          console.log(response);
+          console.log(response.data);
+          navigate("/");) }
+    }
     }
 
     
@@ -60,6 +65,36 @@ export default function LoginPage(){
         alert("Invalid credentials");
       }
    }}
+ */
+  const navigate = useNavigate();
+
+  const [email,setemail] = useState('');
+  const [contrasena,setcontrasena] = useState('');
+
+
+   const handleLogin = async (event) => {
+     event.preventDefault(); 
+ 
+    
+     try {
+       const response = await axios.post('http://127.0.0.1:5000/login', {
+         email,
+         contrasena,
+       });
+ 
+       console.log('Login successful:', response.data);
+       navigate('/'); 
+     } catch (error) {
+       console.error('Login error:', error);
+       if (error.response && error.response.status === 401) {
+         alert('Invalid credentials.');
+       } else {
+         alert('An error occurred during login. Please try again.'); 
+       }
+     }
+   };
+
+
 
   return (
     <div>
@@ -76,7 +111,7 @@ export default function LoginPage(){
                   </div>
  
                   <div className="form-outline mb-4">
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="form3Example3" className="form-control form-control-lg" placeholder="Enter a valid email address" />
+                    <input type="email" value={email} onChange={(e) => setemail(e.target.value)} id="form3Example3" className="form-control form-control-lg" placeholder="Enter a valid email address" />
                     <label className="form-label" for="form3Example3">Email address</label>
                   </div>
  
@@ -97,7 +132,7 @@ export default function LoginPage(){
                   </div>
  
                   <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={logInUser} >Login</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick={handleLogin} >Login</button>
                     <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register" className="link-danger">Register</a></p>
                   </div>
  
