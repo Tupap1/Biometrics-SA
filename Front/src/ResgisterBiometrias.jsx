@@ -1,55 +1,53 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Register() {
-  // Estado para manejar los inputs
+function Biometria() {
+
   const [peso, setPeso] = useState('');
   const [longitud, setLongitud] = useState('');
   const [datos, setDatos] = useState([]);
   const [error, setError] = useState(null);
 
-  // Manejar el cambio en el input de peso
+
   const handlePesoChange = (event) => {
     setPeso(event.target.value);
   };
 
-  // Manejar el cambio en el input de longitud
+
   const handleLongitudChange = (event) => {
     setLongitud(event.target.value);
   };
 
-  // Función para calcular el peso promedio
+
   const calcularPesoPromedio = () => {
     if (datos.length === 0) return 0;
     const totalPeso = datos.reduce((total, item) => total + parseFloat(item.peso), 0);
     return totalPeso / datos.length;
   };
 
-  // Función para calcular la longitud promedio
+
   const calcularLongitudPromedio = () => {
     if (datos.length === 0) return 0;
     const totalLongitud = datos.reduce((total, item) => total + parseFloat(item.longitud), 0);
     return totalLongitud / datos.length;
   };
 
-  // Manejar el clic en el botón para guardar y mostrar la tabla
+
   const handleAgregarDatos = async () => {
     if (peso && longitud) {
-      const fechaHora = new Date().toISOString();  // Fecha y hora actuales en formato ISO
+      const fechaHora = new Date().toISOString();  
       
       const nuevoDato = {
-        fecha: fechaHora.split('T')[0], // Solo la fecha en formato 'YYYY-MM-DD'
-        hora: fechaHora.split('T')[1].split('.')[0], // Solo la hora en formato 'HH:MM:SS'
+        fecha: fechaHora.split('T')[0], 
+        hora: fechaHora.split('T')[1].split('.')[0], 
         peso,
         longitud
       };
       
       try {
-        // Enviar datos a la API
+
         await axios.post('http://localhost:5000/agregar_biometria', nuevoDato);
-        // Actualizar los datos de la tabla
         setDatos([...datos, { id: datos.length + 1, ...nuevoDato }]);
-        // Limpiar los campos de entrada después de agregar los datos
         setPeso('');
         setLongitud('');
         setError(null);
@@ -123,4 +121,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Biometria;

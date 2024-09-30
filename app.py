@@ -8,7 +8,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine
+from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine, DateTime
 from sqlalchemy.orm import declarative_base
 
 
@@ -46,7 +46,7 @@ class Biometria(db.Model):
     id_biometria = db.Column(Integer, primary_key=True)
     id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
     id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque'))  
-    fecha = db.Column(Date) 
+    fecha = db.Column(DateTime) 
     peso = db.Column(Float)
     longitud = db.Column(Float)
     tamano_muestra = db.Column(Integer)
@@ -108,11 +108,10 @@ def signup():
         "nombres": nuevousuario.nombres,
         "email": nuevousuario.email
     })
- 
+
 @app.route("/login", methods=["POST"])
 def login_user():
     try:
-        # Ensure content type is application/json (optional)
         if request.is_json:
             email = request.json["email"]
             contrasena = request.json["contrasena"]
@@ -127,14 +126,19 @@ def login_user():
         if not bcrypt.check_password_hash(user.contrasena, contrasena):
             return jsonify({"error": "Datos incorrectos"}), 401
 
-        session["user_id"] = user.id
+        session["user_id"] = user.iduser    
 
         return jsonify({
-            "id": user.id,
+            "id": user.iduser,
             "email": user.email
         })
-    except Exception as e:  # Catch generic exceptions for logging
+    except Exception as e:  
         print(f"Error during login: {e}")
         return jsonify({"error": "Internal server error"}), 500
         
         
+
+
+@app.route("/biometria")
+def biometria():
+    return ("hola mundo")
