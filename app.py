@@ -4,9 +4,7 @@ from flask_cors import cross_origin, CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from flask_bcrypt import Bcrypt
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine, DateTime
 from sqlalchemy.orm import declarative_base

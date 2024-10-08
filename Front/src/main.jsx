@@ -8,12 +8,13 @@ import Biometria from './ResgisterBiometrias.jsx'
 import Boton from './components/ui/Boton.tsx'
 import Form from './components/ui/Form.tsx'
 import SideBar from './components/ui/SideBar.tsx'
+import Menu from './Menu.tsx'
 
 import React from 'react'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-<SideBar/>
+    <Menu/>
   </StrictMode>
 )
