@@ -20,6 +20,6 @@ import Estanquesver from './Estanquesver.tsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SideBar/>
+    <Estanques/>
   </StrictMode>
 )
