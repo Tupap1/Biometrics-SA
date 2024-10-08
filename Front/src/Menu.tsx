@@ -7,7 +7,7 @@ function Menu() {
   return (<div>
     <SideBar/>
     <Boton text='Registrar Biometria'/>
-    <Boton text='Registro WQ'/>
+    <Boton text='Registro WQ' to='/biometria'/>
     <Boton text='Registrar estanque'/>
     </div>
   )

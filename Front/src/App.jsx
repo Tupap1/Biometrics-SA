@@ -6,6 +6,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import LandingPage from "./LandingPage";
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import Menu from './SideBarMenu';
  
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/menu" element={<Menu />} />
         </Routes>
       </BrowserRouter>
     </div>
