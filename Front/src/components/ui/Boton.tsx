@@ -3,15 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
-  to?: string; 
+  to?: string;
+  onClickCustom?: () => void;
 }
 
-function Boton({ children, text, to, ...props }: Props) {
-  const navigate = useNavigate(); 
+function Boton({ children, text, to, onClickCustom, ...props }: Props) {
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (to) {
-      navigate(to); 
+      navigate(to);
+    }
+    if (onClickCustom) {
+      onClickCustom();
     }
   };
 

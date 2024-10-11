@@ -35,13 +35,13 @@ function SideBar() {
           <li className="nav-item">
             {" "}
              
-            <a href="/Inicio" className="nav-link  text-white " aria-current="page">
+            <a href="/" className="nav-link  text-white " aria-current="page">
               <svg className="bi pe-none me-2" width="16" height="16"></svg>
               Inicio
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link text-white">
+            <a href="/MenuBiometria" className="nav-link text-white">
               <svg className="bi pe-none me-2" width="16" height="16"></svg>
               Biometrias
             </a>
