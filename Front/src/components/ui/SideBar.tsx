@@ -15,8 +15,8 @@ function SideBar() {
       <link href="sidebars.css" rel="stylesheet" />
 
       <div
-        className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-        style={{ width: 280 + "px" }}
+        className=" d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
+        style={{ width: 280 + "px", height: 1024 + "px" }}
       >
         <a
           href="/"
@@ -27,9 +27,7 @@ function SideBar() {
  pe-none me-2"
             width="40"
             height="32"
-          >
-
-          </svg>
+          ></svg>
           <span className="fs-4">Biometrics SA</span>
         </a>
         <hr />
@@ -37,18 +35,14 @@ function SideBar() {
           <li className="nav-item">
             {" "}
              
-            <a href="#" className="nav-link active" aria-current="page">
-              <svg className="bi pe-none me-2" width="16" height="16">
-
-              </svg>
+            <a href="/Inicio" className="nav-link  text-white " aria-current="page">
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
               Inicio
             </a>
           </li>
           <li>
             <a href="#" className="nav-link text-white">
-              <svg className="bi pe-none me-2" width="16" height="16">
-
-              </svg>
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
               Biometrias
             </a>
           </li>
@@ -59,23 +53,17 @@ function SideBar() {
  pe-none me-2"
                 width="16"
                 height="16"
-              >
-
-              </svg>
+              ></svg>
               Estanque
             </a>
           </li>
           <li>
             <a href="#" className="nav-link text-white">
-              <svg className="bi pe-none me-2" width="16" height="16">
-
-              </svg>
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
               WQ
             </a>
           </li>
-          <li>
-
-          </li>
+          <li></li>
         </ul>
         <hr />
         <div className="dropdown">

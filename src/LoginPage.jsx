@@ -4,68 +4,7 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
  
 export default function LoginPage(){
- /*
-    const [email,setemail] = useState('');
-    const [contrasena,setcontrasena] = useState('');
-   
-    const navigate = useNavigate();
-     
-    const logInUser = () => {
-        if(email.length === 0){
-          alert("Email has left Blank!");
-        }
-        else if(contrasena.length === 0){
-          alert("contrasena has left Blank!");
-        }
-        else{
-            fetch('http://127.0.0.1:5000/login', {
-                data : {
-                  email: email,
-                  contrasena: contrasena
-                }
-            })
-            .then(function (response) {
-                console.log(response);
-                console.log(response.data);
-                navigate("/");
-            })
-            .catch(function (error) {
-                console.log(error, 'error');
-                if (error.response.status === 401) {
-                    alert("Invalid credentials");
-                }
-            });
-        }
-    }
-  
 
-    const LogInUser = async () => {
-      try{
-        if(email.length === 0){
-        alert("Email has left Blank!");
-      }
-      else if(contrasena.length === 0){
-        alert("contrasena has left Blank!");
-      }
-      else{const response = await axios.post("http://127.0.0.1:5000/login", {
-        email: email,
-        contrasena: contrasena,
-      });
-        then(function (response) {
-          console.log(response);
-          console.log(response.data);
-          navigate("/");) }
-    }
-    }
-
-    
-    catch (error) {
-      console.error(error, "error");
-      if (error.response?.status === 401) {
-        alert("Invalid credentials");
-      }
-   }}
- */
   const navigate = useNavigate();
 
   const [email,setemail] = useState('');

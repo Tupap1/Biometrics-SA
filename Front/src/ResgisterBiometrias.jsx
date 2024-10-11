@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Biometria() {
+function RegistrarBiometria() {
 
   const [peso, setPeso] = useState('');
   const [longitud, setLongitud] = useState('');
@@ -121,4 +121,4 @@ function Biometria() {
   );
 }
 
-export default Biometria;
+export default RegistrarBiometria;

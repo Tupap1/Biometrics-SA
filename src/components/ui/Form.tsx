@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 function Form(children) {
   return (
-    <div>
-      <input className="form-control"  />
-    </div>
+    <div className="mb-3">
+    <input className="form-control" />
+  </div>
   );
 }
 

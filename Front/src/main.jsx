@@ -4,25 +4,30 @@ import './components/styles/index.css'
 import App from './App.jsx' 
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Formulario from './RegistrarDatosdeBiometria.jsx'
-import Biometria from './ResgisterBiometrias.jsx'
 import Boton from './components/ui/Boton.tsx'
 import Form from './components/ui/Form.tsx'
-import Menu from './Menu.tsx'
+import Inicio from './Inicio.tsx'
 import LandingPage from './LandingPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage.jsx';
 import React, { useState } from 'react'
+import Biometria from './Biometria.jsx';
+
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+
     <Routes>
+
+            <Route  path="/" element={<Inicio />}/>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/menu" element={<Biometria />} />
+            <Route path="/Biometria" element={<Biometria />} />
+            
     </Routes>
-    <Menu/>
+  
     </BrowserRouter>  
   </StrictMode>
 )

@@ -62,10 +62,8 @@ export default function LoginPage(){
  
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="form-check mb-0">
-                      <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                      <label className="form-check-label" for="form2Example3">
-                        Remember me
-                      </label>
+
+  
                     </div>
                     <a href="#!" className="text-body">Forgot contrasena?</a>
                   </div>
