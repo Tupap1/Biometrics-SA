@@ -12,6 +12,12 @@ import Biometria from "./Biometrias/Biometria.jsx";
 import MenuInicio from "./Menus/MenuInicio.jsx";
 import MenuBiometrias from "./Menus/MenuBiometrias.jsx";
 import VerBiometria from "./Biometrias/VerBiometria.jsx";
+import MenuWQ from "./Menus/MenuWQ.jsx";
+import WQ from "./WQ/WQ.jsx";
+import VerWQ from "./WQ/VerWQ.jsx";
+import MenuEstanques from "./Menus/MenuEstanques.jsx";
+import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
+import VerEstanques from "./Estanques/VerEstanques.jsx";
 
 
 
@@ -29,6 +35,14 @@ createRoot(document.getElementById("root")).render(
             <Route path="/Biometria" element={<Biometria />} />
             <Route path="/MenuBiometria" element={<MenuBiometrias />} />
             <Route path="/VerBiometria" element={<VerBiometria />} />
+            <Route path="/MenuWQ" element={<MenuWQ />} />
+            <Route path="/WQ" element={<WQ />} />
+            <Route path="/VerWQ" element={<VerWQ />} />
+            <Route path="/MenuEstanques" element={<MenuEstanques />} />
+            <Route path="/RegistrarEstanques" element={<RegistrarEstanque />} />
+            <Route path="/VerEstanques" element={<VerEstanques />} />
+            
+            
             
           </Routes>
         </div>

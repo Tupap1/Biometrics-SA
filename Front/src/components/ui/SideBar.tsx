@@ -47,7 +47,7 @@ function SideBar() {
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link text-white">
+            <a href="/MenuEstanques" className="nav-link text-white">
               <svg
                 className="bi   
  pe-none me-2"
@@ -58,7 +58,7 @@ function SideBar() {
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link text-white">
+            <a href="/MenuWQ" className="nav-link text-white">
               <svg className="bi pe-none me-2" width="16" height="16"></svg>
               WQ
             </a>

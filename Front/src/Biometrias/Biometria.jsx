@@ -12,18 +12,13 @@ function Biometria() {
   const [errorpeso, setErrorpeso] = useState(false);
 
 
-
-  
   
   const handleAddBiometria = () => {
     setBiometrias([...biometrias, { peso, longitud }]);
     setPeso("");
     setLongitud("");
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setErrorlongitud(longitud === '');
-    setErrorpeso(peso === '');}
+
   
   const calcularPromedio = (datos, propiedad) => {
     if (datos.length === 0) return 0;
@@ -32,9 +27,7 @@ function Biometria() {
     );
   };
 
-  if (!errorpeso && !errorlongitud) {
-    alert("Ingresa los datos completos");
-  }
+
 
   return (
     <div>
