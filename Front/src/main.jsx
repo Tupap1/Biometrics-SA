@@ -12,9 +12,8 @@ import Biometria from "./Biometrias/Biometria.jsx";
 import MenuInicio from "./Menus/MenuInicio.jsx";
 import MenuBiometrias from "./Menus/MenuBiometrias.jsx";
 import VerBiometria from "./Biometrias/VerBiometria.jsx";
-import MiComponente from "./Promedio.jsx";
-import Promedio from "./Promedio.jsx";
-import CalcularPromedio from "./Promedio.jsx";
+
+
 
 
 createRoot(document.getElementById("root")).render(

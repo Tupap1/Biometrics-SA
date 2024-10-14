@@ -33,11 +33,11 @@ function Biometria() {
     }
   } */
 
-  const PesoPromedio = () => {
+/*   const PesoPromedio = () => {
     if (Pesos.length === 0) return 0; 
     const sumapesos = Pesos.reduce((acc, curr) => acc + curr, 0); 
     return (sumapesos / Pesos.length).toFixed(2); 
-  };
+  }; */
 
   
 
