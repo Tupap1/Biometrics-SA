@@ -1,19 +1,23 @@
-import React, { } from "react";
- 
-import {Link} from 'react-router-dom';
- 
-export default function LandingPage(){
- 
+
+import { Link } from 'react-router-dom';
+import './components/styles/LandingPage.css'; 
+
+const LandingPage = () => {
   return (
-    <div>
-        <div className="container h-1000">
-            <div className="row h-1000">
-                <div className="col-16">
-                    <h1></h1>
-                    <p><Link to="/login" className="btn btn-success">Login</Link> | <Link to="/register" className="btn btn-success">Registro</Link> </p>
-                </div>
-            </div>
-        </div>
+    <div className="landing-container">
+      <header className="header">
+        <button className="login-button">Entrar</button>
+      </header>
+      <div className="logo-container">
+        <img src="logo.png" alt="Biometrics SA" className="logo.png" />
+      </div>
+
+      <div className="button-container">
+        <Link to="/login" className="primary-button">Registrar Biometría</Link>
+        <button className="primary-button">Registro WQ</button>
+      </div>
     </div>
   );
-}
+};
+
+export default LandingPage;

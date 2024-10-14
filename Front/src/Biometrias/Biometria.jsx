@@ -5,25 +5,18 @@ import { useState } from "react";
 import Boton from "../components/ui/Boton";
 
 function Biometria() {
-  const [biometrias, setBiometrias] = useState([]);
+  const [Pesos, setPesos] = useState([]);
+  const [Longitudes, setLonitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [errorlongitud, setErrorlongitud] = useState(false);
-  const [errorpeso, setErrorpeso] = useState(false);
 
-
-
-  
-  
   const handleAddBiometria = () => {
-    setBiometrias([...biometrias, { peso, longitud }]);
+    setPesos([...Pesos, peso ]);
+    setLonitudes([...Longitudes, Longitudes]);
     setPeso("");
     setLongitud("");
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setErrorlongitud(longitud === '');
-    setErrorpeso(peso === '');}
+
   
   const calcularPromedio = (datos, propiedad) => {
     if (datos.length === 0) return 0;
@@ -32,9 +25,21 @@ function Biometria() {
     );
   };
 
-  if (!errorpeso && !errorlongitud) {
-    alert("Ingresa los datos completos");
-  }
+/* 
+  const PesoPromedio = () =>{
+    let sumapesos = 0
+    for (const peso of Pesos){
+      sumapesos += peso 
+    }
+  } */
+
+  const PesoPromedio = () => {
+    if (Pesos.length === 0) return 0; 
+    const sumapesos = Pesos.reduce((acc, curr) => acc + curr, 0); 
+    return (sumapesos / Pesos.length).toFixed(2); 
+  };
+
+  
 
   return (
     <div>
@@ -57,7 +62,7 @@ function Biometria() {
                 onChange={(e) => setPeso(e.target.value)}
                 
               />
-              {setErrorpeso && <span>El nombre es obligatorio</span>}
+
               <br />
               <Form
                 placeholder="Ingresa la longitud (mm)"
@@ -66,7 +71,7 @@ function Biometria() {
                 onChange={(e) => setLongitud(e.target.value)}
                 
               />
-              {setErrorlongitud && <span>La longitud es obligatoria</span>}
+
               <div className="mt-3">
                 <Boton type="submit" text="Ingresar" onClickCustom={handleAddBiometria} />
               </div>
@@ -81,7 +86,7 @@ function Biometria() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -89,9 +94,9 @@ function Biometria() {
       <div>
         <div></div>
 
-        <p>Promedio de Peso: {calcularPromedio(biometrias, "peso")} gr</p>
+        <p>Promedio de Peso: {PesoPromedio(Pesos, "peso")} gr</p>
         <p>
-          Promedio de Longitud: {calcularPromedio(biometrias, "longitud")} mm
+          Promedio de Longitud: {calcularPromedio(Longitudes, "longitud")} mm
         </p>
       </div>
     </div>

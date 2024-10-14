@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import LandingPage from "./LandingPage";
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
-import Biometria from './ResgisterBiometrias';
+
  
 function App() {
   return (
