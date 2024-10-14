@@ -139,12 +139,12 @@ def login_user():
         
 @app.route("/user")
 def user():
-    iduser = session.get("user_id")
+    id_user = session.get("user_id")
     
-    if not iduser:
+    if not id_user:
         return jsonify({"error": "Datos incorrectos"}), 401
     
-    user = Usuario.query.filter_by(iduser=iduser).first()
+    user = Usuario.query.filter_by(iduser=id_user).first()
     return jsonify({
             "id": user.iduser,
             "email": user.email
