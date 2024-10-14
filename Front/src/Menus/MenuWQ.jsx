@@ -2,27 +2,27 @@ import React from "react";
 import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 
-function MenuInicio() {
+function MenuWQ() {
   return (
     <div>
-      <div>
+      <div className="col-8">
         <div className="row  mb-4 mt-3">
-
-          <div className="col-9 ">
+          <div className="col-2 ">
+            <Volver />
+          </div>
+          <div className="col-7 mx-auto ">
+            {" "}
             <center>
-              <h1>Inicio</h1>
+              <h1>Calidad del Agua </h1>
             </center>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <Boton text="Registrar Biometria" to="/Biometria" />
+            <Boton text="Registrar WQ" to="/WQ" />
           </div>
           <div className="col">
-            <Boton text="Registro WQ" to="/WQ" />
-          </div>
-          <div className="col">
-            <Boton text="Registrar Estanque" to="RegistrarEstanques" />
+            <Boton text="Ver registros WQ" to="/VerWQ" />
           </div>
         </div>
       </div>
@@ -30,4 +30,4 @@ function MenuInicio() {
   );
 }
 
-export default MenuInicio;
+export default MenuWQ;

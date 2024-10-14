@@ -9,7 +9,11 @@ function Biometria() {
   const [Longitudes, setLonitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
+  const [errorlongitud, setErrorlongitud] = useState(false);
+  const [errorpeso, setErrorpeso] = useState(false);
 
+
+  
   const handleAddBiometria = () => {
     setPesos([...Pesos, peso ]);
     setLonitudes([...Longitudes, Longitudes]);
@@ -25,21 +29,7 @@ function Biometria() {
     );
   };
 
-/* 
-  const PesoPromedio = () =>{
-    let sumapesos = 0
-    for (const peso of Pesos){
-      sumapesos += peso 
-    }
-  } */
 
-/*   const PesoPromedio = () => {
-    if (Pesos.length === 0) return 0; 
-    const sumapesos = Pesos.reduce((acc, curr) => acc + curr, 0); 
-    return (sumapesos / Pesos.length).toFixed(2); 
-  }; */
-
-  
 
   return (
     <div>
