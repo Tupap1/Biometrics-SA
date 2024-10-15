@@ -1,0 +1,77 @@
+.landing-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('C:\Users\SENA\Music\biometricsa\Biometrics-SA\Front\public\piscicultura 1.png'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: url('C:\Users\SENA\Music\biometricsa\Biometrics-SA\Front\public\piscicultura 1.png') rgba(68, 63, 63, 0.541) 100% / cover no-repeat;
+background-blend-mode:
+  }
+  
+  .header {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .login-button {
+    width: 132px;
+    height: 41px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #4EABED;
+  }
+  
+  .logo-container {
+    
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .logo {
+    width: 10px;
+  }
+  
+  .company-name {
+    font-size: 36px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .tagline {
+    font-size: 18px;
+    color: white;
+    font-style: italic;
+  }
+  
+  .button-container {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 20px;
+    margin-top: 300px;
+   
+
+  }
+  
+  .primary-button {
+    width: 240px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 20px;
+background: #4EABED; 
+margin-top: -350px;
+
+
+  }
+  
+  .primary-button:hover {
+    background-color: #357ab7;
+  }
+  

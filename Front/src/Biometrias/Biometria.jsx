@@ -5,29 +5,25 @@ import { useState } from "react";
 import Boton from "../components/ui/Boton";
 
 function Biometria() {
-  const [biometrias, setBiometrias] = useState([]);
+  const [Pesos, setPesos] = useState([]);
+  const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [errorlongitud, setErrorlongitud] = useState(false);
-  const [errorpeso, setErrorpeso] = useState(false);
 
-
-  
   const handleAddBiometria = () => {
-    setBiometrias([...biometrias, { peso, longitud }]);
+    setPesos([...Pesos, peso]);
+    setLongitudes([...Longitudes, longitud]);
+
     setPeso("");
     setLongitud("");
   };
 
-  
   const calcularPromedio = (datos, propiedad) => {
-    if (datos.length === 0) return 0; 
+    if (datos.length === 0) return 0;
     return (
       datos.reduce((total, item) => total + item[propiedad], 0) / datos.length
     );
   };
-
-
 
   return (
     <div>
@@ -48,7 +44,6 @@ function Biometria() {
                 type="number"
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
-                
               />
 
               <br />
@@ -57,20 +52,49 @@ function Biometria() {
                 type="number"
                 value={longitud}
                 onChange={(e) => setLongitud(e.target.value)}
-                
               />
- 
+
+
               <div className="mt-3">
-                <Boton type="submit" text="Ingresar" onClickCustom={handleAddBiometria} />
+                <Boton
+                  type="submit"
+                  text="Ingresar"
+                  onClickCustom={handleAddBiometria}
+                />
               </div>
             </div>
             <div className="col-4">
-              {" "}
+            <div>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td>Mark</td>
+                      <td>Otto</td>
+
+                    </tr>
+                    <tr>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+
+                    </tr>
+                    <tr>
+                      <td colspan="2">Larry the Bird</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <ul>
-                {biometrias.map((biometria, index) => (
+                {Pesos.map((peso, index) => (
                   <li key={index}>
-                    {" "}
-                    {biometria.peso}, {biometria.longitud}
+                    {peso}, {Longitudes[index]}
                   </li>
                 ))}
               </ul>
@@ -82,9 +106,9 @@ function Biometria() {
       <div>
         <div></div>
 
-        <p>Promedio de Peso: {calcularPromedio(biometrias, "peso")} gr</p>
+        {/*       <p>Promedio de Peso: {PesoPromedio(Pesos, "peso")} gr</p> */}
         <p>
-          Promedio de Longitud: {calcularPromedio(biometrias, "longitud")} mm
+          Promedio de Longitud: {calcularPromedio(Longitudes, "longitud")} mm
         </p>
       </div>
     </div>

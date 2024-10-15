@@ -2,7 +2,7 @@ import React from 'react'
 
 function VerEstanques() {
   return (
-    <div></div>
+    <div>VerEstanques</div>
   )
 }
 

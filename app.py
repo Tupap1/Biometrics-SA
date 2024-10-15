@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, session
 from flask_migrate import Migrate
+from flask_session import Session
 from flask_cors import cross_origin, CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,6 +18,7 @@ CORS(app, origins=['http://localhost:5173'])
 engine = create_engine('mysql://root:@localhost/biometricssa')
 
 db = SQLAlchemy(app)
+#erver_session = Session(app)
 Base = declarative_base()
 app.secret_key = "Andres137"
 
@@ -135,7 +137,26 @@ def login_user():
         return jsonify({"error": "Internal server error"}), 500
         
         
-
+@app.route("/user")
+def user():
+    id_user = session.get("user_id")
+    
+    if not id_user:
+        return jsonify({"error": "123Datos incorrectos"}), 401
+    
+    user = Usuario.query.filter_by(iduser=id_user).first()
+    return jsonify({
+            "id": user.iduser,
+            "email": user.email,
+            "nombre": user.nombres
+        })
+    
+    
+    
+@app.route("/logout")
+def logout():
+    session.pop("user_id")
+    return 200
 
 @app.route("/biometria")
 def biometria():
