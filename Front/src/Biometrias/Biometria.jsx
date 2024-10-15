@@ -21,7 +21,7 @@ function Biometria() {
 
   
   const calcularPromedio = (datos, propiedad) => {
-    if (datos.length === 0) return 0;
+    if (datos.length === 0) return 0; 
     return (
       datos.reduce((total, item) => total + item[propiedad], 0) / datos.length
     );
@@ -50,7 +50,7 @@ function Biometria() {
                 onChange={(e) => setPeso(e.target.value)}
                 
               />
-              {setErrorpeso && <span>El nombre es obligatorio</span>}
+
               <br />
               <Form
                 placeholder="Ingresa la longitud (mm)"
@@ -59,7 +59,7 @@ function Biometria() {
                 onChange={(e) => setLongitud(e.target.value)}
                 
               />
-              {setErrorlongitud && <span>La longitud es obligatoria</span>}
+ 
               <div className="mt-3">
                 <Boton type="submit" text="Ingresar" onClickCustom={handleAddBiometria} />
               </div>

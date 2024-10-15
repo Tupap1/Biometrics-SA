@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
  
 export default function LoginPage(){
 
-  const navigate = useNavigate();
 
   const [email,setemail] = useState('');
   const [contrasena,setcontrasena] = useState('');
