@@ -22,10 +22,11 @@ import VerEstanques from "./Estanques/VerEstanques.jsx";
 
 
 
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <div className="row">
-     <div className="col"><Inicio /></div>
+      <div className="col"><Inicio /></div>
       
       <BrowserRouter>
         <div className="col-9">
@@ -42,12 +43,13 @@ createRoot(document.getElementById("root")).render(
             <Route path="/MenuEstanques" element={<MenuEstanques />} />
             <Route path="/RegistrarEstanques" element={<RegistrarEstanque />} />
             <Route path="/VerEstanques" element={<VerEstanques />} />
+
             
             
             
           </Routes>
         </div>
-      </BrowserRouter> 
+      </BrowserRouter>  
   
     </div>
   </StrictMode>

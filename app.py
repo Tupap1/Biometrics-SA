@@ -142,13 +142,21 @@ def user():
     id_user = session.get("user_id")
     
     if not id_user:
-        return jsonify({"error": "Datos incorrectos"}), 401
+        return jsonify({"error": "123Datos incorrectos"}), 401
     
     user = Usuario.query.filter_by(iduser=id_user).first()
     return jsonify({
             "id": user.iduser,
-            "email": user.email
+            "email": user.email,
+            "nombre": user.nombres
         })
+    
+    
+    
+@app.route("/logout")
+def logout():
+    session.pop("user_id")
+    return 200
 
 @app.route("/biometria")
 def biometria():

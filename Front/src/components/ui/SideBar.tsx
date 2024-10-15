@@ -1,6 +1,17 @@
 import React from "react";
 
+
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string;
+  to?: string;
+  onClickCustom?: () => void;
+}
+
+
 function SideBar() {
+
+
+
   return (
     <div>
       <link
