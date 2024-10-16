@@ -158,6 +158,30 @@ def logout():
     session.pop("user_id")
     return 200
 
-@app.route("/biometria")
-def biometria():
-    return ("hola mundo")
+@app.route('/biometria', methods=['POST'])
+def agregar_biometria():
+    data = request.get_json()
+
+
+    if 'id_pez' not in data or 'id_estanque' not in data or \
+       'fecha' not in data or 'peso' not in data or \
+       'longitud' not in data or 'tamano_muestra' not in data or \
+       'cantidad_biomasa' not in data:
+        return jsonify({'error': 'Faltan datos'}), 400
+
+
+    nueva_biometria = Biometria(
+        id_pez=data['id_pez'],
+        id_estanque=data['id_estanque'],
+        fecha=data['fecha'],
+        peso=data['peso'],
+        longitud=data['longitud'],
+        tamano_muestra=data['tamano_muestra'],
+        cantidad_biomasa=data['cantidad_biomasa']
+    )
+
+ 
+    db.session.add(nueva_biometria)
+    db.session.commit()
+
+    return jsonify({'mensaje': 'Datos de biometría agregados correctamente'}), 201

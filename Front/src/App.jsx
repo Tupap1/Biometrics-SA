@@ -8,18 +8,35 @@ import RegisterPage from './RegisterPage'
  
 function App() {
   return (
-    <div className="vh-100 gradient-custom">
-    <div className="container">
-      <h1 className="page-header text-center"></h1>
-   
+    <div >
+          <div className="row">
+      <div className="col"><Inicio /></div>
+      
       <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<LandingPage />} />
+        <div className="col-9">
+          <Routes>
+            <Route path="/" element={<MenuInicio />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/menu" element={<Biometria />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/Biometria" element={<Biometria />} />
+            <Route path="/MenuBiometria" element={<MenuBiometrias />} />
+            <Route path="/VerBiometria" element={<VerBiometria />} />
+            <Route path="/MenuWQ" element={<MenuWQ />} />
+            <Route path="/WQ" element={<WQ />} />
+            <Route path="/VerWQ" element={<VerWQ />} />
+            <Route path="/MenuEstanques" element={<MenuEstanques />} />
+            <Route path="/RegistrarEstanques" element={<RegistrarEstanque />} />
+            <Route path="/VerEstanques" element={<VerEstanques />} />
+            <Route path="/Ve" element={<VerEstanques />} />
+            
+
+            
+            
+            
+          </Routes>
+        </div>
+      </BrowserRouter>  
+  
     </div>
     </div>
   );

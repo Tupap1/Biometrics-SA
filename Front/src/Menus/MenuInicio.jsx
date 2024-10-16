@@ -3,6 +3,7 @@ import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import Signout from "../components/ui/Signout";
 
 function MenuInicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,6 +51,7 @@ function MenuInicio() {
               <h1>Welcome, {userName}!</h1>
             </center>
           </div>
+          <div className="col"><Signout/></div>
         </div>
         <div className="row">
           <div className="col">

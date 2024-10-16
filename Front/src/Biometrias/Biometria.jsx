@@ -1,35 +1,40 @@
 import React from "react";
 import Volver from "../components/ui/Volver";
 import Form from "../components/ui/Form";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Boton from "../components/ui/Boton";
 
 function Biometria() {
   const [Pesos, setPesos] = useState([]);
-  const [Longitudes, setLonitudes] = useState([]);
+  const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [errorlongitud, setErrorlongitud] = useState(false);
-  const [errorpeso, setErrorpeso] = useState(false);
 
 
-  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFechaHora(new Date());
+    }, 1000); 
+    return () => clearInterval(interval);
+  }, []);
+
   const handleAddBiometria = () => {
-    setPesos([...Pesos, peso ]);
-    setLonitudes([...Longitudes, Longitudes]);
+    setPesos([...Pesos, parseFloat(peso)]); 
+    setLongitudes([...Longitudes, parseFloat(longitud)]);
+
     setPeso("");
     setLongitud("");
   };
 
-  
-  const calcularPromedio = (datos, propiedad) => {
-    if (datos.length === 0) return 0;
-    return (
-      datos.reduce((total, item) => total + item[propiedad], 0) / datos.length
-    );
+
+  const calcularPromedio = (datos) => {
+    const numeros = datos.filter(dato => !isNaN(dato)); 
+    if (numeros.length === 0) return 0;
+    return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;
   };
 
-
+  const promedioPeso = calcularPromedio(Pesos);
+  const promedioLongitud = calcularPromedio(Longitudes);
 
   return (
     <div>
@@ -50,7 +55,6 @@ function Biometria() {
                 type="number"
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
-                
               />
 
               <br />
@@ -59,36 +63,46 @@ function Biometria() {
                 type="number"
                 value={longitud}
                 onChange={(e) => setLongitud(e.target.value)}
-                
               />
 
               <div className="mt-3">
-                <Boton type="submit" text="Ingresar" onClickCustom={handleAddBiometria} />
+                <Boton
+                  type="submit"
+                  text="Ingresar"
+                  onClickCustom={handleAddBiometria}
+                />
               </div>
             </div>
             <div className="col-4">
-              {" "}
-              <ul>
-                {biometrias.map((biometria, index) => (
-                  <li key={index}>
-                    {" "}
-                    {biometria.peso}, {biometria.longitud}
-                  </li>
-                ))}
-              </ul>
-            </div> 
+              <div></div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Peso (gr)</th>
+                    <th>Longitud (mm)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Pesos.map((peso, index) => (
+                    <tr key={index}>
+                      <td>{peso}</td>
+                      <td>{Longitudes[index]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
 
       <div>
-        <div></div>
+      <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
+      <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
 
-        <p>Promedio de Peso: {PesoPromedio(Pesos, "peso")} gr</p>
-        <p>
-          Promedio de Longitud: {calcularPromedio(Longitudes, "longitud")} mm
-        </p>
+
       </div>
+      <Boton text="Enviar" />
     </div>
   );
 }
