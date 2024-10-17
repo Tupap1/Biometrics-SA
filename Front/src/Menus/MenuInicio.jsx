@@ -63,6 +63,9 @@ function MenuInicio() {
           <div className="col">
             <Boton text="Registrar Estanque" to="RegistrarEstanques" />
           </div>
+          <div className="col">
+            <Boton text="Crear Peces" to="CrearPeces" />
+          </div>
         </div>
       </div>
     </div>

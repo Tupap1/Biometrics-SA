@@ -185,3 +185,22 @@ def agregar_biometria():
     db.session.commit()
 
     return jsonify({'mensaje': 'Datos de biometría agregados correctamente'}), 201
+
+
+@app.route("/registrarpeces", methods=["POST"])
+def login_user():
+        if request.is_json:
+            nombre_cientifico = request.json["Raza"]
+            cantidadSemilla = request.json["cantidadSemilla"]
+        else:
+            return jsonify({"error": "Invalid content type"}), 400
+        
+        CrearPeces = peces(nombre_cientifico = nombre_cientifico, cantidadSemilla = cantidadSemilla)
+        
+        db.session.add(CrearPeces)
+        db.session.commit()
+        
+        return jsonify({
+            "peces creados con exito"
+    })
+            

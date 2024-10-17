@@ -18,6 +18,7 @@ import VerWQ from "./WQ/VerWQ.jsx";
 import MenuEstanques from "./Menus/MenuEstanques.jsx";
 import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
 import VerEstanques from "./Estanques/VerEstanques.jsx";
+import CrearPeces from "./Peces/CrearPeces.jsx";
 
 
 
@@ -44,6 +45,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="/MenuEstanques" element={<MenuEstanques />} />
             <Route path="/RegistrarEstanques" element={<RegistrarEstanque />} />
             <Route path="/VerEstanques" element={<VerEstanques />} />
+            <Route path="/CrearPeces" element={<CrearPeces />} />
+            
 
             
             
