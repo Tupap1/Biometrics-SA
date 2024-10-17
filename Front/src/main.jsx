@@ -23,6 +23,7 @@ import VerEstanques from "./Estanques/VerEstanques.jsx";
 
 
 
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <div className="row">

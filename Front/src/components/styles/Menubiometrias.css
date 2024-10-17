@@ -1,0 +1,75 @@
+body{
+    background: rgba(82, 222, 247, 0.15);
+background-blend-mode: plus-darker;
+    
+}
+.menu1 {
+    background: linear-gradient(0deg, rgba(91, 177, 238, 0.30) 0%, rgba(91, 177, 238, 0.30) 100%), #FFF;
+    margin: 0; line-height: normal;
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+
+    height: 950px;
+}
+.Biometriastittle{
+    color: #4EABED;
+text-align: center;
+font-family: "Public Sans";
+font-size: 40px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.registerbutton{
+    width: 380px;
+height: 180px;
+flex-shrink: 0;
+border-radius: 10px;
+background: rgba(78, 171, 237, 0.70);
+width: 192.135px;
+height: 74.173px;
+flex-shrink: 0;
+color: #FFF;
+text-align: center;
+font-family: "Public Sans";
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.verbiometrias{
+    width: 380px;
+height: 180px;
+flex-shrink: 0;
+border-radius: 10px;
+background: rgba(78, 171, 237, 0.70);
+width: 227px;
+height: 54px;
+flex-shrink: 0;
+color: #FFF;
+text-align: center;
+font-family: "Public Sans";
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+right: -400px;
+}
+
+.logo{
+    filter: grayscale(30%) brightness(30%) hue-rotate(400deg) saturate(400%);
+    
+        width: 100%;
+        position: relative;
+        max-width: 100%;
+        overflow: hidden;
+        right: -499px;
+        object-fit: cover;
+        mix-blend-mode: normal;
+ 
+  
+  
+
+
+}

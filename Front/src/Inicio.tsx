@@ -5,6 +5,7 @@ import Form from "./components/ui/Form";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import './components/styles/LandingPage.css';
 
 function Inicio() {
   return (

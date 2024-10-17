@@ -1,0 +1,24 @@
+#registrarWQ {
+  color: #4eabed;
+  text-align: center;
+  font-family: "Public Sans";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+#forms {
+  display: flex;
+  width: 422px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+#ingresar{
+    width: 155px;
+    height: 58px;
+    flex-shrink: 0;
+    fill: #4EABED;
+}
