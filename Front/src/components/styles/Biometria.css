@@ -1,0 +1,31 @@
+#main{
+    width: 1440px;
+height: 1024px;
+background: #E5FAFE;
+}
+
+.ver{
+    color: #4EABED;
+text-align: center;
+font-family: "Public Sans";
+font-size: 40px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.volver{
+    display: flex;
+width: 17px;
+height: 26.951px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+}
+
+#logo{
+    width: 241px;
+height: 129px;
+flex-shrink: 0;
+}

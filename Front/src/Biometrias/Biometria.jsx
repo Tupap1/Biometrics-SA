@@ -1,43 +1,71 @@
 import React from "react";
 import Volver from "../components/ui/Volver";
 import Form from "../components/ui/Form";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Boton from "../components/ui/Boton";
+import '../components/styles/Biometria.css'
 
 function Biometria() {
   const [Pesos, setPesos] = useState([]);
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-
+  const [FechaHora, setFechaHora] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setFechaHora(new Date());
-    }, 1000); 
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   const handleAddBiometria = () => {
-    setPesos([...Pesos, parseFloat(peso)]); 
+    setPesos([...Pesos, parseFloat(peso)]);
     setLongitudes([...Longitudes, parseFloat(longitud)]);
-
     setPeso("");
     setLongitud("");
-  };
+  }
 
+
+      const keyDown = (event) => {
+        if(event.key === 'Enter'){handleAddBiometria();}
+        
+    };
 
   const calcularPromedio = (datos) => {
-    const numeros = datos.filter(dato => !isNaN(dato)); 
+    const numeros = datos.filter((dato) => !isNaN(dato));
     if (numeros.length === 0) return 0;
-    return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;
-  };
+    return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;};
+
 
   const promedioPeso = calcularPromedio(Pesos);
   const promedioLongitud = calcularPromedio(Longitudes);
 
+  const FechayHora = () => {};
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      id_pez: idPez,
+      id_estanque: FechaHora,
+      fecha: fecha,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/biometria",
+        data
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div>
+    <div className="main">
       <div className="row mt-3 mx-auto">
         <div className="col">
           {" "}
@@ -55,6 +83,7 @@ function Biometria() {
                 type="number"
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
+                onKeyDown={keyDown}
               />
 
               <br />
@@ -63,6 +92,7 @@ function Biometria() {
                 type="number"
                 value={longitud}
                 onChange={(e) => setLongitud(e.target.value)}
+                onKeyDown={keyDown}
               />
 
               <div className="mt-3">
@@ -97,12 +127,10 @@ function Biometria() {
       </div>
 
       <div>
-      <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
-      <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
-
-
+        <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
+        <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
       </div>
-      <Boton text="Enviar" />
+      <Boton text="Enviar" onClick={handleSubmit} />
     </div>
   );
 }
