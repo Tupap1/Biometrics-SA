@@ -1,5 +1,8 @@
 import React from "react";
 import Form from "../components/ui/Form";
+import Lista from "../components/ui/Lista";
+
+
 function RegistrarEstanque() {
   return (
     <div>
@@ -8,7 +11,8 @@ function RegistrarEstanque() {
       </div>
       <div>
         <Form placeholder="ingresa el nombre del estanque" />
-        <Form/>
+        <Form placeholder="selecione la raza"/>
+        <Lista apiURL="http://127.0.0.1:5000/consultarpeces"></Lista>
       </div>
     </div>
   );

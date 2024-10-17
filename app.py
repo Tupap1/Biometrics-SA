@@ -188,12 +188,14 @@ def agregar_biometria():
 
 
 @app.route("/registrarpeces", methods=["POST"])
-def login_user():
-        if request.is_json:
+def registrarpeces():
+        if request:
             nombre_cientifico = request.json["Raza"]
             cantidadSemilla = request.json["cantidadSemilla"]
         else:
             return jsonify({"error": "Invalid content type"}), 400
+        
+
         
         CrearPeces = peces(nombre_cientifico = nombre_cientifico, cantidadSemilla = cantidadSemilla)
         
@@ -201,6 +203,17 @@ def login_user():
         db.session.commit()
         
         return jsonify({
-            "peces creados con exito"
+                "mensaje": "Peces creados con éxito",
     })
+        
+        
+        
+@app.route("/consultarpeces", methods=["GET"])
+def consultarpeces():
+    peces_data = peces.query.all()
+    return jsonify([
+        {'label': pez.nombre_cientifico, 'cantidadSemilla': pez.cantidadSemilla, 'id': pez.id_pez}
+        for pez in peces_data
+    ])
+                   
             

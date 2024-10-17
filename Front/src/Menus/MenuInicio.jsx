@@ -7,10 +7,9 @@ import Signout from "../components/ui/Signout";
 
 function MenuInicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName,   
- setUserName] = useState('');
+  const [userName,setUserName] = useState('');
 
-  useEffect(() => {
+/*   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const   
@@ -25,7 +24,7 @@ function MenuInicio() {
     };
 
     checkLoginStatus();
-  }, []);
+  }, []); */
 
   const handleLogin = async (email, password) => {
     try {
