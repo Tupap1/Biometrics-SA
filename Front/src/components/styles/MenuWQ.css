@@ -1,0 +1,10 @@
+#asd {
+  background-color: aqua;
+}
+#qwe {
+  width: 380px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(78, 171, 237, 0.7);
+}

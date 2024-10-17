@@ -1,11 +1,13 @@
 import React from "react";
 import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
+import '../components/styles/MenuWQ.css'
+
 
 function MenuWQ() {
   return (
     <div>
-      <div className="col-8">
+      <div className="col-8" id="asd">
         <div className="row  mb-4 mt-3">
           <div className="col-2 ">
             <Volver />
@@ -19,7 +21,7 @@ function MenuWQ() {
         </div>
         <div className="row">
           <div className="col">
-            <Boton text="Registrar WQ" to="/WQ" />
+            <Boton id="qwe" text="Registrar WQ" to="/WQ" />
           </div>
           <div className="col">
             <Boton text="Ver registros WQ" to="/VerWQ" />
