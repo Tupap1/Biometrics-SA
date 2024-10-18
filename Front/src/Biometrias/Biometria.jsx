@@ -4,20 +4,59 @@ import Form from "../components/ui/Form";
 import { useState, useEffect } from "react";
 import Boton from "../components/ui/Boton";
 import '../components/styles/Biometria.css'
+import Lista from '../components/ui/Lista'
+import Reloj from "../../Dates/Hora";
+import CapturarFecha from '../../Dates/Fecha';
+import axios from "axios";
 
 function Biometria() {
   const [Pesos, setPesos] = useState([]);
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [FechaHora, setFechaHora] = useState("");
+  const [estanque, setEstanque] = useState("")
+  const [muestra, setMuestra] = useState("")
+  const [fecha, setFechaActual] = useState(new Date());
+  const [hora, setHora] = useState(new Date());
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFechaHora(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+
+
+
+  function Fecha({}) { 
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        setFechaActual(new Date());
+      }, 1000); 
+  
+      return () => clearInterval(intervalo);
+    }, []);
+  
+    return (
+      <div>
+        {fecha.toLocaleDateString()}
+      </div>
+    );
+  }
+
+
+  function Hora() {
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        setHora(new Date());
+      }, 1000);
+  
+      return () => clearInterval(intervalo);
+    }, []);
+  
+    return (
+      <div>
+        {hora.toLocaleTimeString()}
+      </div>
+    );
+  }
+
+
+
 
   const handleAddBiometria = () => {
     setPesos([...Pesos, parseFloat(peso)]);
@@ -37,20 +76,20 @@ function Biometria() {
     if (numeros.length === 0) return 0;
     return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;};
 
-
-  const promedioPeso = calcularPromedio(Pesos);
-  const promedioLongitud = calcularPromedio(Longitudes);
-
-  const FechayHora = () => {};
+    const promedioPeso = calcularPromedio(Pesos);
+    const promedioLongitud = calcularPromedio(Longitudes);
 
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+
     const data = {
-      id_pez: idPez,
-      id_estanque: FechaHora,
+      id_estanque: estanque,
       fecha: fecha,
+      hora: hora,
+      peso: promedioPeso,
+      longitud: promedioLongitud,
+      tamano_muestra: muestra
     };
 
     try {
@@ -130,7 +169,18 @@ function Biometria() {
         <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
         <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
       </div>
-      <Boton text="Enviar" onClick={handleSubmit} />
+
+      <div>
+        <label htmlFor="">Seleciona el estanque</label>
+        <Lista onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
+        <label htmlFor="">Seleciona el tamaño de la muestra</label>
+      
+      <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
+        <option value="5">5%</option>
+        <option value="10">10%</option>          
+      </select>
+
+      <Boton text="Enviar" onClickCustom={handleSubmit} />
     </div>
   );
 }

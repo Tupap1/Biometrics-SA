@@ -19,6 +19,7 @@ import MenuEstanques from "./Menus/MenuEstanques.jsx";
 import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
 import VerEstanques from "./Estanques/VerEstanques.jsx";
 import CrearPeces from "./Peces/CrearPeces.jsx";
+import Estanque from "./Estanques/Estanque.jsx";
 
 
 
@@ -46,6 +47,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="/RegistrarEstanques" element={<RegistrarEstanque />} />
             <Route path="/VerEstanques" element={<VerEstanques />} />
             <Route path="/CrearPeces" element={<CrearPeces />} />
+            <Route path="/Estanque" element={<Estanque />} />
+            
             
 
             

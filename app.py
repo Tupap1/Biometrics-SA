@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine, DateTime
+from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine, Date, Time
 from sqlalchemy.orm import declarative_base
 
 
@@ -28,6 +28,7 @@ class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)
     nombre_cientifico = db.Column (db.String(1000))
     cantidadSemilla = db.Column (db.String(10))
+    estanque = db.relationship('Estanque', backref=db.backref('peces', lazy=True))
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
@@ -44,9 +45,9 @@ class Biometria(db.Model):
     __tablename__ = 'biometria'
 
     id_biometria = db.Column(Integer, primary_key=True)
-    id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
     id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque'))  
-    fecha = db.Column(DateTime) 
+    fecha = db.Column(Date) 
+    hora = db.Column(Time)
     peso = db.Column(Float)
     longitud = db.Column(Float)
     tamano_muestra = db.Column(Integer)
@@ -58,8 +59,8 @@ class Estanque(db.Model):
 
     id_estanque = db.Column(Integer, primary_key=True)
     id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
-    capacidad_maxima = db.Column(Integer)  
-    tipo = db.Column(String(50))
+    tamanoEstanque = db.Column(Integer)  
+    nombreEstanque = db.Column(String(500))
     natalidad = db.Column(Integer)
     mortalidad = db.Column(Integer)
     
@@ -163,21 +164,13 @@ def agregar_biometria():
     data = request.get_json()
 
 
-    if 'id_pez' not in data or 'id_estanque' not in data or \
-       'fecha' not in data or 'peso' not in data or \
-       'longitud' not in data or 'tamano_muestra' not in data or \
-       'cantidad_biomasa' not in data:
-        return jsonify({'error': 'Faltan datos'}), 400
-
-
     nueva_biometria = Biometria(
-        id_pez=data['id_pez'],
         id_estanque=data['id_estanque'],
         fecha=data['fecha'],
+        hora=data['hora'],
         peso=data['peso'],
         longitud=data['longitud'],
         tamano_muestra=data['tamano_muestra'],
-        cantidad_biomasa=data['cantidad_biomasa']
     )
 
  
@@ -216,4 +209,52 @@ def consultarpeces():
         for pez in peces_data
     ])
                    
-            
+                   
+                   
+@app.route("/crearestanque", methods=["POST"])
+def crearestanque():
+    if request:
+        nombreEstanque = request.json["nombreEstanque"]
+        tamanoestanque = request.json["tamanoestanque"]
+        id_pez = request.json["id_pez"]
+        
+    else:
+            return jsonify({"error": "Invalid content type"}), 400
+    
+    
+    nuevoestanque = Estanque(id_pez = id_pez, tamanoEstanque = tamanoestanque, nombreEstanque =nombreEstanque)
+    
+    db.session.add(nuevoestanque)
+    db.session.commit()
+    
+    return jsonify({
+            "id": nombreEstanque,
+            "email": tamanoestanque,
+            "nombre": id_pez
+        })
+        
+
+@app.route("/consultarestanque", methods=["GET"])
+def consultarestanque():
+    estanques = Estanque.query.join(peces, Estanque.id_pez == peces.id_pez).all()
+    
+    
+
+    estanques_json = []
+    for estanque in estanques:
+        estanques_json.append({
+            "id_estanque": estanque.id_estanque,
+            "nombre_pez": estanque.peces.nombre_cientifico,
+            "id_pez": estanque.id_pez,
+            "tamanoEstanque": estanque.tamanoEstanque,
+            "nombreEstanque": estanque.nombreEstanque,
+            "label":estanque.nombreEstanque,
+            "id":estanque.id_estanque
+        })
+
+
+    return jsonify(estanques_json)
+    
+    
+
+    
