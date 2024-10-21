@@ -1,7 +1,7 @@
 import React from "react";
 import Volver from "../components/ui/Volver";
 import Form from "../components/ui/Form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef  } from "react";
 import Boton from "../components/ui/Boton";
 import '../components/styles/Biometria.css'
 import Lista from '../components/ui/Lista'
@@ -145,6 +145,7 @@ function Biometria() {
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
                 onKeyDown={keyDown}
+                autoFocus   
               />
 
               <br />

@@ -6,4 +6,4 @@ flask_sqlalchemy
 flask_bcrypt 
 flask_sqlalchemy
 sqlalchemy 
-mysqlclient
+mysqlclient==2.2.4

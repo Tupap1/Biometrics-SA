@@ -53,6 +53,7 @@ const handleSubmit = async (e) => {
           value={tamanoEstanque} onChange={(e) =>settamanoEstanque(e.target.value)} placeholder="Ingresa el tamaño del estanque m2"/>
           <Form value={numeropeces} onChange={(e) => setnumeropeces(e.target.value)}  placeholder="Ingrese el numero de peces en el estanque" type="number"/>
         <Lista onChange={(e) => setid_pez(e.target.value)} apiURL="http://127.0.0.1:5000/consultarpeces"/>
+          <h1>{id_pez}</h1>
         <Boton onClickCustom={handleSubmit} text="Guardar estanque"/>
       </div>
     </div>

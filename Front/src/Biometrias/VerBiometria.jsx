@@ -15,7 +15,7 @@ function VerBiometria() {
   return (
     <div>
       <h2>Lista de Biometrías</h2>
-    <Card title={"idbiometria"} info={"fecha"} link={"/biometria"} info2={"hora"} textboton={"Ver Biometria"} text={"Fecha:"} apiURL={"http://127.0.0.1:5000/consultarbiometrias"}/>
+    <Card title={"nombreEstanque"} info={"fecha"} link={"/biometria"} info2={"hora"} textboton={"Ver Biometria"} apiURL={"http://127.0.0.1:5000/consultarbiometrias"}/>
     </div>
   );
 }

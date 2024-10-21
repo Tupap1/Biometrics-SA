@@ -18,7 +18,7 @@ CORS(app, origins=['http://localhost:5173'])
 engine = create_engine('mysql://root:@localhost/biometricssa')
 
 db = SQLAlchemy(app)
-#erver_session = Session(app)
+#server_session = Session(app)
 Base = declarative_base()
 app.secret_key = "Andres137"
 
@@ -64,6 +64,8 @@ class Estanque(db.Model):
     nombreEstanque = db.Column(String(500))
     natalidad = db.Column(Integer)
     mortalidad = db.Column(Integer)
+    Biometria = db.relationship('Biometria', backref=db.backref('Estanque', lazy=True))
+    
     
 with app.app_context():
     db.create_all()
@@ -184,8 +186,8 @@ def agregar_biometria():
 
 @app.route('/consultarbiometrias', methods=['GET'])
 def consultarbiometrias():
-    biometrias = Biometria.query.all()
-   
+    biometrias = Biometria.query.join(Estanque, Biometria.id_estanque == Estanque.id_estanque).all()
+   #Estanque.query.join(peces, Estanque.id_pez == peces.id_pez).all()
     
     biometriasconsultadas = []
     for biometria in biometrias:
@@ -194,9 +196,8 @@ def consultarbiometrias():
         biometriasconsultadas.append({
             "idbiometria":biometria.id_biometria,
             "fecha":fechaformateada,
-            "hora":horaformateada
-            
-            
+            "hora":horaformateada,
+            "nombreEstanque":biometria.Estanque.nombreEstanque
         })
     return jsonify(biometriasconsultadas)
 
@@ -263,7 +264,7 @@ def crearestanque():
             return jsonify({"error": "Invalid content type"}), 400
     
     
-    nuevoestanque = Estanque(id_pez = id_pez, tamanoEstanque = tamanoestanque, nombreEstanque =nombreEstanque)
+    nuevoestanque = Estanque(id_pez = id_pez, tamanoEstanque = tamanoestanque, nombreEstanque = nombreEstanque)
     
     db.session.add(nuevoestanque)
     db.session.commit()
