@@ -8,14 +8,16 @@ import axios from "axios";
 
 function RegistrarEstanque() {
 const [nombreEstanque, setnombreEstanque] = useState("")
-const [tamanoEstanque,settamanoEstanque] =useState("")
+const [tamanoEstanque,settamanoEstanque] = useState("")
+const [numeropeces, setnumeropeces] = useState("")
 const [id_pez,setid_pez] = useState("")
 
 
 const data = {
   id_pez: id_pez,
   tamanoestanque: tamanoEstanque,
-  nombreEstanque: nombreEstanque
+  nombreEstanque: nombreEstanque,
+  numeropeces: numeropeces
 };
 
 const handleSubmit = async (e) => {
@@ -30,6 +32,11 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error(error);
   }
+
+  setid_pez("")
+  setnombreEstanque("")
+  setnumeropeces("")
+  settamanoEstanque("")
   alert("estanque creado")
 };
 
@@ -44,8 +51,8 @@ const handleSubmit = async (e) => {
         <Form value={nombreEstanque} onChange={(e) =>setnombreEstanque(e.target.value)} placeholder="ingresa el nombre del estanque" />
           <Form 
           value={tamanoEstanque} onChange={(e) =>settamanoEstanque(e.target.value)} placeholder="Ingresa el tamaño del estanque m2"/>
+          <Form value={numeropeces} onChange={(e) => setnumeropeces(e.target.value)}  placeholder="Ingrese el numero de peces en el estanque" type="number"/>
         <Lista onChange={(e) => setid_pez(e.target.value)} apiURL="http://127.0.0.1:5000/consultarpeces"/>
-          <h1>{id_pez}</h1>
         <Boton onClickCustom={handleSubmit} text="Guardar estanque"/>
       </div>
     </div>

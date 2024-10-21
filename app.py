@@ -60,6 +60,7 @@ class Estanque(db.Model):
     id_estanque = db.Column(Integer, primary_key=True)
     id_pez = db.Column(Integer, ForeignKey('peces.id_pez'))  
     tamanoEstanque = db.Column(Integer)  
+    numeropeces =db.Column(Integer)
     nombreEstanque = db.Column(String(500))
     natalidad = db.Column(Integer)
     mortalidad = db.Column(Integer)
@@ -180,6 +181,45 @@ def agregar_biometria():
     return jsonify({'mensaje': 'Datos de biometría agregados correctamente'}), 201
 
 
+
+@app.route('/consultarbiometrias', methods=['GET'])
+def consultarbiometrias():
+    biometrias = Biometria.query.all()
+   
+    
+    biometriasconsultadas = []
+    for biometria in biometrias:
+        horaformateada = biometria.hora.strftime('%H:%M:%S')
+        fechaformateada = biometria.fecha.strftime('%A, %d de %B de %Y ')
+        biometriasconsultadas.append({
+            "idbiometria":biometria.id_biometria,
+            "fecha":fechaformateada,
+            "hora":horaformateada
+            
+            
+        })
+    return jsonify(biometriasconsultadas)
+
+
+
+
+@app.route('/biometria/<int:id_biometria>', methods=['GET'])
+def obtener_biometria(id_biometria):
+
+
+    biometria = Biometria.query.get(id_biometria)
+
+    if biometria:
+        return jsonify({
+            'id_biometria': biometria.id_biometria,
+            'id_estanque': biometria.id_estanque,
+            'fecha': str(biometria.fecha),
+            'hora': str(biometria.hora)
+        }), 200
+    else:
+        return jsonify({'mensaje': 'Biometría no encontrada'}), 404
+
+
 @app.route("/registrarpeces", methods=["POST"])
 def registrarpeces():
         if request:
@@ -216,6 +256,7 @@ def crearestanque():
     if request:
         nombreEstanque = request.json["nombreEstanque"]
         tamanoestanque = request.json["tamanoestanque"]
+        numeropeces = request.json["numeropeces"]
         id_pez = request.json["id_pez"]
         
     else:
@@ -247,6 +288,7 @@ def consultarestanque():
             "nombre_pez": estanque.peces.nombre_cientifico,
             "id_pez": estanque.id_pez,
             "tamanoEstanque": estanque.tamanoEstanque,
+            "numeropeces":estanque.numeropeces,
             "nombreEstanque": estanque.nombreEstanque,
             "label":estanque.nombreEstanque,
             "id":estanque.id_estanque

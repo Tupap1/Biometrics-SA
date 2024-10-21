@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import Boton from "../components/ui/Boton";
 import '../components/styles/Biometria.css'
 import Lista from '../components/ui/Lista'
-import Reloj from "../../Dates/Hora";
-import CapturarFecha from '../../Dates/Fecha';
 import axios from "axios";
 
 function Biometria() {
@@ -33,7 +31,7 @@ function Biometria() {
   
     return (
       <div>
-        {fecha.toLocaleDateString()}
+        {fecha.toLocaleDatetimeString()}
       </div>
     );
   }
@@ -63,6 +61,7 @@ function Biometria() {
     setLongitudes([...Longitudes, parseFloat(longitud)]);
     setPeso("");
     setLongitud("");
+
   }
 
 
@@ -101,7 +100,30 @@ function Biometria() {
     } catch (error) {
       console.error(error);
     }
+    setPesos([])
+    setLongitudes([])
+    alert("biometria registrada con exito")
+
   };
+
+
+
+  const [estanqueData, setEstanqueData] = useState("holaa");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/consultarestanque");
+        const matchingEstanque = response.data.find((est) => est.id === estanque);
+        setEstanqueData(matchingEstanque);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+    console.log(estanque)
+  }, [estanque]);
 
   return (
     <div className="main">
