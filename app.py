@@ -187,17 +187,18 @@ def agregar_biometria():
 @app.route('/consultarbiometrias', methods=['GET'])
 def consultarbiometrias():
     biometrias = Biometria.query.join(Estanque, Biometria.id_estanque == Estanque.id_estanque).all()
-   #Estanque.query.join(peces, Estanque.id_pez == peces.id_pez).all()
+
     
     biometriasconsultadas = []
     for biometria in biometrias:
         horaformateada = biometria.hora.strftime('%H:%M:%S')
         fechaformateada = biometria.fecha.strftime('%A, %d de %B de %Y ')
         biometriasconsultadas.append({
-            "idbiometria":biometria.id_biometria,
+            "id":biometria.id_biometria,
             "fecha":fechaformateada,
             "hora":horaformateada,
-            "nombreEstanque":biometria.Estanque.nombreEstanque
+            "nombreEstanque":biometria.Estanque.nombreEstanque,
+            "numeroPeces":biometria.Estanque.numeropeces
         })
     return jsonify(biometriasconsultadas)
 
@@ -264,7 +265,7 @@ def crearestanque():
             return jsonify({"error": "Invalid content type"}), 400
     
     
-    nuevoestanque = Estanque(id_pez = id_pez, tamanoEstanque = tamanoestanque, nombreEstanque = nombreEstanque)
+    nuevoestanque = Estanque(id_pez = id_pez, tamanoEstanque = tamanoestanque, nombreEstanque = nombreEstanque, numeropeces = numeropeces)
     
     db.session.add(nuevoestanque)
     db.session.commit()

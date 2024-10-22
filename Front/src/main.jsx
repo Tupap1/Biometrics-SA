@@ -20,6 +20,8 @@ import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
 import VerEstanques from "./Estanques/VerEstanques.jsx";
 import CrearPeces from "./Peces/CrearPeces.jsx";
 import Estanque from "./Estanques/Estanque.jsx";
+import VerBiometrias2 from "./Biometrias/VerBiometriasCard.jsx";
+import RegistrarBiometria from "./Biometrias/RegistrarBiometria.jsx";
 
 
 
@@ -37,7 +39,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<MenuInicio />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/Biometria" element={<Biometria />} />
+            <Route path="/Biometria" element={<RegistrarBiometria />} />
             <Route path="/MenuBiometria" element={<MenuBiometrias />} />
             <Route path="/VerBiometria" element={<VerBiometria />} />
             <Route path="/MenuWQ" element={<MenuWQ />} />
@@ -48,7 +50,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/VerEstanques" element={<VerEstanques />} />
             <Route path="/CrearPeces" element={<CrearPeces />} />
             <Route path="/Estanque" element={<Estanque />} />
-            
+            <Route path="/biometria/:id" element={<Biometria />} />
             
 
             
