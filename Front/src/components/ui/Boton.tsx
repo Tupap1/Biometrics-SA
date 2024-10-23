@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   to?: string;
+  className?:string;
   id?: string;
   onClickCustom?: () => void;
 }
 
-function Boton({ children, text, to, onClickCustom,id, ...props }: Props) {
+function Boton({ children,className, text, to, onClickCustom,id, ...props }: Props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,7 +23,7 @@ function Boton({ children, text, to, onClickCustom,id, ...props }: Props) {
 
   return (
     <div>
-      <button type="button" className="btn btn-primary" id={id} onClick={handleClick}>
+      <button type="button" className={className} id={id} onClick={handleClick}>
         {text || children}
       </button>
     </div>

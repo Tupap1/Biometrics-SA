@@ -1,24 +1,25 @@
 import React from "react";
 import Volver from "../components/ui/Volver";
 import Form from "../components/ui/Form";
-import { useState, useEffect, useRef  } from "react";
+import { useState, useEffect } from "react";
 import Boton from "../components/ui/Boton";
 import '../components/styles/Biometria.css'
+import "/src/Biometrias/biometricstylie.css"
 import Lista from '../components/ui/Lista'
+import Reloj from "../../Dates/Hora";
+import CapturarFecha from '../../Dates/Fecha';
 import axios from "axios";
-import VerBiometriasCard from "./VerBiometriasCard";
-import GetApiData from "../components/ui/GetApiData";
+import pescado from "/src/assets/fotopescao.png"
 
-function RegistrarBiometria() {
+function Biometria() {
   const [Pesos, setPesos] = useState([]);
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [estanque, setEstanque] = useState("");
-  const [muestra, setMuestra] = useState("");
+  const [estanque, setEstanque] = useState("")
+  const [muestra, setMuestra] = useState("")
   const [fecha, setFechaActual] = useState(new Date());
   const [hora, setHora] = useState(new Date());
-  const [biomasa, setBiomasa] = useState("");
 
 
 
@@ -34,7 +35,7 @@ function RegistrarBiometria() {
   
     return (
       <div>
-        {fecha.toLocaleDatetimeString()}
+        {fecha.toLocaleDateString()}
       </div>
     );
   }
@@ -64,7 +65,6 @@ function RegistrarBiometria() {
     setLongitudes([...Longitudes, parseFloat(longitud)]);
     setPeso("");
     setLongitud("");
-
   }
 
 
@@ -81,7 +81,6 @@ function RegistrarBiometria() {
     const promedioPeso = calcularPromedio(Pesos);
     const promedioLongitud = calcularPromedio(Longitudes);
 
-    const hola = "asd"
 
 
   const handleSubmit = async (e) => {
@@ -104,44 +103,25 @@ function RegistrarBiometria() {
     } catch (error) {
       console.error(error);
     }
-    setPesos([])
-    setLongitudes([])
-    alert("biometria registrada con exito")
-
   };
 
-
-
-  const [estanqueData, setEstanqueData] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:5000/consultarestanque");
-        const matchingEstanque = response.data.find((est) => est.id === estanque);
-        setEstanqueData(matchingEstanque);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-    console.log(estanque)
-  }, [estanque]);
-
   return (
-    <div className="main">
+    <div className="main2">
+      <div className="child">
       <div className="row mt-3 mx-auto">
-        <div className="col">
+        <div id="back" className="col">
           {" "}
           <Volver />
         </div>
-        <div className="col mx-auto">
+        <div className="logo2">
+          <img src={pescado} alt="" />
+        </div>
+        <div id="titulo" className="col mx-auto">
           <h2>Registrar Biometria</h2>
         </div>
 
-        <div>
-          <div className="row mt-5 mx-auto">
+        <div className="biometria">
+          <div id="bio" className="row mt-5 mx-auto">
             <div className="col-5">
               <Form
                 placeholder="Ingresa el peso (gr)"
@@ -149,7 +129,6 @@ function RegistrarBiometria() {
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
                 onKeyDown={keyDown}
-                autoFocus   
               />
 
               <br />
@@ -161,7 +140,7 @@ function RegistrarBiometria() {
                 onKeyDown={keyDown}
               />
 
-              <div className="mt-3">
+              <div  className="mt-3">
                 <Boton
                   type="submit"
                   text="Ingresar"
@@ -169,8 +148,10 @@ function RegistrarBiometria() {
                 />
               </div>
             </div>
-            <div className="col-4">
-              <div></div>
+
+              
+            <div id="table2" className="col-4">
+              
               <table>
                 <thead>
                   <tr>
@@ -188,29 +169,43 @@ function RegistrarBiometria() {
                 </tbody>
               </table>
             </div>
-          </div>
+            
+
+
+
+            </div>
+
+
+          
         </div>
       </div>
 
-      <div>
+  
+      <div id="calculos">
         <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
         <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
       </div>
 
+      <div className="quiensabe">
       <div>
+      <div id="opciones">
         <label htmlFor="">Seleciona el estanque</label>
         <Lista onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
-        <label htmlFor="">Seleciona el tamaño de la muestra</label>
-      
+        </div>
+      <div className="opcion">
+        <label htmlFor="">Seleciona el tamaño de la muestra</label> <br /> 
       <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
         <option value="5">5%</option>
         <option value="10">10%</option>          
       </select>
-
+      </div>
+      <div className="btenvia">
       <Boton text="Enviar" onClickCustom={handleSubmit} />
-      <GetApiData apiURL={"http://127.0.0.1:5000/consultarbiometrias"}></GetApiData>
+      </div>
+      </div>
+      </div>
     </div>
   );
 }
 
-export default RegistrarBiometria;
+export default Biometria;

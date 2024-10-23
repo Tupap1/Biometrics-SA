@@ -1,0 +1,129 @@
+
+
+.main2{
+    margin-top: 4%;
+    width: 1000px;
+    background-color: rgba(91, 177, 238, 0.3);
+    border-radius: 10px;
+    height: 900px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    /* place-items: center; */
+}
+
+.child{
+
+ justify-content: center;
+ align-items: center;
+margin: 0%;
+padding: 0%;
+}
+
+#back{
+ 
+
+    margin-top: 10px;
+   
+}
+
+#titulo{
+    display: inline;
+    color: #4EABED;
+    font-family: "Public Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+.logo2{
+    text-align: center;
+}
+
+.logo2 img{
+    width: 241px;
+    filter: invert(100%);
+}
+
+.biometria{
+    display: flex;
+    /* background-color: saddlebrown; */
+    flex-direction: column;
+}
+
+.biometria form{
+  
+}
+
+
+#bio{
+    /* background: #ddd; */
+    /* padding: 5px; */
+}
+
+
+#table2 {
+    width: 300px;
+    height: 200px;
+    margin-right: 100px;
+    background-color: rgba(255, 245, 238, 0.811);
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Agrega bordes a las celdas */
+    text-align: center; /* Centra el contenido de las celdas */
+  }
+
+#table2 {
+
+    max-height: 300px; /* Establece la altura máxima de la tabla */
+    overflow-y: auto;  /* Permite el scroll vertical si el contenido es mayor */
+}
+
+
+
+
+#calculos{
+    margin-left: 130px;
+}
+
+.quiensabe{
+    max-width: 100%;
+    margin-left: 45px;
+}
+
+.btenvia{
+    margin-left: 10px;
+}
+
+#opciones{
+    margin-top: 30px;
+    width: 380px;
+    /* margin-left: 130px; */
+}
+
+.opcion{
+    /* margin-left: 130px; */
+    width: 380px;
+}
+.porcentajes{
+    width: 380px;
+    
+}
+
+.porcentajes option{
+    background-color: red;
+    color: white;
+}
+
+.btenvia{
+    /* margin-left: 130px; */
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+

@@ -1,22 +1,111 @@
-import React from "react";
-import "../components/styles/Biometria.css";
-import Volver from "../components/ui/Volver";
-import logo from "../assets/logo.png";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Card from "../components/ui/Card";
-import VerBiometrias2 from "./VerBiometriasCard";
-import VerBiometriasCard from "./VerBiometriasCard";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Form from '../components/ui/Form';
+import Lista from '../components/ui/Lista';
 
-function VerBiometria() {
+
+function VerBiometrias() {
   const [biometrias, setBiometrias] = useState([]);
+  const [estanque, setEstanque] = useState("");
+  const [muestra,setMuestra] = useState("");
+  const [biometriaSeleccionada, setBiometriaSeleccionada] = useState([estanque, muestra]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const fetchBiometrias = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/consultarbiometrias');
+      setBiometrias(response.data);
+    } catch (error) {
+      console.error(error);
+      alert('Error al consultar biometrias');
+    }
+  };
+
+
+  useEffect(() => {
+    fetchBiometrias();
+  }, []);
+
+  const handleEdit = (biometria) => {
+    setBiometriaSeleccionada(biometria);
+    setIsEditing(true);
+  };
+
+  const Biometria = {
+    idestanque:estanque,
+    tamanomuestra:muestra
+  }
+
+  const handleSaveEdit = async () => {
+    try {
+      const response = await axios.put(`http://127.0.0.1:5000/biometria/${biometriaSeleccionada.id}`, Biometria);
+      console.log(response);
+      alert('Biometria editada con éxito');
+      setIsEditing(false);
+      fetchBiometrias();
+    } catch (error) {
+      console.error(error);
+      alert('Error al editar biometria');
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setBiometriaSeleccionada(null);
+    setIsEditing(false);
+  };
 
   return (
     <div>
-      <h2>Lista de Biometrías</h2>
-      <VerBiometriasCard title={"nombreEstanque"} fecha={"fecha"} hora={"hora"}/>
+      <h2>Biometrías</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Estanque</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Peso</th>
+            <th>Longitud</th>
+            <th>Biomasa</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {biometrias.map((biometria) => (
+            <tr key={biometria.id}>
+              <td>{biometria.id}</td>
+              <td>{biometria.nombreEstanque}</td>
+              <td>{biometria.fecha}</td>
+              <td>{biometria.hora}</td>
+              <td>{biometria.peso}</td>
+              <td>{biometria.longitud}</td>
+              <td>{biometria.biomasa}</td>
+              <td>
+                <button onClick={() => handleEdit(biometria)}>Editar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+
+      </table>
+
+      {isEditing && (
+        <div>
+          <h2>Editando Biometria {biometriaSeleccionada.id}</h2>
+          <label htmlFor="">Seleciona el nuevo estanque</label>
+          <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+          <label htmlFor="">Seleciona el tamaño de la muestra</label>
+          <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
+        <option value="5">5%</option>
+        <option value="10">10%</option>          
+      </select>
+          
+          <button onClick={handleSaveEdit}>Guardar</button>
+          <button onClick={handleCancelEdit}>Cancelar</button>
+        </div>
+      )}
     </div>
   );
 }
 
-export default VerBiometria;
+export default VerBiometrias;

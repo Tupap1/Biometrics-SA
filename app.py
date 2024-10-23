@@ -198,7 +198,9 @@ def consultarbiometrias():
             "fecha":fechaformateada,
             "hora":horaformateada,
             "nombreEstanque":biometria.Estanque.nombreEstanque,
-            "numeroPeces":biometria.Estanque.numeropeces
+            "numeroPeces":biometria.Estanque.numeropeces,
+            "peso":biometria.peso,
+            "longitud":biometria.longitud
         })
     return jsonify(biometriasconsultadas)
 
@@ -220,6 +222,20 @@ def obtener_biometria(id_biometria):
         }), 200
     else:
         return jsonify({'mensaje': 'Biometría no encontrada'}), 404
+    
+    
+    
+@app.route('/biometria/<int:biometria_id>', methods=['PUT'])
+def update_biometria(biometria_id):
+    data = request.get_json()
+    biometria = Biometria.query.get(biometria_id)
+    if biometria:
+        biometria.id_estanque = data['idestanque']
+        biometria.tamano_muestra =data["tamanomuestra"] 
+        db.session.commit()
+        return jsonify({'message': 'Biometria actualizada correctamente'}), 200
+    else:
+        return jsonify({'error': 'Biometria no encontrada'}), 404
 
 
 @app.route("/registrarpeces", methods=["POST"])

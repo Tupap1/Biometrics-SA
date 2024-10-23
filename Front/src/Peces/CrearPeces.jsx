@@ -4,7 +4,8 @@ import Form from "../components/ui/Form";
 import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 import axios from "axios";
-
+import "/src/Peces/crearpeces.css"
+import pescado from "/src/assets/fotopescao.png"
 
 function CrearPeces() {
   const [Raza, setRaza] = useState("");
@@ -32,24 +33,33 @@ function CrearPeces() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="padrastro">
+      <div className="hija">
+      <div id="volver">
         <Volver />
-        <h1>Registrar Peces</h1>
       </div>
-      <div>
-        <Form
+      <div id="pes">
+        <img src={pescado} alt="" />
+      </div>
+      <div className="title">
+      <h1>Registrar Peces</h1>
+      </div>
+      <div className="frm2">
+        <Form 
           placeholder="Ingrese el nombre de la raza"
           value={Raza}
           onChange={(e) => setRaza(e.target.value)}
         />
-        <Form
+        <Form 
           placeholder="Ingrese cantidad de semilla (KG)"
           value={CantidadSemilla}
           onChange={(e) => setCantidadSemilla(e.target.value)}
         />
       </div>
-      <Boton text="Crear Raza" onClickCustom={Enviar} />
+      <div className="crear">
+      <Boton id="crear2" className="btn btn-primary" text="Crear Raza" onClickCustom={Enviar} />
+      </div>
+      </div>
     </div>
   );
 }

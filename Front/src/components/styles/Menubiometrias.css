@@ -20,56 +20,53 @@ font-size: 40px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
-}
-.registerbutton{
-    width: 380px;
-height: 180px;
-flex-shrink: 0;
-border-radius: 10px;
-background: rgba(78, 171, 237, 0.70);
-width: 192.135px;
-height: 74.173px;
-flex-shrink: 0;
-color: #FFF;
-text-align: center;
-font-family: "Public Sans";
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-}
-.verbiometrias{
-    width: 380px;
-height: 180px;
-flex-shrink: 0;
-border-radius: 10px;
-background: rgba(78, 171, 237, 0.70);
-width: 227px;
-height: 54px;
-flex-shrink: 0;
-color: #FFF;
-text-align: center;
-font-family: "Public Sans";
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-right: -400px;
+margin-left: -70px;
 }
 
+
+
+
 .logo{
-    filter: grayscale(30%) brightness(30%) hue-rotate(400deg) saturate(400%);
+    
     
         width: 100%;
-        position: relative;
+        height: 229px;
+        position: sticky;
         max-width: 100%;
         overflow: hidden;
         right: -499px;
         object-fit: cover;
         mix-blend-mode: normal;
+        margin-left: 470px;
+
  
   
   
 
 
+}
+.logo img{
+    width: ;
+    height: 229px;
+
+}
+#btnbio{
+    border: 0px;
+background: rgba(78, 171, 237, 0.70);
+width: 380px;
+height: 180px;
+flex-shrink: 0; 
+margin-left: 150px;
+margin-top: 30px;
+font-size: 30px;
+}
+#btnbio1{
+    border: 0px;
+    background: rgba(78, 171, 237, 0.70);
+    width: 380px;
+    height: 180px;
+    flex-shrink: 0;
+    margin-left: 850px;
+    margin-top: -200px;
+font-size: 30px;
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Boton from './Boton';
 
 function GetApiData({apiURL, Consulta1}) {
-const [datos, setdatos] = useState("");
+const [datos, setdatos] = useState([]);
 
 
 useEffect(() =>{
@@ -20,12 +20,18 @@ useEffect(() =>{
     getdata();
 }, []);
 
+const verdatos = () => {
+  return datos.map((dato) => (
+    <div><h1>{dato.id}</h1></div>
+  ));
+}
+
 
   return (
     <div>
-        <h5>{JSON.stringify(datos)}</h5>
+      {verdatos()}
     </div>
-  )
+  );
 }
 
 export default GetApiData

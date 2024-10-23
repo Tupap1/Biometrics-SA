@@ -3,7 +3,7 @@ import Boton from './Boton'
 
 function Signout() {
   return (
-    <div><Boton text="Cerrar sesion" /></div>
+    <div><Boton className='btn btn-primary' text="Cerrar sesion" /></div>
   )
 }
 
