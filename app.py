@@ -53,6 +53,15 @@ class Biometria(db.Model):
     tamano_muestra = db.Column(Integer)
     cantidad_biomasa = db.Column(Float)
 
+
+class WQ(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_estanque = (Integer, ForeignKey('estanque.id_estanque'))
+    nitrogeno = db.Column(db.Float)
+    oxigeno = db.Column(db.Float)
+    sulfuro = db.Column(db.Float)
+    nitratos = db.Column(db.Float)
+    informacion = db.Column(db.Text)
     
 class Estanque(db.Model):
     __tablename__ = 'estanque'
@@ -65,6 +74,7 @@ class Estanque(db.Model):
     natalidad = db.Column(Integer)
     mortalidad = db.Column(Integer)
     Biometria = db.relationship('Biometria', backref=db.backref('Estanque', lazy=True))
+    WQ = db.relationship('WQ', backref=db.backref('Estanque', lazy=True))
     
     
 with app.app_context():
@@ -315,6 +325,22 @@ def consultarestanque():
 
     return jsonify(estanques_json)
     
+    
+    
+    
+@app.route('/WQ', methods=['POST'])
+def create_measurement():
+    data = request.get_json()
+    new_measurement = WQ(
+        nitrogeno=data['nitrogeno'],
+        oxigeno=data['oxigeno'],
+        sulfuro=data['sulfuro'],
+        nitratos=data['nitratos'],
+        informacion=data['informacion']
+    )
+    db.session.add(new_measurement)
+    db.session.commit()
+    return jsonify({'message': 'Measurement created successfully'})
     
 
     

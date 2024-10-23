@@ -21,7 +21,14 @@
     Informacion:Informacion
   } 
 
-  const enviardatos = axios.post('')
+  const enviardatos = async () => {
+    try {
+        const response = await axios.post('/measurements', datos);
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
     return (
       <div className="col">
@@ -35,7 +42,7 @@
           <Form value={nitratos} onChange={(e) => setNitratos(e.target.value)} placeholder="Niveles de Nitratos" />
           <Form value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la inpeccion visual del estanque" />
         </div>  
-        <div className="ingresar"><Boton   id="ingresar" className="ingresar" text="Ingresar"/></div>
+        <div className="ingresar"><Boton onClickCustom={enviardatos}  id="ingresar" className="ingresar" text="Ingresar"/></div>
       </div>
     );
   }
