@@ -56,12 +56,12 @@ class Biometria(db.Model):
 
 class WQ(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id_estanque = (Integer, ForeignKey('estanque.id_estanque'))
+    id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque'))
     nitrogeno = db.Column(db.Float)
     oxigeno = db.Column(db.Float)
     sulfuro = db.Column(db.Float)
     nitratos = db.Column(db.Float)
-    informacion = db.Column(db.Text)
+    informacion = db.Column(db.String(1000))
     
 class Estanque(db.Model):
     __tablename__ = 'estanque'
@@ -332,15 +332,28 @@ def consultarestanque():
 def create_measurement():
     data = request.get_json()
     new_measurement = WQ(
-        nitrogeno=data['nitrogeno'],
-        oxigeno=data['oxigeno'],
-        sulfuro=data['sulfuro'],
-        nitratos=data['nitratos'],
-        informacion=data['informacion']
+        id_estanque=data['idestanque'],
+        nitrogeno=data['Nitrogeno'],
+        oxigeno=data['Oxigeno'],
+        sulfuro=data['Sulfuro'],
+        nitratos=data['Nitratos'],
+        informacion=data['Informacion']
     )
     db.session.add(new_measurement)
     db.session.commit()
     return jsonify({'message': 'Measurement created successfully'})
     
 
+@app.route('/consultarwq', methods=['GET'])
+def consultarwq():
+    WaterQualities = WQ.query.join(Estanque, WQ.id == Estanque.id_estanque).all()
+
     
+    WQS = []
+    for WaterQuality in WaterQualities:
+        WQS.append({
+            "idwq":WaterQuality.id,
+            "idestanque":WaterQuality.id_estanque
+
+        })
+    return jsonify(WQS)

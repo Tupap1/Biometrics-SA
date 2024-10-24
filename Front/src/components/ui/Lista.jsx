@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function Lista({apiURL, value, onChange} ) {
+function Lista({apiURL, value, onChange,placeholder} ) {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function Lista({apiURL, value, onChange} ) {
 
   return (
     <div>
-    <select className='form-select' onChange={onChange} >
+    <select placeholder={placeholder} className='form-select' onChange={onChange} >
       {options.map((option) => (
         <option key={option.id} value={option.id}>
           {option.label}
