@@ -29,7 +29,8 @@ margin-top: 50px;
 }
 
 .logo2 img {
-
+  width: 241px;
+  filter: invert(100%);
   margin-bottom: 10px; 
 }
 
