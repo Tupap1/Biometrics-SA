@@ -346,14 +346,27 @@ def create_measurement():
 
 @app.route('/consultarwq', methods=['GET'])
 def consultarwq():
-    WaterQualities = WQ.query.join(Estanque, WQ.id == Estanque.id_estanque).all()
+    WaterQualities = WQ.query.join(Estanque, WQ.id_estanque == Estanque.id_estanque).all()
 
     
     WQS = []
     for WaterQuality in WaterQualities:
         WQS.append({
-            "idwq":WaterQuality.id,
-            "idestanque":WaterQuality.id_estanque
+            "id":WaterQuality.id,
+            "idestanque":WaterQuality.id_estanque,
+            "nombreEstanque":WaterQuality.Estanque.nombreEstanque,
 
         })
     return jsonify(WQS)
+
+
+@app.route('/wq/<int:wq_id>', methods=['PUT'])
+def actualizarwq(wq_id):
+    data = request.get_json()
+    wq = WQ.query.get(wq_id)
+    if wq:
+        wq.id_estanque = data['idestanque']
+        db.session.commit()
+        return jsonify({'message': 'WQ actualizada correctamente'}), 200
+    else:
+        return jsonify({'error': 'WQ no encontrada'}), 404
