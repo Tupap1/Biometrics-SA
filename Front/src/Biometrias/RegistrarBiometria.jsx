@@ -19,6 +19,8 @@ function RegistrarBiometria() {
   const [fecha, setFechaActual] = useState(new Date());
   const [hora, setHora] = useState(new Date());
   const [biomasa, setBiomasa] = useState("");
+  const [estanqueData, setEstanqueData] = useState("");
+
 
 
 
@@ -56,7 +58,9 @@ function RegistrarBiometria() {
     );
   }
 
+  const calcularbiomasa = () => {
 
+  }
 
 
   const handleAddBiometria = () => {
@@ -81,7 +85,7 @@ function RegistrarBiometria() {
     const promedioPeso = calcularPromedio(Pesos);
     const promedioLongitud = calcularPromedio(Longitudes);
 
-    const hola = "asd"
+
 
 
   const handleSubmit = async (e) => {
@@ -92,7 +96,8 @@ function RegistrarBiometria() {
       hora: hora,
       peso: promedioPeso,
       longitud: promedioLongitud,
-      tamano_muestra: muestra
+      tamano_muestra: muestra,
+      biomasa:biomasa
     };
 
     try {
@@ -112,7 +117,6 @@ function RegistrarBiometria() {
 
 
 
-  const [estanqueData, setEstanqueData] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -207,8 +211,8 @@ function RegistrarBiometria() {
         <option value="10">10%</option>          
       </select>
 
-      <Boton text="Enviar" onClickCustom={handleSubmit} />
-      <GetApiData apiURL={"http://127.0.0.1:5000/consultarbiometrias"}></GetApiData>
+      <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
+                  <h1>{estanqueData}</h1>
     </div>
   );
 }
