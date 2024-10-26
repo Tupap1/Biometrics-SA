@@ -10,10 +10,12 @@ import pescado from "/src/assets/fotopescao.png"
 function CrearPeces() {
   const [Raza, setRaza] = useState("");
   const [CantidadSemilla, setCantidadSemilla] = useState("");
+  const [unidad, setunidad] = useState("");
 
   const data = {
     Raza: Raza,
     cantidadSemilla: CantidadSemilla,
+    unidad:unidad
   };
 
   const Enviar = async (e) => {
@@ -51,9 +53,14 @@ function CrearPeces() {
           onChange={(e) => setRaza(e.target.value)}
         />
         <Form 
-          placeholder="Ingrese cantidad de semilla (KG)"
+          placeholder="Ingrese cantidad de semilla"
           value={CantidadSemilla}
           onChange={(e) => setCantidadSemilla(e.target.value)}
+        />
+        <Form 
+          placeholder="Ingresa la unidad"
+          value={unidad}
+          onChange={(e) => {setunidad(e.target.value); setunidad(e.target.value.toUpperCase());}}
         />
       </div>
       <div className="crear">

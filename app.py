@@ -27,8 +27,30 @@ migrate = Migrate(app, db)
 class peces(db.Model):
     id_pez = db.Column(db.Integer, primary_key = True)
     nombre_cientifico = db.Column (db.String(1000))
-    cantidadSemilla = db.Column (db.String(10))
+    cantidadSemilla = db.Column (db.Float)
+    unidad = db.Column (db.String(10))
     estanque = db.relationship('Estanque', backref=db.backref('peces', lazy=True))
+
+
+class alimento(db.Model):
+    __tablename__ = 'alimento'
+    
+    idAlimento = db.Column(db.Integer, primary_key = True)
+    NombreAlimento = db.Column (db.String(1000))
+    cantidad = db.Column (db.Float)
+    unidad = db.Column (db.String(10))
+    
+    
+class alimentacion(db.Model):
+    __tablename__ = 'alimentacion'
+    
+    idalimentacion = db.Column(db.Integer, primary_key = True)
+    idAlimento = db.Column(Integer, ForeignKey('alimento.idAlimento'))
+    id_estanque = db.Column(Integer, ForeignKey('estanque.id_estanque')) 
+    cantidad = db.Column(Float)
+    fecha = db.Column(Date) 
+    hora = db.Column(Time)
+     
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
@@ -40,6 +62,7 @@ class Usuario(db.Model):
     nuip = db.Column (db.INT, unique=True)
     rol = db.Column (db.Enum('Admin','Instructor','Aprendiz')) 
     contrasena = db.Column (db.VARCHAR(300))
+    
     
 class Biometria(db.Model):
     __tablename__ = 'biometria'
@@ -63,6 +86,7 @@ class WQ(db.Model):
     nitratos = db.Column(db.Float)
     informacion = db.Column(db.String(1000))
     
+    
 class Estanque(db.Model):
     __tablename__ = 'estanque'
 
@@ -75,6 +99,7 @@ class Estanque(db.Model):
     mortalidad = db.Column(Integer)
     Biometria = db.relationship('Biometria', backref=db.backref('Estanque', lazy=True))
     WQ = db.relationship('WQ', backref=db.backref('Estanque', lazy=True))
+    alimentacion = db.relationship('alimentacion', backref=db.backref('alimentacion', lazy=True))
     
     
 with app.app_context():
@@ -123,6 +148,7 @@ def signup():
         "email": nuevousuario.email
     })
 
+
 @app.route("/login", methods=["POST"])
 def login_user():
     try:
@@ -150,7 +176,7 @@ def login_user():
         print(f"Error during login: {e}")
         return jsonify({"error": "Internal server error"}), 500
         
-        
+   
 @app.route("/user")
 def user():
     id_user = session.get("user_id")
@@ -166,11 +192,11 @@ def user():
         })
     
     
-    
 @app.route("/logout")
 def logout():
     session.pop("user_id")
     return 200
+
 
 @app.route('/biometria', methods=['POST'])
 def agregar_biometria():
@@ -184,6 +210,7 @@ def agregar_biometria():
         peso=data['peso'],
         longitud=data['longitud'],
         tamano_muestra=data['tamano_muestra'],
+        cantidad_biomasa=data['biomasa']
     )
 
  
@@ -191,7 +218,6 @@ def agregar_biometria():
     db.session.commit()
 
     return jsonify({'mensaje': 'Datos de biometría agregados correctamente'}), 201
-
 
 
 @app.route('/consultarbiometrias', methods=['GET'])
@@ -210,11 +236,10 @@ def consultarbiometrias():
             "nombreEstanque":biometria.Estanque.nombreEstanque,
             "numeroPeces":biometria.Estanque.numeropeces,
             "peso":biometria.peso,
-            "longitud":biometria.longitud
+            "longitud":biometria.longitud,
+            "cantidad_biomasa":biometria.cantidad_biomasa
         })
     return jsonify(biometriasconsultadas)
-
-
 
 
 @app.route('/biometria/<int:id_biometria>', methods=['GET'])
@@ -232,7 +257,6 @@ def obtener_biometria(id_biometria):
         }), 200
     else:
         return jsonify({'mensaje': 'Biometría no encontrada'}), 404
-    
     
     
 @app.route('/biometria/<int:biometria_id>', methods=['PUT'])
@@ -253,12 +277,13 @@ def registrarpeces():
         if request:
             nombre_cientifico = request.json["Raza"]
             cantidadSemilla = request.json["cantidadSemilla"]
+            unidad = request.json["unidad"]
         else:
             return jsonify({"error": "Invalid content type"}), 400
         
 
         
-        CrearPeces = peces(nombre_cientifico = nombre_cientifico, cantidadSemilla = cantidadSemilla)
+        CrearPeces = peces(nombre_cientifico = nombre_cientifico, cantidadSemilla = cantidadSemilla, unidad = unidad)
         
         db.session.add(CrearPeces)
         db.session.commit()
@@ -268,17 +293,15 @@ def registrarpeces():
     })
         
         
-        
 @app.route("/consultarpeces", methods=["GET"])
 def consultarpeces():
     peces_data = peces.query.all()
     return jsonify([
-        {'label': pez.nombre_cientifico, 'cantidadSemilla': pez.cantidadSemilla, 'id': pez.id_pez}
+        {'label': pez.nombre_cientifico, 'cantidadSemilla': pez.cantidadSemilla, 'id': pez.id_pez,'unidad':pez.unidad}
         for pez in peces_data
     ])
                    
-                   
-                   
+                                  
 @app.route("/crearestanque", methods=["POST"])
 def crearestanque():
     if request:
@@ -326,8 +349,6 @@ def consultarestanque():
     return jsonify(estanques_json)
     
     
-    
-    
 @app.route('/WQ', methods=['POST'])
 def create_measurement():
     data = request.get_json()
@@ -370,3 +391,19 @@ def actualizarwq(wq_id):
         return jsonify({'message': 'WQ actualizada correctamente'}), 200
     else:
         return jsonify({'error': 'WQ no encontrada'}), 404
+    
+       
+@app.route('/crearalimento', methods=['POST'])
+def crearalimento():
+    data = request.get_json()
+    alimentonuevo = alimento(
+        NombreAlimento = data['nombrealimento'],
+        cantidad = data['cantidad'],
+        unidad = data['unidad']
+    )
+    db.session.add(alimentonuevo)
+    db.session.commit()
+    return jsonify({
+        'mensaje':'alimento creado con exito'
+    })
+    

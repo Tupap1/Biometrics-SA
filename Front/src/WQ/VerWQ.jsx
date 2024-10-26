@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Lista from '../components/ui/Lista';
-
+import Boton from '../components/ui/Boton';
 
 function VerWQ() {
 
@@ -101,6 +101,7 @@ function VerWQ() {
         </div>
         )
 }
+<Boton className='btn btn-primary' to='/WQ' text='+'></Boton>
     </div>
     </div>)
 }

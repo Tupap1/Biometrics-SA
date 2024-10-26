@@ -24,6 +24,17 @@ import RegistrarBiometria from "./Biometrias/RegistrarBiometria.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ui/Protectedroutes.jsx";
+import MenuInformes from "./Menus/MenuInformes.jsx";
+import RegistrarAlimentacion from "./Alimentacion/RegistrarAlimentacion.jsx";
+import InformesAlimentacion from "../Informes/InformesAlimentacion.jsx";
+import InformesEstanque from "../Informes/InformesEstanque.jsx";
+import InformesBiometrias from "../Informes/InformesBiometrias.jsx";
+import CrearAlimento from "../alimentos/CrearAlimento.jsx";
+import VerAlimentos from "../alimentos/VerAlimentos.jsx";
+import MenuAlimentos from "./Menus/MenuAlimentos.jsx";
+import VerAlimentacion from "./Alimentacion/VerAlimentacion.jsx"
+import MenuPeces from "./Menus/MenuPeces.jsx";
+import VerPeces from "./Peces/VerPeces.jsx";
 
 
 
@@ -94,6 +105,10 @@ function App() {
                   element={ <CrearPeces />}  
                 />
                 <Route 
+                  path="/MenuPeces" 
+                  element={ <MenuPeces />}  
+                />
+                <Route 
                   path="/Estanque" 
                   element={ <Estanque />} 
                 />
@@ -101,7 +116,52 @@ function App() {
                   path="/biometria/:id" 
                   element={ <Biometria />} 
                 />
-              </Routes>
+                <Route 
+                  path="/Informes" 
+                  element={ <MenuInformes />} 
+                />
+                <Route 
+                  path="/RegistrarAlimentacion" 
+                  element={ <RegistrarAlimentacion />} 
+                />
+                <Route 
+                  path="/InformesAlimentacion" 
+                  element={ <InformesAlimentacion />} 
+                />
+                <Route 
+                  path="/InformesBiometrias" 
+                  element={ <InformesBiometrias />} 
+                />
+                <Route 
+                  path="/InformesEstanque" 
+                  element={ <InformesEstanque />} 
+                />
+                <Route 
+                  path="/CrearAlimento" 
+                  element={ <CrearAlimento />} 
+                />        
+                <Route 
+                  path="/VerAlimento" 
+                  element={ <VerAlimentos />} 
+                />      
+                <Route 
+                  path="/RegistrarAlimentacion" 
+                  element={ <RegistrarAlimentacion />} 
+                />                 
+                <Route 
+                  path="/VerAlimentacion" 
+                  element={ <VerAlimentacion />} 
+                />
+                <Route 
+                  path="/MenuAlimentos" 
+                  element={ <MenuAlimentos />} 
+                /> 
+                <Route 
+                  path="/VerPeces" 
+                  element={ <VerPeces />} 
+                />                                         
+            </Routes>
+              
             </div>
       </BrowserRouter>  
   

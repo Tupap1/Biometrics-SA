@@ -65,13 +65,31 @@ function SideBar() {
                 width="16"
                 height="16"
               ></svg>
-              Estanque
+              Estanques
             </a>
           </li>
           <li>
             <a href="/MenuWQ" className="nav-link text-white">
               <svg className="bi pe-none me-2" width="16" height="16"></svg>
-              WQ
+              WQ's
+            </a>
+          </li>
+          <li>
+            <a href="/MenuPeces" className="nav-link text-white">
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
+              Peces
+            </a>
+          </li>
+          <li>
+            <a href="/MenuAlimentos" className="nav-link text-white">
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
+              Alimentos
+            </a>
+          </li>
+          <li>
+            <a href="/Informes" className="nav-link text-white">
+              <svg className="bi pe-none me-2" width="16" height="16"></svg>
+              Informes
             </a>
           </li>
           <li></li>

@@ -5,8 +5,8 @@ import Lista from '../components/ui/Lista';
 import Boton from '../components/ui/Boton';
 
 
-function VerBiometrias() {
-  const [biometrias, setBiometrias] = useState([]);
+function VerPeces() {
+  const [Datos, setDatos] = useState([]);
   const [estanque, setEstanque] = useState("");
   const [muestra,setMuestra] = useState("");
   const [biometriaSeleccionada, setBiometriaSeleccionada] = useState([estanque, muestra]);
@@ -14,11 +14,11 @@ function VerBiometrias() {
 
   const fetchBiometrias = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/consultarbiometrias');
-      setBiometrias(response.data);
+      const response = await axios.get('http://127.0.0.1:5000/consultarpeces');
+      setDatos(response.data);
     } catch (error) {
       console.error(error);
-      alert('Error al consultar biometrias');
+      alert('Error al consultar peces');
     }
   };
 
@@ -57,7 +57,7 @@ function VerBiometrias() {
 
   return (
     <div>
-      <h2>Biometrías</h2>
+      <h2>Peces</h2>
       <table className="table">
         <thead>
           <tr>
@@ -112,4 +112,4 @@ function VerBiometrias() {
   );
 }
 
-export default VerBiometrias;
+export default VerPeces;

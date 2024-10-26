@@ -14,13 +14,12 @@ function RegistrarBiometria() {
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [estanque, setEstanque] = useState("");
+  const [estanque, setEstanque] = useState(1);
   const [muestra, setMuestra] = useState("");
   const [fecha, setFechaActual] = useState(new Date());
   const [hora, setHora] = useState(new Date());
   const [biomasa, setBiomasa] = useState("");
-  const [estanqueData, setEstanqueData] = useState("");
-
+  const [estanqueData, setEstanqueData] = useState([]);
 
 
 
@@ -42,6 +41,8 @@ function RegistrarBiometria() {
   }
 
 
+
+
   function Hora() {
     useEffect(() => {
       const intervalo = setInterval(() => {
@@ -58,11 +59,12 @@ function RegistrarBiometria() {
     );
   }
 
-  const calcularbiomasa = () => {
-
-  }
 
 
+
+  
+  
+  
   const handleAddBiometria = () => {
     setPesos([...Pesos, parseFloat(peso)]);
     setLongitudes([...Longitudes, parseFloat(longitud)]);
@@ -70,20 +72,45 @@ function RegistrarBiometria() {
     setLongitud("");
 
   }
+ 
+  
+  
+    
+  const keyDown = (event) => {
+        if(event.key === 'Enter'){handleAddBiometria();}};
 
 
-      const keyDown = (event) => {
-        if(event.key === 'Enter'){handleAddBiometria();}
-        
-    };
+
 
   const calcularPromedio = (datos) => {
     const numeros = datos.filter((dato) => !isNaN(dato));
     if (numeros.length === 0) return 0;
     return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;};
 
-    const promedioPeso = calcularPromedio(Pesos);
-    const promedioLongitud = calcularPromedio(Longitudes);
+
+
+
+  const promedioPeso = calcularPromedio(Pesos);
+  const promedioLongitud = calcularPromedio(Longitudes);
+
+    
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/consultarestanque");
+      const matchingEstanque = response.data.find((est) => est.id_estanque === parseInt(estanque));
+      setEstanqueData(matchingEstanque);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+    
+     
+  const calcularbiomasa = () => {
+      fetchData()
+      const numeropecesestanque = estanqueData.numeropeces 
+      const biomasabiometria = parseInt(numeropecesestanque) * parseFloat(promedioPeso)
+      setBiomasa(biomasabiometria)
+  }
 
 
 
@@ -118,20 +145,15 @@ function RegistrarBiometria() {
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:5000/consultarestanque");
-        const matchingEstanque = response.data.find((est) => est.id === estanque);
-        setEstanqueData(matchingEstanque);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchData();
-    console.log(estanque)
-  }, [estanque]);
+
+
+
+  useEffect(() => {
+  }, []);
+
+
+
 
   return (
     <div className="main">
@@ -151,7 +173,7 @@ function RegistrarBiometria() {
                 placeholder="Ingresa el peso (gr)"
                 type="number"
                 value={peso}
-                onChange={(e) => setPeso(e.target.value)}
+                onChange={(e) => {setPeso(e.target.value); calcularbiomasa();}}
                 onKeyDown={keyDown}
                 autoFocus   
               />
@@ -203,7 +225,7 @@ function RegistrarBiometria() {
 
       <div>
         <label htmlFor="">Seleciona el estanque</label>
-        <Lista onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
+        <Lista onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa();} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
         <label htmlFor="">Seleciona el tamaño de la muestra</label>
       
       <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
@@ -212,8 +234,8 @@ function RegistrarBiometria() {
       </select>
 
       <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
-                  <h1>{estanqueData}</h1>
-    </div>
+      <h1>{biomasa}</h1>
+        </div>
   );
 }
 

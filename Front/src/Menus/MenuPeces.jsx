@@ -9,7 +9,7 @@ import pescado from "/src/assets/fotopescao.png";
 import "/src/Peces/crearpeces.css"
 
 
-function MenuInicio() {
+function MenuPeces() {
   const linklogo =
     "https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/logo.png";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,36 +53,24 @@ function MenuInicio() {
           <div
             class="row "
           >
-        <div id="pes">
-            <img id="fotopez" src={pescado} alt="" />
-          </div>
           <div id="volver">
             <Volver></Volver>
+          </div>
+        <div id="pes">
+            <img id="fotopez" src={pescado} alt="" />
           </div>
           </div>
           
   
-
+            <h1>Peces</h1>
           <div className="row">
             <div className="col">
-              <Boton className="boton" text="Biometrias" to="/VerBiometria" />
+              <Boton className="boton" text="Ver Peces" to="/VerPeces" />
             </div>
             <div className="col">
-              <Boton className="boton" text="WQ' s" to="/VerWQ" />
+              <Boton className="boton" text="Crear Peces" to="/CrearPeces" />
             </div>
-            <div className="col">
-              <Boton
-                className="boton"
-                text="Estanques"
-                to="/VerEstanques"
-              />
-            </div>
-            <div className="col">
-              <Boton className="boton" text="Peces" to="CrearPeces" />
-            </div>
-            <div className="col">
-              <Boton className="boton" text="Alimentos" to="/VerAlimento"/>
-            </div>
+
           </div>
         </div>
       </div>
@@ -90,4 +78,4 @@ function MenuInicio() {
   );
 }
 
-export default MenuInicio;
+export default MenuPeces;

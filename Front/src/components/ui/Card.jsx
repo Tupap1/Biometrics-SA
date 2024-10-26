@@ -34,7 +34,7 @@ function Card({apiURL ,text, textboton, title,info, text2, info2, link}) {
             {text} {dato[info]} 
             {text2} {dato[info2]}
           </p>
-          <Boton text={textboton} to={link}/>
+          <Boton className="btn btn-primary" text={textboton} to={link}/>
         </div>
       </div>
     ));
