@@ -60,7 +60,7 @@ function CrearAlimento() {
         <Form 
           placeholder="Ingrese la unidad de medida"
           value={Unidad}
-          onChange={(e) => setUnidad(e.target.value)}
+          onChange={(e) => {setUnidad(e.target.value); setUnidad(e.target.value.toUpperCase()) }}
         />
       </div>
       <h1>{Unidad}</h1>

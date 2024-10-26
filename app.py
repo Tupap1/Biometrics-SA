@@ -50,6 +50,7 @@ class alimentacion(db.Model):
     cantidad = db.Column(Float)
     fecha = db.Column(Date) 
     hora = db.Column(Time)
+    observaciones = db.Column(String(5000))
      
 
 class Usuario(db.Model):
@@ -300,6 +301,23 @@ def consultarpeces():
         {'label': pez.nombre_cientifico, 'cantidadSemilla': pez.cantidadSemilla, 'id': pez.id_pez,'unidad':pez.unidad}
         for pez in peces_data
     ])
+    
+    
+    
+    
+    
+@app.route('/peces/<int:id>', methods=['PUT'])
+def actualizarpez(id):
+    data = request.get_json()
+    pez = peces.query.get(id)
+    if pez:
+        pez.nombre_cientifico = data['nombrepez']
+        pez.cantidadSemilla = data['cantidadsemilla']
+        pez.unidad = data['unidad']
+        db.session.commit()
+        return jsonify({'message': 'pez actualizada correctamente'}), 200
+    else:
+        return jsonify({'error': 'pez no encontrada'}), 404
                    
                                   
 @app.route("/crearestanque", methods=["POST"])
@@ -406,4 +424,87 @@ def crearalimento():
     return jsonify({
         'mensaje':'alimento creado con exito'
     })
+
+
+@app.route('/veralimentos', methods=['GET'])
+def veralimentos():
+    Alimentos = alimento.query.all()
+
     
+    alimentos = []
+    for alimentounico in Alimentos:
+        alimentos.append({
+            "id":alimentounico.idAlimento,
+            "nombrealimento":alimentounico.NombreAlimento,
+            "cantidad":alimentounico.cantidad,
+            "unidad":alimentounico.unidad,
+            "label":alimentounico.NombreAlimento
+
+
+        })
+    return jsonify(alimentos)
+
+
+
+@app.route('/alimento/<int:id>', methods=['PUT'])
+def actualizaralimento(id):
+    data = request.get_json()
+    alimentounico = alimento.query.get(id)
+    if alimentounico:
+        alimentounico.NombreAlimento = data['nombrealimento']
+        alimentounico.cantidad = data['cantidad']
+        alimentounico.unidad = data['unidad']
+        db.session.commit()
+        return jsonify({'message': 'Alimento actualizado correctamente'}), 200
+    else:
+        return jsonify({'error': 'Alimento no encontrado'}), 404
+    
+    
+    
+    
+@app.route('/crearalimentacion', methods=['POST'])
+def crearalimentacion():
+    data = request.get_json()
+    alimentacionnueva = alimentacion(
+        idAlimento = data['idAlimento'],
+        id_estanque = data['id_estanque'],
+        cantidad = data['cantidad'],
+        fecha = data['fecha'],
+        hora = data['hora'],
+        observaciones = data['observaciones']
+    )
+    db.session.add(alimentacionnueva)
+    db.session.commit()
+    return jsonify({
+        'mensaje':'alimentacion creada con exito'
+    })
+    
+    
+    
+@app.route('/veralimentacion')
+def veralimentacion():
+    alimentaciones = alimentacion.query.join(alimento, alimentacion.idAlimento == alimento.idAlimento) \
+                                    .join(Estanque, alimentacion.id_estanque == Estanque.id_estanque) \
+                                    .add_columns(alimentacion.idalimentacion, Estanque.nombreEstanque, alimento.unidad,alimento.NombreAlimento, 
+                                                 alimentacion.cantidad, alimentacion.fecha, alimentacion.hora, alimentacion.observaciones, alimentacion.id_estanque, alimentacion.idalimentacion) \
+                                    .all()
+
+
+    Alimentacionesarray = []
+    for Alimentacion in alimentaciones:
+        Alimentacionesarray.append({
+            "id":Alimentacion.idalimentacion,
+            "idestanque":Alimentacion.id_estanque,
+            "idalimentacion":Alimentacion.idalimentacion,
+            "nombreestanque": Alimentacion.nombreEstanque,
+            "nombreAlimento":Alimentacion.NombreAlimento,
+            "cantidad":Alimentacion.cantidad,
+            "fecha":str(Alimentacion.fecha),
+            "hora":str(Alimentacion.hora),
+            "observaciones":Alimentacion.observaciones,
+            "unidad":Alimentacion.unidad
+            
+            
+            
+        })
+    return jsonify(Alimentacionesarray)

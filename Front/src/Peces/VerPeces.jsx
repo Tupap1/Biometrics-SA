@@ -11,6 +11,7 @@ function VerPeces() {
   const [nombrepez, setnombrepez] = useState("");
   const [cantidadsemilla,setcantidadsemilla] = useState("");
   const [unidad, setUnidad]= useState("")
+  const [idpez, setidpez]  = useState ("")
   const [PezSeleccionado, setPezSeleccionado] = useState([cantidadsemilla, nombrepez, unidad]);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -25,12 +26,14 @@ function VerPeces() {
   };
 
   const fetchData = async () => {
+    if (!PezSeleccionado) return;
     try {
       const response = await axios.get("http://127.0.0.1:5000/consultarpeces");
       const matchingpez = response.data.find((pez) => pez.id === parseInt(PezSeleccionado));
-      setUnidad(pez.unidad);
-      setnombrepez(pez.label);
-      setcantidadsemilla(pez.cantidadSemilla);
+      console.log(matchingpez)
+      setUnidad(PezSeleccionado.unidad)
+      setcantidadsemilla(PezSeleccionado.cantidadSemilla)
+      setnombrepez(PezSeleccionado.label)
     } catch (error) {
       console.error(error);
     }
@@ -39,11 +42,19 @@ function VerPeces() {
 
   useEffect(() => {
     fetchDatos();
-  }, []);
+    if (PezSeleccionado) {
+      fetchData();
+    }
+  }, [PezSeleccionado]);
+
 
   const handleEdit = (dato) => {
+    setidpez(dato.id);
     setPezSeleccionado(dato);
+    fetchData();
     setIsEditing(true);
+    console.log("editando")
+    console.log(idpez)
   };
 
   const pezdata = {
@@ -54,7 +65,7 @@ function VerPeces() {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/biometria/${biometriaSeleccionada.id}`, Biometria);
+      const response = await axios.put(`http://127.0.0.1:5000/peces/${PezSeleccionado.id}`, pezdata);
       console.log(response);
       alert('Datos del pez editados con éxito');
       setIsEditing(false);
@@ -69,6 +80,10 @@ function VerPeces() {
     setPezSeleccionado(null);
     setIsEditing(false);
   };
+
+
+
+
 
   return (
     <div>
@@ -90,8 +105,7 @@ function VerPeces() {
               <td>{dato.cantidadSemilla}{dato.unidad}</td> 
   
               <td>
-                <Boton className='btn btn-primary' text='editar' onClickCustom={"hola"}></Boton>
-                <button onClick={() => {handleEdit(dato); fetchData();}}>Editar</button>
+                <Boton className='btn btn-primary' text='editar' onClickCustom={(e) => { fetchData(); handleEdit(dato); }}></Boton>
                 <Boton text='Detalles'></Boton>
               </td>
             </tr>
@@ -103,7 +117,9 @@ function VerPeces() {
       {isEditing && (
         <div>
           <h2>Editando Datos pez {PezSeleccionado.id}</h2>
-            <Form placeholder='Nombrepez'></Form>
+            <Form value={nombrepez} onChange={(e) => setnombrepez(e.target.value)} placeholder='Nombre pez'></Form>
+            <Form value={cantidadsemilla} onChange={(e) => setcantidadsemilla(e.target.value)} placeholder='Cantidad semilla'></Form>
+            <Form placeholder='Unidad' value={unidad} onChange={(e) => {setUnidad(e.target.value); setUnidad(e.target.value.toUpperCase())}}></Form>
 
           
           <button onClick={handleSaveEdit}>Guardar</button>
@@ -111,7 +127,7 @@ function VerPeces() {
         </div>
       )}
 
-      <Boton className='btn btn-primary' to='/Biometria' text='+'></Boton>
+      <Boton className='btn btn-primary' to='/Crearpeces' text='+'></Boton>
     </div>
   );
 }

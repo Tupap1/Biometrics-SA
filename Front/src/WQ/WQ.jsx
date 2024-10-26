@@ -4,7 +4,6 @@
   import Lista from "../components/ui/Lista";
   import Boton from "../components/ui/Boton";
   import { useState } from "react";
-  //import { DataRouterStateContext } from "react-router/dist/lib/context";
   import axios from "axios";
 
   function WQ() {
