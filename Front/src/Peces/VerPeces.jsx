@@ -5,14 +5,16 @@ import Lista from '../components/ui/Lista';
 import Boton from '../components/ui/Boton';
 
 
+
 function VerPeces() {
   const [Datos, setDatos] = useState([]);
-  const [estanque, setEstanque] = useState("");
-  const [muestra,setMuestra] = useState("");
-  const [biometriaSeleccionada, setBiometriaSeleccionada] = useState([estanque, muestra]);
+  const [nombrepez, setnombrepez] = useState("");
+  const [cantidadsemilla,setcantidadsemilla] = useState("");
+  const [unidad, setUnidad]= useState("")
+  const [PezSeleccionado, setPezSeleccionado] = useState([cantidadsemilla, nombrepez, unidad]);
   const [isEditing, setIsEditing] = useState(false);
 
-  const fetchBiometrias = async () => {
+  const fetchDatos = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5000/consultarpeces');
       setDatos(response.data);
@@ -22,36 +24,49 @@ function VerPeces() {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/consultarpeces");
+      const matchingpez = response.data.find((pez) => pez.id === parseInt(PezSeleccionado));
+      setUnidad(pez.unidad);
+      setnombrepez(pez.label);
+      setcantidadsemilla(pez.cantidadSemilla);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   useEffect(() => {
-    fetchBiometrias();
+    fetchDatos();
   }, []);
 
-  const handleEdit = (biometria) => {
-    setBiometriaSeleccionada(biometria);
+  const handleEdit = (dato) => {
+    setPezSeleccionado(dato);
     setIsEditing(true);
   };
 
-  const Biometria = {
-    idestanque:estanque,
-    tamanomuestra:muestra
+  const pezdata = {
+    nombrepez:nombrepez,
+    cantidadsemilla:cantidadsemilla,
+    unidad:unidad
   }
 
   const handleSaveEdit = async () => {
     try {
       const response = await axios.put(`http://127.0.0.1:5000/biometria/${biometriaSeleccionada.id}`, Biometria);
       console.log(response);
-      alert('Biometria editada con éxito');
+      alert('Datos del pez editados con éxito');
       setIsEditing(false);
-      fetchBiometrias();
+      fetchDatos();
     } catch (error) {
       console.error(error);
-      alert('Error al editar biometria');
+      alert('Error al editar datos del pez');
     }
   };
 
   const handleCancelEdit = () => {
-    setBiometriaSeleccionada(null);
+    setPezSeleccionado(null);
     setIsEditing(false);
   };
 
@@ -62,27 +77,21 @@ function VerPeces() {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Estanque</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Peso</th>
-            <th>Longitud</th>
-            <th>Biomasa</th>
+            <th>Nombre pez</th>
+            <th>cantidad de semilla</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {biometrias.map((biometria) => (
-            <tr key={biometria.id}>
-              <td>{biometria.id}</td>
-              <td>{biometria.nombreEstanque}</td>
-              <td>{biometria.fecha}</td>
-              <td>{biometria.hora}</td>
-              <td>{biometria.peso}</td>
-              <td>{biometria.longitud}</td>
-              <td>{biometria.cantidad_biomasa}</td>
+          {Datos.map((dato) => (
+            <tr key={dato.id}>
+              <td>{dato.id}</td>
+              <td>{dato.label}</td>
+              <td>{dato.cantidadSemilla}{dato.unidad}</td> 
+  
               <td>
-                <button onClick={() => handleEdit(biometria)}>Editar</button>
+                <Boton className='btn btn-primary' text='editar' onClickCustom={"hola"}></Boton>
+                <button onClick={() => {handleEdit(dato); fetchData();}}>Editar</button>
                 <Boton text='Detalles'></Boton>
               </td>
             </tr>
@@ -93,14 +102,9 @@ function VerPeces() {
 
       {isEditing && (
         <div>
-          <h2>Editando Biometria {biometriaSeleccionada.id}</h2>
-          <label htmlFor="">Seleciona el nuevo estanque</label>
-          <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
-          <label htmlFor="">Seleciona el tamaño de la muestra</label>
-          <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
-        <option value="5">5%</option>
-        <option value="10">10%</option>          
-      </select>
+          <h2>Editando Datos pez {PezSeleccionado.id}</h2>
+            <Form placeholder='Nombrepez'></Form>
+
           
           <button onClick={handleSaveEdit}>Guardar</button>
           <button onClick={handleCancelEdit}>Cancelar</button>
