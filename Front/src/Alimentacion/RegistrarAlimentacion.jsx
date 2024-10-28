@@ -1,5 +1,5 @@
 import React, { useTransition } from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Boton from '../components/ui/Boton'
 import Form from '../components/ui/Form'
 import Lista from '../components/ui/Lista'
@@ -11,8 +11,69 @@ function RegistrarAlimentacion() {
   const [Informacion, setInformacion] = useState("");
   const [cantidad, setcantidad] = useState("");
   const [fecha, setfecha] = useState("");
+  const [alimentodisponible, setAlimentodisponible] = useState("")
+  const [unidad, setUnidadalimento] = useState("")
   const [hora, sethora] = useState("");
+  const [cargando, setCargando] = useState(false);
+  
 
+  function CapturarFecha({}) {
+    const [fechaActual, setFechaActual] = useState(new Date());
+  
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        setFechaActual(new Date());
+        setfecha(fechaActual)
+      }, 1000); 
+  
+      return () => clearInterval(intervalo);
+    }, []);
+  
+    return;
+  }
+
+
+  function Reloj() {
+    const [hora, setHora] = useState(new Date());
+  
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        setHora(new Date());
+        sethora(hora)
+      }, 1000);
+  
+      return () => clearInterval(intervalo);
+    }, []);
+  
+    return;
+  }
+
+
+  const consultarcantidadalimento = async () => {
+    setCargando(true);
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/veralimentos");
+      const matchingalimento = response.data.find((ali) => ali.id === parseInt(Alimento));
+
+      if (matchingalimento) {
+        setAlimentodisponible(matchingalimento.cantidad);
+        setUnidadalimento(matchingalimento.unidad);
+      } else {
+        console.error(`Alimento con ID ${Alimento} no encontrado`);
+      }
+    } catch (error) {
+      console.error('Error al consultar la cantidad de alimento:', error);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+
+  useEffect(() => {
+    if (Alimento) {
+      consultarcantidadalimento();
+    }
+  }, [Alimento]);
 
   const datos = {
     id_estanque:Estanque,
@@ -44,11 +105,17 @@ function RegistrarAlimentacion() {
     <div>
       <h1>Registar alimentacion</h1>
       <label htmlFor="">Seleciona el estanque de la alimentacion</label>
-      <Lista onChange={(e) => {setEstanque (e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+      <Lista placeholder={"seleciona el estanque"} onChange={(e) => {setEstanque (e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
       <label htmlFor="">Seleciona el tipo de alimento</label>
-      <Lista onChange={(e) => {setAlimento (e.target.value); } } apiURL="http://127.0.0.1:5000/veralimentos"></Lista>
-      <Form type='number' value={cantidad} onChange={(e) => setcantidad(e.target.value)} placeholder='Ingresa la cantidad de alimento distribuida'></Form>
-      <textarea class="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la jornada de alimencaion" rows="3"></textarea>
+      <Lista onChange={(e) => {setAlimento (e.target.value); consultarcantidadalimento(e.target.value); } } apiURL="http://127.0.0.1:5000/veralimentos"></Lista>
+
+      <div>
+
+      {cargando && <p>Cargando...</p>}
+      {cantidad && <p>Cantidad disponible: {alimentodisponible} {unidad}</p>}
+    </div>
+      <Form min={"0"} max={alimentodisponible} type='number' value={cantidad} onChange={(e) => setcantidad(e.target.value)} placeholder='Ingresa la cantidad de alimento distribuida'  ></Form>
+      <textarea className="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la jornada de alimencaion" rows="3"></textarea>
       <Boton text='Crear Alimentacion' className='btn btn-primary' onClickCustom={enviardatos}></Boton>
     </div>
   )

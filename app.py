@@ -432,13 +432,14 @@ def veralimentos():
 
     
     alimentos = []
-    for alimentounico in Alimentos:
+    for alimentacionunica in Alimentos:
         alimentos.append({
-            "id":alimentounico.idAlimento,
-            "nombrealimento":alimentounico.NombreAlimento,
-            "cantidad":alimentounico.cantidad,
-            "unidad":alimentounico.unidad,
-            "label":alimentounico.NombreAlimento
+            "id":alimentacionunica.idAlimento,
+            "nombrealimento":alimentacionunica.NombreAlimento,
+            "cantidad":alimentacionunica.cantidad,
+            "unidad":alimentacionunica.unidad,
+            "label":alimentacionunica.NombreAlimento,
+            "info":alimentacionunica.cantidad
 
 
         })
@@ -449,11 +450,11 @@ def veralimentos():
 @app.route('/alimento/<int:id>', methods=['PUT'])
 def actualizaralimento(id):
     data = request.get_json()
-    alimentounico = alimento.query.get(id)
-    if alimentounico:
-        alimentounico.NombreAlimento = data['nombrealimento']
-        alimentounico.cantidad = data['cantidad']
-        alimentounico.unidad = data['unidad']
+    alimentacionunica = alimento.query.get(id)
+    if alimentacionunica:
+        alimentacionunica.NombreAlimento = data['nombrealimento']
+        alimentacionunica.cantidad = data['cantidad']
+        alimentacionunica.unidad = data['unidad']
         db.session.commit()
         return jsonify({'message': 'Alimento actualizado correctamente'}), 200
     else:
@@ -508,3 +509,19 @@ def veralimentacion():
             
         })
     return jsonify(Alimentacionesarray)
+
+
+@app.route('/alimentaciones/<int:id>', methods=['PUT'])
+def actualizaralimentaciones(id):
+    data = request.get_json()
+    alimentacionunica = alimentacion.query.get(id)
+    if alimentacionunica:
+        alimentacionunica.idAlimento = data['nombrealimento']
+        alimentacionunica.id_estanque = data['estanque']
+        alimentacionunica.cantidad = data['cantidad']
+        alimentacionunica.unidad = data['unidad']
+        alimentacionunica.observaciones = data['observaciones']
+        db.session.commit()
+        return jsonify({'message': 'Alimento actualizado correctamente'}), 200
+    else:
+        return jsonify({'error': 'Alimento no encontrado'}), 404

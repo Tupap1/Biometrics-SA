@@ -9,10 +9,12 @@ import Lista from '../components/ui/Lista';
 function VerAlimentacion() {
   const [Datos, setDatos] = useState([]);
   const [nombrealimento, setnombrealimento] = useState("");
+  const[Observaciones, setObservaciones] = useState("")
+  const [Estanque, setEstanque] = useState("");
   const [cantidad,setcantidad] = useState("");
   const [unidad, setUnidad]= useState("")
   const [idalimento, setidalimento]  = useState ("")
-  const [alimentoseleccionado, setalimentoseleccionado] = useState([cantidad, nombrealimento, unidad]);
+  const [alimentacionseleccionada, setalimentoseleccionado] = useState([cantidad, nombrealimento, unidad]);
   const [isEditing, setIsEditing] = useState(false);
 
   const fetchDatos = async () => {
@@ -26,14 +28,15 @@ function VerAlimentacion() {
   };
 
   const fetchData = async () => {
-    if (!alimentoseleccionado) return;
+    if (!alimentacionseleccionada) return;
     try {
       const response = await axios.get("http://127.0.0.1:5000/veralimentacion");
-      const matchingalimento = response.data.find((pez) => pez.id === parseInt(alimentoseleccionado));
+      const matchingalimento = response.data.find((ali) => ali.id === parseInt(alimentacionseleccionada));
       console.log(matchingalimento)
-      setUnidad(alimentoseleccionado.unidad)
-      setcantidad(alimentoseleccionado.cantidad)
-      setnombrealimento(alimentoseleccionado.nombrealimento)
+      setUnidad(alimentacionseleccionada.unidad)
+      setcantidad(alimentacionseleccionada.cantidad)
+      setnombrealimento(alimentacionseleccionada.nombreAlimento)
+      setObservaciones(alimentacionseleccionada.observaciones)
     } catch (error) {
       console.error(error);
     }
@@ -42,10 +45,10 @@ function VerAlimentacion() {
 
   useEffect(() => {
     fetchDatos();
-    if (alimentoseleccionado) {
+    if (alimentacionseleccionada) {
       fetchData();
     }
-  }, [alimentoseleccionado]);
+  }, [alimentacionseleccionada]);
 
 
   const handleEdit = (dato) => {
@@ -58,21 +61,23 @@ function VerAlimentacion() {
   };
 
   const alimentodata = {
-    nombrealimento:nombrealimento,
+    nombrealimento:parseInt(nombrealimento) ,
     cantidad:cantidad,
-    unidad:unidad
+    unidad:unidad,
+    estanque:parseInt(Estanque) ,
+    observaciones:Observaciones
   }
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/alimento/${alimentoseleccionado.id}`, alimentodata);
+      const response = await axios.put(`http://127.0.0.1:5000/alimentaciones/${alimentacionseleccionada.id}`, alimentodata);
       console.log(response);
-      alert('Aliemento editado con éxito');
+      alert('Alimentacion editada con éxito');
       setIsEditing(false);
       fetchDatos();
     } catch (error) {
       console.error(error);
-      alert('Error al editar alimento');
+      alert('Error al editar alimentacion');
     }
   };
 
@@ -93,7 +98,10 @@ function VerAlimentacion() {
           <tr>
             <th>ID</th>
             <th>Estanque</th>
+            <th>Alimento</th>
             <th>Cantidad</th>
+            <th>fecha</th>
+            <th>hora</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -102,7 +110,10 @@ function VerAlimentacion() {
             <tr key={dato.id}>
               <td>{dato.id}</td>
               <td>{dato.nombreestanque}</td>
+              <td>{dato.nombreAlimento}</td>
               <td>{dato.cantidad} {dato.unidad}</td> 
+              <td>{dato.fecha}</td>
+              <td>{dato.hora}</td>
   
               <td>
                 <Boton className='btn btn-primary' text='editar' onClickCustom={(e) => { fetchData(); handleEdit(dato); }}></Boton>
@@ -115,18 +126,24 @@ function VerAlimentacion() {
 
       {isEditing && (
         <div>
-          <h2>Editando Alimento "{alimentoseleccionado.nombrealimento}"</h2>
-            <Form value={nombrealimento} onChange={(e) => setnombrealimento(e.target.value)} placeholder='Nombre Alimento'></Form>
+          <h2>Editando Alimento "{alimentacionseleccionada.id}"</h2>
+          <label htmlFor="">Selecciona el estanque</label>
+          <Lista onChange={(e) => {setEstanque (e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+          <label htmlFor="">Selecciona el alimento</label>
+          <Lista value={nombrealimento} onChange={(e) => setnombrealimento(e.target.value)} apiURL={"http://127.0.0.1:5000/veralimentos"}></Lista>
+
             <Form value={cantidad} onChange={(e) => setcantidad(e.target.value)} placeholder='Cantidad Alimento'></Form>
             <Form placeholder='Unidad' value={unidad} onChange={(e) => {setUnidad(e.target.value); setUnidad(e.target.value.toUpperCase())}}></Form>
+            <textarea className='form-control' value={Observaciones} onChange={(e) => setObservaciones(e.target.value)}></textarea>
 
           
           <button onClick={handleSaveEdit}>Guardar</button>
           <button onClick={handleCancelEdit}>Cancelar</button>
         </div>
-      )}
 
-      <Boton className='btn btn-primary' to='/CrearAlimento' text='+'></Boton>
+              )}
+
+      <Boton className='btn btn-primary' to='/RegistrarAlimentacion' text='+'></Boton>
     </div>
   );
 }

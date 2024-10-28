@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
-function Lista({apiURL, value, onChange,placeholder} ) {
+
+function Lista({ apiURL, value, onChange }) {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -13,19 +12,20 @@ function Lista({apiURL, value, onChange,placeholder} ) {
     };
 
     fetchData();
-  }, []);
+  }, [apiURL]);
 
 
   return (
-    <div>
-    <select placeholder={placeholder} className='form-select' onChange={onChange} >
-      {options.map((option) => (
-        <option key={option.id} value={option.id}>
-          {option.label}
-        </option>
-        
-      ))}
-    </select>
+    <div className='lista-container'>
+      <select value={value} onChange={onChange} className='form-select'>
+        {options.map((option) => (
+          <option key={option.id} value={option.id}> 
+            {option.label} 
+          </option>
+        ))}
+      </select>
+
+
     </div>
   );
 }
