@@ -81,7 +81,19 @@ function VerAlimentos() {
     setIsEditing(false);
   };
 
-
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro de eliminar este registro?")) {
+      try {
+        await axios.delete(`http://127.0.0.1:5000/borraralimento/${id}`);
+        alert("Alimento eliminado con éxito");
+        fetchDatos();
+        setIsEditing(false)
+      } catch (error) {
+        console.error(error);
+        alert("Error al eliminar el alimento");
+      }
+    }
+  };
 
 
 
@@ -121,8 +133,9 @@ function VerAlimentos() {
             <Form placeholder='Unidad' value={unidad} onChange={(e) => {setUnidad(e.target.value); setUnidad(e.target.value.toUpperCase())}}></Form>
 
           
-          <button onClick={handleSaveEdit}>Guardar</button>
-          <button onClick={handleCancelEdit}>Cancelar</button>
+          <button className='btn btn-primary' onClick={handleSaveEdit}>Guardar</button>
+          <button className='btn btn-primary' onClick={handleCancelEdit}>Cancelar</button>
+          <Boton className="btn btn-danger"    text="eliminar"  onClickCustom={() => handleDelete(alimentoseleccionado.id)}></Boton>
         </div>
       )}
 

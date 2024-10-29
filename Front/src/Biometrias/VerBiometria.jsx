@@ -23,6 +23,21 @@ function VerBiometrias() {
   };
 
 
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro de eliminar este registro?")) {
+      try {
+        await axios.delete(`http://127.0.0.1:5000/borrarbiometria/${id}`);
+        alert("Biometria eliminada con éxito");
+        fetchBiometrias();
+        setIsEditing(false);
+      } catch (error) {
+        console.error(error);
+        alert("Error al eliminar la Biometria");
+      }
+    }
+  };
+
+
   useEffect(() => {
     fetchBiometrias();
   }, []);
@@ -82,8 +97,7 @@ function VerBiometrias() {
               <td>{biometria.longitud}</td>
               <td>{biometria.cantidad_biomasa}</td>
               <td>
-                <button onClick={() => handleEdit(biometria)}>Editar</button>
-                <Boton text='Detalles'></Boton>
+                <button className='btn btn-primary' onClick={() => handleEdit(biometria)}>Editar</button>
               </td>
             </tr>
           ))}
@@ -104,6 +118,7 @@ function VerBiometrias() {
           
           <button onClick={handleSaveEdit}>Guardar</button>
           <button onClick={handleCancelEdit}>Cancelar</button>
+          <Boton className="btn btn-danger"  text="eliminar" onClickCustom={() => handleDelete(biometriaSeleccionada.id)}></Boton>
         </div>
       )}
 

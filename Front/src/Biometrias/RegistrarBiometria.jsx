@@ -16,53 +16,25 @@ function RegistrarBiometria() {
   const [longitud, setLongitud] = useState("");
   const [estanque, setEstanque] = useState(1);
   const [muestra, setMuestra] = useState("");
-  const [fecha, setFechaActual] = useState(new Date());
-  const [hora, setHora] = useState(new Date());
-  const [biomasa, setBiomasa] = useState("");
+  const [fecha, setfecha] = useState("");
+  const [hora, setHora] = useState("");
+  const [biomasa, setBiomasa] = useState(0);
   const [estanqueData, setEstanqueData] = useState([]);
 
 
-
-
-  function Fecha({}) { 
-    useEffect(() => {
-      const intervalo = setInterval(() => {
-        setFechaActual(new Date());
-      }, 1000); 
   
-      return () => clearInterval(intervalo);
-    }, []);
-  
-    return (
-      <div>
-        {fecha.toLocaleDatetimeString()}
-      </div>
-    );
-  }
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      const fechaactual = (new Date().toLocaleDateString());
 
+      const [dia, mes, año] = fechaactual.split('-');
+      const fechaFormateada = `${año}:${mes}:${dia}`
+      setfecha(fechaFormateada)
+      setHora(new Date().toLocaleTimeString());
+    }, 1000); 
 
-
-
-  function Hora() {
-    useEffect(() => {
-      const intervalo = setInterval(() => {
-        setHora(new Date());
-      }, 1000);
-  
-      return () => clearInterval(intervalo);
-    }, []);
-  
-    return (
-      <div>
-        {hora.toLocaleTimeString()}
-      </div>
-    );
-  }
-
-
-
-
-  
+    return () => clearInterval(intervalo);
+  }, []);
   
   
   const handleAddBiometria = () => {
@@ -73,21 +45,15 @@ function RegistrarBiometria() {
 
   }
  
-  
-  
     
   const keyDown = (event) => {
         if(event.key === 'Enter'){handleAddBiometria();}};
-
-
 
 
   const calcularPromedio = (datos) => {
     const numeros = datos.filter((dato) => !isNaN(dato));
     if (numeros.length === 0) return 0;
     return numeros.reduce((total, valor) => total + valor, 0) / numeros.length;};
-
-
 
 
   const promedioPeso = calcularPromedio(Pesos);
@@ -108,10 +74,10 @@ function RegistrarBiometria() {
   const calcularbiomasa = () => {
       fetchData()
       const numeropecesestanque = estanqueData.numeropeces 
-      const biomasabiometria = parseInt(numeropecesestanque) * parseFloat(promedioPeso)
-      setBiomasa(biomasabiometria)
+      const biomasabiometria = (parseFloat(numeropecesestanque) * parseFloat(promedioPeso))
+      setBiomasa(parseFloat(biomasabiometria))
+      console.log("biomasaaa")
   }
-
 
 
 
@@ -145,16 +111,6 @@ function RegistrarBiometria() {
 
 
 
-
-
-
-
-  useEffect(() => {
-  }, []);
-
-
-
-
   return (
     <div className="main">
       <div className="row mt-3 mx-auto">
@@ -173,7 +129,7 @@ function RegistrarBiometria() {
                 placeholder="Ingresa el peso (gr)"
                 type="number"
                 value={peso}
-                onChange={(e) => {setPeso(e.target.value); calcularbiomasa();}}
+                onChange={(e) => {setPeso(e.target.value); calcularbiomasa(e.target.value);}}
                 onKeyDown={keyDown}
                 autoFocus   
               />
@@ -219,13 +175,14 @@ function RegistrarBiometria() {
       </div>
 
       <div>
-        <p>Promedio de peso: {promedioPeso.toFixed(2)}</p>
-        <p>Promedio de longitud: {promedioLongitud.toFixed(2)}</p>
+        <p>Promedio de peso: {promedioPeso.toFixed(2)} gr</p>
+        <p>Promedio de longitud: {promedioLongitud.toFixed(2)} mm</p>
+        <p>Biomasa: {biomasa.toFixed(2)} gr</p>
       </div>
 
       <div>
         <label htmlFor="">Seleciona el estanque</label>
-        <Lista onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa();} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
+        <Lista onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa(e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
         <label htmlFor="">Seleciona el tamaño de la muestra</label>
       
       <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
@@ -234,7 +191,7 @@ function RegistrarBiometria() {
       </select>
 
       <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
-      <h1>{biomasa}</h1>
+                  <h1>{fecha}</h1>
         </div>
   );
 }

@@ -3,8 +3,10 @@
   import "../components/styles/WQ.css";
   import Lista from "../components/ui/Lista";
   import Boton from "../components/ui/Boton";
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
   import axios from "axios";
+
+
 
   function WQ() {
 
@@ -14,6 +16,27 @@
   const [Sulfuro, setSulfuro] = useState("")
   const [nitratos, setNitratos] = useState("")
   const [Informacion, setInformacion] = useState("")
+  const [hora, setHora] = useState("");
+  const [fecha, setfecha] = useState("");
+
+
+
+  
+    useEffect(() => {
+      const intervalo = setInterval(() => {
+        const fechaactual = (new Date().toLocaleDateString());
+
+        const [dia, mes, año] = fechaactual.split('-');
+        const fechaFormateada = `${año}:${mes}:${dia}`
+        setfecha(fechaFormateada)
+        setHora(new Date().toLocaleTimeString());
+      }, 1000); 
+  
+      return () => clearInterval(intervalo);
+    }, []);
+  
+
+
 
   const datos ={ 
     idestanque:estanque,
@@ -21,7 +44,10 @@
     Oxigeno: Oxigeno,
     Sulfuro:Sulfuro,
     Nitratos:nitratos,
-    Informacion:Informacion
+    Informacion:Informacion,
+    hora:hora,
+    fecha:fecha
+
   } 
 
   const enviardatos = async () => {
@@ -52,9 +78,11 @@
           <Form value={Oxigeno} onChange={(e) => setOxigeno(e.target.value)} placeholder="Niveles de Oxigeno" />
           <Form value={Sulfuro} onChange={(e) => setSulfuro(e.target.value)} placeholder="Niveles de Sulfuro" />
           <Form value={nitratos} onChange={(e) => setNitratos(e.target.value)} placeholder="Niveles de Nitratos" />
-          <textarea class="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la inpeccion visual del estanque" rows="3"></textarea>
+          <textarea className="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la inpeccion visual del estanque" rows="3"></textarea>
         </div>  
         <div className="ingresar"><Boton onClickCustom={enviardatos}  id="ingresar" className="ingresar" text="Ingresar"/></div>
+        <h1>{fecha}</h1>
+        <h1>{hora}</h1>
       </div>
     );
   }

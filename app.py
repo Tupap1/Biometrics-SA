@@ -11,6 +11,7 @@ from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_en
 from sqlalchemy.orm import declarative_base
 
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
@@ -86,6 +87,8 @@ class WQ(db.Model):
     sulfuro = db.Column(db.Float)
     nitratos = db.Column(db.Float)
     informacion = db.Column(db.String(1000))
+    fecha = db.Column(Date) 
+    hora = db.Column(Time)
     
     
 class Estanque(db.Model):
@@ -228,12 +231,10 @@ def consultarbiometrias():
     
     biometriasconsultadas = []
     for biometria in biometrias:
-        horaformateada = biometria.hora.strftime('%H:%M:%S')
-        fechaformateada = biometria.fecha.strftime('%A, %d de %B de %Y ')
         biometriasconsultadas.append({
             "id":biometria.id_biometria,
-            "fecha":fechaformateada,
-            "hora":horaformateada,
+            "fecha":str(biometria.fecha),
+            "hora":str(biometria.hora),
             "nombreEstanque":biometria.Estanque.nombreEstanque,
             "numeroPeces":biometria.Estanque.numeropeces,
             "peso":biometria.peso,
@@ -271,6 +272,42 @@ def update_biometria(biometria_id):
         return jsonify({'message': 'Biometria actualizada correctamente'}), 200
     else:
         return jsonify({'error': 'Biometria no encontrada'}), 404
+    
+    
+@app.route('/verbiometria/<int:id_estanque>', methods=['GET'])
+def verBiometrias(id_estanque):
+   
+    biometrias = Biometria.query.filter_by(id_estanque=id_estanque).all()
+
+    if biometrias:
+        biometriasconid = []
+        for biometria in biometrias:
+            biometriasconid.append({
+                "id":biometria.id_biometria,
+                "fecha":str(biometria.fecha),
+                "hora":str(biometria.hora),
+                "biomasa":biometria.cantidad_biomasa
+                
+            })
+        return jsonify(biometriasconid), 200
+    else:
+        return jsonify({'error': 'Biometrias no encontradas'}), 404
+
+
+
+@app.route('/borrarbiometria/<int:id>', methods=['DELETE'])
+def borrarbiometria(id):
+    biometriaborrar = Biometria.query.get(id)
+    
+    if Biometria is None:
+        return jsonify({'mensaje': 'Biometria no encontrada'}), 404
+
+    db.session.delete(biometriaborrar)
+    db.session.commit()
+
+    return jsonify({'mensaje': 'Biometria eliminada con éxito'})
+
+
 
 
 @app.route("/registrarpeces", methods=["POST"])
@@ -318,6 +355,23 @@ def actualizarpez(id):
         return jsonify({'message': 'pez actualizada correctamente'}), 200
     else:
         return jsonify({'error': 'pez no encontrada'}), 404
+    
+    
+    
+    
+    
+    
+@app.route('/borrarpez/<int:id>', methods=['DELETE'])
+def borrarpez(id):
+    pezaborrar = peces.query.get(id)
+    
+    if alimentacion is None:
+        return jsonify({'mensaje': 'Alimentación no encontrada'}), 404
+
+    db.session.delete(pezaborrar)
+    db.session.commit()
+
+    return jsonify({'mensaje': 'Alimentación eliminada con éxito'})
                    
                                   
 @app.route("/crearestanque", methods=["POST"])
@@ -346,8 +400,7 @@ def crearestanque():
 
 @app.route("/consultarestanque", methods=["GET"])
 def consultarestanque():
-    estanques = Estanque.query.join(peces, Estanque.id_pez == peces.id_pez).all()
-    
+    estanques = Estanque.query.join(peces, Estanque.id_pez == peces.id_pez).all()  
     
 
     estanques_json = []
@@ -365,7 +418,44 @@ def consultarestanque():
 
 
     return jsonify(estanques_json)
+
+
+@app.route('/estanque/<int:id_estanque>')
+def get_estanque(id_estanque):
+    estanqueunico = Estanque.query.get(id_estanque)
+    if estanqueunico:
+        return jsonify({
+            "id": estanqueunico.id_estanque,
+            "nombre":estanqueunico.nombreEstanque,
+            "tamano":estanqueunico.tamanoEstanque,
+            "numeropeces":estanqueunico.numeropeces,
+            "mortalidad":estanqueunico.mortalidad,
+            "idpez":estanqueunico.id_pez,
+            "nombrepez":estanqueunico.peces.nombre_cientifico
+                
+
+        })
+    else:
+        return jsonify({'error': 'Estanque no encontrado'}), 404
     
+    
+    
+    
+    
+@app.route('/estanque/<int:id_estanque>', methods=['PUT'])
+def actualizarestanque(id_estanque):
+    data = request.get_json()
+    estanque = Estanque.query.get(id_estanque)
+    if estanque:
+        estanque.nombreEstanque = data['nombreEstanque']
+        estanque.numeropeces = data['numeropeces']
+        estanque.mortalidad = data['mortalidad']
+        estanque.tamanoEstanque = data['tamano']
+        estanque.id_pez = data['id_pez']
+        db.session.commit()
+        return jsonify({'message': 'estanque actualizado correctamente'}), 200
+    else:
+        return jsonify({'error': 'estanque no encontrado'}), 404
     
 @app.route('/WQ', methods=['POST'])
 def create_measurement():
@@ -376,11 +466,13 @@ def create_measurement():
         oxigeno=data['Oxigeno'],
         sulfuro=data['Sulfuro'],
         nitratos=data['Nitratos'],
-        informacion=data['Informacion']
+        informacion=data['Informacion'],
+        hora = data['hora'],
+        fecha = data['fecha']
     )
     db.session.add(new_measurement)
     db.session.commit()
-    return jsonify({'message': 'Measurement created successfully'})
+    return jsonify({'mensaje': 'WQ creada con exito '})
     
 
 @app.route('/consultarwq', methods=['GET'])
@@ -394,7 +486,8 @@ def consultarwq():
             "id":WaterQuality.id,
             "idestanque":WaterQuality.id_estanque,
             "nombreEstanque":WaterQuality.Estanque.nombreEstanque,
-
+            "hora":str(WaterQuality.hora),
+            "fecha":str(WaterQuality.fecha)
         })
     return jsonify(WQS)
 
@@ -463,6 +556,22 @@ def actualizaralimento(id):
     
     
     
+@app.route('/borraralimento/<int:id>', methods=['DELETE'])
+def borraralimento(id):
+
+
+    alimentoborrado = alimento.query.get(id)
+    if alimento is None:
+        return jsonify({'mensaje': 'Alimento no encontrado'}), 404
+
+    db.session.delete(alimentoborrado)
+    db.session.commit()
+
+    return jsonify({'mensaje': 'Alimento eliminado con éxito'})
+    
+    
+    
+    
 @app.route('/crearalimentacion', methods=['POST'])
 def crearalimentacion():
     data = request.get_json()
@@ -525,3 +634,19 @@ def actualizaralimentaciones(id):
         return jsonify({'message': 'Alimento actualizado correctamente'}), 200
     else:
         return jsonify({'error': 'Alimento no encontrado'}), 404
+    
+    
+    
+    
+@app.route('/borraralimentacion/<int:id>', methods=['DELETE'])
+def borraralimentacion(id):
+
+
+    alimentacionborrada = alimentacion.query.get(id)
+    if alimentacion is None:
+        return jsonify({'mensaje': 'Alimentación no encontrada'}), 404
+
+    db.session.delete(alimentacionborrada)
+    db.session.commit()
+
+    return jsonify({'mensaje': 'Alimentación eliminada con éxito'})

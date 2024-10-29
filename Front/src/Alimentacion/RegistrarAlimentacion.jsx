@@ -13,40 +13,24 @@ function RegistrarAlimentacion() {
   const [fecha, setfecha] = useState("");
   const [alimentodisponible, setAlimentodisponible] = useState("")
   const [unidad, setUnidadalimento] = useState("")
-  const [hora, sethora] = useState("");
+  const [hora, setHora] = useState("");
   const [cargando, setCargando] = useState(false);
   
 
-  function CapturarFecha({}) {
-    const [fechaActual, setFechaActual] = useState(new Date());
-  
-    useEffect(() => {
-      const intervalo = setInterval(() => {
-        setFechaActual(new Date());
-        setfecha(fechaActual)
-      }, 1000); 
-  
-      return () => clearInterval(intervalo);
-    }, []);
-  
-    return;
-  }
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      const fechaactual = (new Date().toLocaleDateString());
 
+      const [dia, mes, año] = fechaactual.split('-');
+      const fechaFormateada = `${año}:${mes}:${dia}`
+      setfecha(fechaFormateada)
+      setHora(new Date().toLocaleTimeString());
+    }, 1000); 
 
-  function Reloj() {
-    const [hora, setHora] = useState(new Date());
+    return () => clearInterval(intervalo);
+  }, []);
   
-    useEffect(() => {
-      const intervalo = setInterval(() => {
-        setHora(new Date());
-        sethora(hora)
-      }, 1000);
-  
-      return () => clearInterval(intervalo);
-    }, []);
-  
-    return;
-  }
+
 
 
   const consultarcantidadalimento = async () => {

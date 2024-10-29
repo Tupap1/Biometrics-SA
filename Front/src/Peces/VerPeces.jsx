@@ -48,6 +48,22 @@ function VerPeces() {
   }, [PezSeleccionado]);
 
 
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro de eliminar este registro?")) {
+      try {
+        await axios.delete(`http://127.0.0.1:5000/borrarpez/${id}`);
+        alert("Pez eliminado con éxito");
+        fetchDatos();
+        setIsEditing(false);
+      } catch (error) {
+        console.error(error);
+        alert("Error al eliminar Pez");
+      }
+    }
+  };
+
+
+
   const handleEdit = (dato) => {
     setidpez(dato.id);
     setPezSeleccionado(dato);
@@ -106,7 +122,6 @@ function VerPeces() {
   
               <td>
                 <Boton className='btn btn-primary' text='editar' onClickCustom={(e) => { fetchData(); handleEdit(dato); }}></Boton>
-                <Boton text='Detalles'></Boton>
               </td>
             </tr>
           ))}
@@ -124,6 +139,7 @@ function VerPeces() {
           
           <button onClick={handleSaveEdit}>Guardar</button>
           <button onClick={handleCancelEdit}>Cancelar</button>
+          <Boton className="btn btn-danger"    text="eliminar"  onClickCustom={() => handleDelete(PezSeleccionado.id)}></Boton>
         </div>
       )}
 
