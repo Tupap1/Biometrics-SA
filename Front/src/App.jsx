@@ -34,6 +34,7 @@ import { AuthProvider } from "./AuthContext.jsx";
 import ProtectedRoute from "./ProtectesRoute.jsx";
 import { useAuth } from "./AuthContext";
 import { useLocation } from "react-router-dom";
+import Calculadora from "./Calculadora.jsx";
 
 
 const Layout = ({ children }) => {
@@ -82,6 +83,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <RegistrarAlimentacion />
+                </ProtectedRoute>
+              }
+            />
+
+<Route
+              path="/Calculadora"
+              element={
+                <ProtectedRoute>
+                  <Calculadora />
                 </ProtectedRoute>
               }
             />

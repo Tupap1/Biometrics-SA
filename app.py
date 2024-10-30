@@ -179,10 +179,10 @@ def gettoken():
 @app.route("/login", methods=["POST"])
 def login_user():
     try:
-        # Imprimir el request para debugging
+
         print("Request data:", request.get_json())
         
-        # Usar get() para evitar KeyError
+ 
         data = request.get_json()
         if not data:
             return jsonify({"error": "No se recibieron datos"}), 400
@@ -278,7 +278,8 @@ def consultarbiometrias():
             "numeroPeces":biometria.Estanque.numeropeces,
             "peso":biometria.peso,
             "longitud":biometria.longitud,
-            "cantidad_biomasa":biometria.cantidad_biomasa
+            "cantidad_biomasa":biometria.cantidad_biomasa,
+            "label":biometria.id_biometria
         })
     return jsonify(biometriasconsultadas)
 
@@ -294,7 +295,8 @@ def obtener_biometria(id_biometria):
             'id_biometria': biometria.id_biometria,
             'id_estanque': biometria.id_estanque,
             'fecha': str(biometria.fecha),
-            'hora': str(biometria.hora)
+            'hora': str(biometria.hora),
+            "biomasa":biometria.cantidad_biomasa
         }), 200
     else:
         return jsonify({'mensaje': 'Biometría no encontrada'}), 404

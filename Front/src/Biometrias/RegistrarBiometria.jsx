@@ -191,7 +191,6 @@ function RegistrarBiometria() {
       </select>
 
       <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
-                  <h1>{fecha}</h1>
         </div>
   );
 }

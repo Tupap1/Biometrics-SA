@@ -83,6 +83,9 @@ function MenuInicio() {
             <div className="col">
               <Boton className="boton" text="Alimentos" to="/VerAlimento"/>
             </div>
+            <div className="col">
+              <Boton className="boton" text="Calcular Comidas" to="/Calculadora"/>
+            </div>
           </div>
         </div>
       </div>

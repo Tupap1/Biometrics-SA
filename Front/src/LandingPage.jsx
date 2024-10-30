@@ -15,7 +15,7 @@ const LandingPage = () => {
         <AuthButton></AuthButton>
       </header>
       <div className="logo-container">
-        <img src="logo.png" alt="Biometrics SA" className="logo.png" />
+        <img src="https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/logo_trial-removebg-preview%201.png  " alt="Biometrics SA" className="logo.png" />
       </div>
 
       <div className="button-container">
