@@ -10,7 +10,7 @@ const ProtectedRoute = ({ component }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location.pathname }} />;
+    return <Navigate to="/" state={{ from: location.pathname }} />;
   }
 
   return component;

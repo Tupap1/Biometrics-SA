@@ -100,8 +100,14 @@ function DetallesEstanque({ estanqueId }) {
             <div className="col">
               <h5>Biometrias realizadas en este estanque</h5>
 
-              <Card textboton={"ver Biometria"} title={"id"} info={"fecha"} info2={"hora"} apiURL={`http://127.0.0.1:5000/verbiometria/${estanque.id}`}/></div>
-            <div className="col">Column</div>
+              <Card textboton={"ver Biometria"} title={"id"} info={"fecha"} info2={"hora"} apiURL={`http://127.0.0.1:5000/verbiometria/${estanque.id}`} error={"No se han realizado biometrias en este estanque"} /></div>
+            <div className="col">
+              <h5>Alimentaciones recientes</h5>
+               <Card error={"no se ha alimentado en este estanque recientemente"}  info={"hora"} title={"fecha"} info2={"cantidad"} text2={"cantidad:"} texto2={"KG"} apiURL={`http://127.0.0.1:5000/verAlimentaciones/${estanque.id}`} textboton={"Ver Alimentacion"}></Card></div>
+
+               <div className="col">
+              <h5>Registros WQ recientes</h5>
+               <Card error={"no se han realizado WQ en este estanque recientemente"}  apiURL={`http://127.0.0.1:5000/verWQ/${estanque.id}`} textboton={"Ver Alimentacion"}></Card></div>
           </div>
           
         </>

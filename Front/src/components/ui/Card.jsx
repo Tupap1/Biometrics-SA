@@ -3,7 +3,7 @@ import axios from "axios";
 import Boton from "./Boton";
 import '../styles/Card.css';
 
-function Card({ apiURL, text, textboton, title, info, text2, info2, link, textboton2, link2, accion }) {
+function Card({ apiURL, text, textboton, title, info, text2, info2, link, textboton2, link2, accion, error, texto2 }) {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Card({ apiURL, text, textboton, title, info, text2, info2, link, textbo
 
   const renderDatos = () => {
     if (datos.length === 0) {
-      return <p>No se han realizado biometrias en este estanque</p>;
+      return <p>{error}</p>;
     }
 
     return (
@@ -35,7 +35,7 @@ function Card({ apiURL, text, textboton, title, info, text2, info2, link, textbo
             <div className="card-body">
               <h5 className="card-title">{dato[title]}</h5>
               <p className="card-text">
-                {text} {dato[info]} {text2} {dato[info2]}
+                {text} {dato[info]} {text2} {dato[info2]}{texto2}
               </p>
               <Boton className="btn btn-primary" onClickCustom={accion} text={textboton} to={link} />
             </div>

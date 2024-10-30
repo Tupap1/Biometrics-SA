@@ -9,19 +9,35 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_engine, Date, Time
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import relationship
+from authlib.integrations.flask_client import OAuth
+import json
+from os import environ as env
+from urllib.parse import quote_plus, urlencode
+from dotenv import find_dotenv, load_dotenv
+from flask import Flask, redirect, render_template, session, url_for
+import jwt
+import requests
+from functools import wraps
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
 
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
-
 engine = create_engine('mysql://root:@localhost/biometricssa')
-
 db = SQLAlchemy(app)
-#server_session = Session(app)
+oauth = OAuth(app)
 Base = declarative_base()
-app.secret_key = "Andres137"
+app.config["JWT_SECRET_KEY"] = "asdfasuhfige4123y79hdasbndc7812gebjaksd82f3rgwfsgeedagyuf"
+app.secret_key = 'asiofjnwohrNuH)"#BI()#ROBNER/)BAJKSBD)/Q"Bbnfba'
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+jwt = JWTManager(app)
 
 migrate = Migrate(app, db)
 
@@ -40,7 +56,7 @@ class alimento(db.Model):
     NombreAlimento = db.Column (db.String(1000))
     cantidad = db.Column (db.Float)
     unidad = db.Column (db.String(10))
-    
+    alimentaciones = relationship('alimentacion', backref='alimento')
     
 class alimentacion(db.Model):
     __tablename__ = 'alimentacion'
@@ -52,6 +68,7 @@ class alimentacion(db.Model):
     fecha = db.Column(Date) 
     hora = db.Column(Time)
     observaciones = db.Column(String(5000))
+
      
 
 class Usuario(db.Model):
@@ -152,15 +169,29 @@ def signup():
         "email": nuevousuario.email
     })
 
+@app.route('/token')
+@jwt_required()
+def gettoken():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
 
 @app.route("/login", methods=["POST"])
 def login_user():
     try:
-        if request.is_json:
-            email = request.json["email"]
-            contrasena = request.json["contrasena"]
-        else:
-            return jsonify({"error": "Invalid content type"}), 400
+        # Imprimir el request para debugging
+        print("Request data:", request.get_json())
+        
+        # Usar get() para evitar KeyError
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No se recibieron datos"}), 400
+
+        email = data.get("email")
+        contrasena = data.get("contrasena")
+
+        if not email or not contrasena:
+            return jsonify({"error": "Email y contraseña son requeridos"}), 400
 
         user = Usuario.query.filter_by(email=email).first()
 
@@ -171,14 +202,22 @@ def login_user():
             return jsonify({"error": "Datos incorrectos"}), 401
 
         session["user_id"] = user.iduser    
-
+        access_token = create_access_token(identity=email)
+        
         return jsonify({
-            "id": user.iduser,
-            "email": user.email
+            "access_token": access_token,
+            "user": {
+                "id": user.iduser,
+                "email": user.email
+            }
         })
+
     except Exception as e:  
         print(f"Error during login: {e}")
-        return jsonify({"error": "Internal server error"}), 500
+        # Imprimir más detalles del error para debugging
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
         
    
 @app.route("/user")
@@ -199,7 +238,7 @@ def user():
 @app.route("/logout")
 def logout():
     session.pop("user_id")
-    return 200
+    return 200 
 
 
 @app.route('/biometria', methods=['POST'])
@@ -503,6 +542,26 @@ def actualizarwq(wq_id):
     else:
         return jsonify({'error': 'WQ no encontrada'}), 404
     
+    
+@app.route('/verWQ/<int:id_estanque>', methods=['GET'])
+def verWQ(id_estanque):
+   
+    wqs = WQ.query.filter_by(id_estanque=id_estanque).all()
+
+    if wqs:
+        wqsestanque = []
+        for wq in wqs:
+            wqsestanque.append({
+                "id":wq. id,
+                "fecha":str(wq.fecha),
+                "hora":str(wq.hora)
+
+                
+            })
+        return jsonify(wqsestanque), 200
+    else:
+        return jsonify({'error': 'Alimentaciones no encontradas'}), 404
+    
        
 @app.route('/crearalimento', methods=['POST'])
 def crearalimento():
@@ -618,6 +677,28 @@ def veralimentacion():
             
         })
     return jsonify(Alimentacionesarray)
+
+
+@app.route('/verAlimentaciones/<int:id_estanque>', methods=['GET'])
+def verAlimentaciones(id_estanque):
+   
+    Alimentaciones = alimentacion.query.filter_by(id_estanque=id_estanque).all()
+
+    if Alimentaciones:
+        Alimentacionesestanque = []
+        for Alimentacion in Alimentaciones:
+            Alimentacionesestanque.append({
+                "id":Alimentacion.idalimentacion,
+                "cantidad":Alimentacion.cantidad,
+                "nombreAlimento":Alimentacion.alimento.NombreAlimento,
+                "fecha":str(Alimentacion.fecha),
+                "hora":str(Alimentacion.hora)
+
+                
+            })
+        return jsonify(Alimentacionesestanque), 200
+    else:
+        return jsonify({'error': 'Alimentaciones no encontradas'}), 404
 
 
 @app.route('/alimentaciones/<int:id>', methods=['PUT'])
