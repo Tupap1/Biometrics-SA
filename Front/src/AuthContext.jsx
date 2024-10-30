@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = (navigate) => {  // Ahora recibe navigate como parámetro
+  const logout = (navigate) => {  
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);

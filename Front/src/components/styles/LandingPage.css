@@ -2,15 +2,15 @@
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-image: url('C:\Users\SENA\Music\biometricsa\Biometrics-SA\Front\public\piscicultura 1.png'); 
+
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: url('C:\Users\SENA\Music\biometricsa\Biometrics-SA\Front\public\piscicultura 1.png') rgba(68, 63, 63, 0.541) 100% / cover no-repeat;
-background-blend-mode:
+    background-image: "https://s3-alpha-sig.figma.com/img/b16c/6c5a/9c2309d607ada4764613cb46f7edc7fd?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KFT~KMKuDCWIuVKSbxwdpOS8ropMn4GQsDlfrlsD33gJYmofCfagpwQlclr36yez6FCwpor-MQcE3~QBI5zATOELdXVtsqJeLBM2M0wvNFeYeGd8z1vPsgqhqVyHMawvb7tBcx-rPAKjU-s~-29~vpDqdMTk0XLdIw8EihHbbzWnIAvO7HsdFU-lkFpRFXmMofcvPM3VIbSofK~CQPDQr8X4beXwsswVKTrlWkhGVs6p6gw1UiAb0Im5ICzcblZAyFj6UPmz2YH~pe~xqQF23VrcDy2ZZ4nOPaSFDK9XW1RAvs7k2J8MGuitRmA-9lD1pNkNc3lZJKfGHiXujnc-Ag__";
+    
   }
   
   .header {

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from './AuthContext';
+import { useLocation } from "react-router-dom";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
+  const location = useLocation();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -22,7 +24,8 @@ export default function LoginPage() {
       });
 
       if (success) {
-        navigate('/MenuInicio');
+        const ruta = localStorage.getItem('redirectTo')
+        navigate(ruta)
       } else {
         setError("Error durante el login. Por favor intente nuevamente.");
       }
@@ -47,7 +50,7 @@ export default function LoginPage() {
                 )}
 
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                  <p className="lead fw-normal mb-0 me-3">Log Into Your Account</p>
+                  <p className="lead fw-normal mb-0 me-3">Ingresa a Biometrics SA</p>
                 </div>
 
                 <div className="form-outline mb-4">
@@ -57,11 +60,11 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     id="form3Example3"
                     className="form-control form-control-lg"
-                    placeholder="Enter a valid email address"
+                    placeholder="Ingresa tu Email"
                     required
                   />
                   <label className="form-label" htmlFor="form3Example3">
-                    Email address
+                    Email 
                   </label>
                 </div>
 
@@ -72,11 +75,11 @@ export default function LoginPage() {
                     onChange={(e) => setContrasena(e.target.value)}
                     id="form3Example4"
                     className="form-control form-control-lg"
-                    placeholder="Enter password"
+                    placeholder="Ingresa la contraseña"
                     required
                   />
                   <label className="form-label" htmlFor="form3Example4">
-                    Password
+                    Contraseña
                   </label>
                 </div>
 
@@ -88,9 +91,9 @@ export default function LoginPage() {
                     Login
                   </button>
                   <p className="small fw-bold mt-2 pt-1 mb-0">
-                    Don't have an account?{" "}
+                    No tienes una cuenta en Biometrics?{" "}
                     <a href="/register" className="link-danger">
-                      Register
+                      Registrate
                     </a>
                   </p>
                 </div>

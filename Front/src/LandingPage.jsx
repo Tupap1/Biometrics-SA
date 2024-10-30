@@ -3,6 +3,7 @@ import './components/styles/LandingPage.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthButton from './components/ui/Loginboton';
 import Boton from './components/ui/Boton';
+import './components/styles/LandingPage.css'
 
 const LandingPage = () => {
 

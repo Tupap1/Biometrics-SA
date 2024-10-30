@@ -9,14 +9,14 @@ const AuthButton = () => {
 
   const handleClick = () => {
     if (isAuthenticated) {
-      logout(navigate);  // Pasamos navigate a la función logout
+      logout(navigate);  
     } else {
       navigate('/login');
     }
   };
 
   return (
-    <button onClick={handleClick}>
+    <button className="btn btn-primary" onClick={handleClick}>
       {isAuthenticated ? (
         <>
           <LogOut className="mr-2" />
