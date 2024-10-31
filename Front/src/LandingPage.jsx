@@ -9,7 +9,7 @@ const LandingPage = () => {
 
 
   return (
-    <div className="landing-container">
+    <div  className="landing-container">
       <header className="header">
 
         <AuthButton></AuthButton>

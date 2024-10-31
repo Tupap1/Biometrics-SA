@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Inicio from "./Inicio.tsx";
-import LandingPage from "./LandingPage.jsx";
+
 import LoginPage from "./LoginPage.jsx";
 import RegisterPage from "./RegisterPage.jsx";
 import Biometria from "./Biometrias/Biometria.jsx";
@@ -35,6 +35,7 @@ import ProtectedRoute from "./ProtectesRoute.jsx";
 import { useAuth } from "./AuthContext";
 import { useLocation } from "react-router-dom";
 import Calculadora from "./Calculadora.jsx";
+import LandingPage from "./LandingPage.jsx";
 
 
 const Layout = ({ children }) => {

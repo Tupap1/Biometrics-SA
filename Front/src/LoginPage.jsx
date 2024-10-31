@@ -1,4 +1,4 @@
-
+import './components/styles/Login.css'
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from './AuthContext';
@@ -36,8 +36,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <div className="container h-100">
+    <div className="root">
+      <div className="root">
         <div className="container-fluid h-custom">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-md-9 col-lg-6 col-xl-5"></div>
