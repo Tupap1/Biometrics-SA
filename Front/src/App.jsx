@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Inicio from "./Inicio.tsx";
+import Inicio from "./Inicio.jsx";
 
 import LoginPage from "./LoginPage.jsx";
 import RegisterPage from "./RegisterPage.jsx";
@@ -36,6 +36,7 @@ import { useAuth } from "./AuthContext";
 import { useLocation } from "react-router-dom";
 import Calculadora from "./Calculadora.jsx";
 import LandingPage from "./LandingPage.jsx";
+import Menu from "./components/ui/Menu.jsx";
 
 
 const Layout = ({ children }) => {
@@ -50,10 +51,10 @@ const Layout = ({ children }) => {
     <div className="row">
       {isAuthenticated && !isPublicRoute && (
         <div className="col">
-          <Inicio />
+          <Menu />
         </div>
       )}
-      <div className={isAuthenticated && !isPublicRoute ? "col-9" : "col-12"}>
+      <div className={isAuthenticated && !isPublicRoute ? "col" : "col"}>
         {children}
       </div>
     </div>

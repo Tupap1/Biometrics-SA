@@ -23,14 +23,16 @@
 
   
     useEffect(() => {
-      const intervalo = setInterval(() => {
-        const fechaactual = (new Date().toLocaleDateString());
-
-        const [dia, mes, año] = fechaactual.split('-');
-        const fechaFormateada = `${año}:${mes}:${dia}`
-        setfecha(fechaFormateada)
-        setHora(new Date().toLocaleTimeString());
-      }, 1000); 
+        const intervalo = setInterval(() => {
+          const fechaactual = (new Date().toLocaleDateString());
+    
+          const [dia, mes, año] = fechaactual.split('/');
+          const fechaFormateada = `${año}:${mes}:${dia}` 
+    
+          setfecha(fechaFormateada)
+          setHora(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second:"2-digit", hour12: false  }));
+        }, 1000); 
+    
   
       return () => clearInterval(intervalo);
     }, []);
@@ -81,8 +83,7 @@
           <textarea className="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la inpeccion visual del estanque" rows="3"></textarea>
         </div>  
         <div className="ingresar"><Boton onClickCustom={enviardatos}  id="ingresar" className="ingresar" text="Ingresar"/></div>
-        <h1>{fecha}</h1>
-        <h1>{hora}</h1>
+
       </div>
     );
   }

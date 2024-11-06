@@ -7,6 +7,7 @@ import Signout from "../components/ui/Signout";
 import "../components/styles/Inicio.css";
 import pescado from "/src/assets/fotopescao.png";
 import "/src/Peces/crearpeces.css"
+import ButtonWithHover from "../components/ui/Menu";
 
 
 function MenuInicio() {
@@ -58,6 +59,7 @@ function MenuInicio() {
           </div>
           <div id="volver">
             <Volver></Volver>
+
           </div>
           </div>
           

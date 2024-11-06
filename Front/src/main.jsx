@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./components/styles/index.css";
 import App from "./App.jsx";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Inicio from "./Inicio.tsx";
+import Inicio from "./Inicio.jsx";
 import LandingPage from "./LandingPage.jsx";
 import LoginPage from "./LoginPage.jsx";
 import RegisterPage from "./RegisterPage.jsx";

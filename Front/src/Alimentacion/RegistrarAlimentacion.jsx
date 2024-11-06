@@ -19,13 +19,15 @@ function RegistrarAlimentacion() {
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      const fechaactual = (new Date().toLocaleDateString());
-
-      const [dia, mes, año] = fechaactual.split('-');
-      const fechaFormateada = `${año}:${mes}:${dia}`
-      setfecha(fechaFormateada)
-      setHora(new Date().toLocaleTimeString());
-    }, 1000); 
+        const fechaactual = (new Date().toLocaleDateString());
+  
+        const [dia, mes, año] = fechaactual.split('/');
+        const fechaFormateada = `${año}:${mes}:${dia}` 
+  
+        setfecha(fechaFormateada)
+        setHora(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second:"2-digit", hour12: false  }));
+      }, 1000); 
+  
 
     return () => clearInterval(intervalo);
   }, []);
@@ -73,7 +75,7 @@ function RegistrarAlimentacion() {
     try{
       const response = await axios.post("http://127.0.0.1:5000/crearalimentacion", datos)
       console.log(response.data)
-      alert("datos creados correctamente")
+      alert("Alimentacion creada correctamente")
       setInformacion("")
       setcantidad("")
       setEstanque("1")

@@ -28,9 +28,9 @@ from flask_jwt_extended import JWTManager
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root7iu7Wi0:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
-engine = create_engine('mysql://root:@localhost/biometricssa')
+engine = create_engine('mysql://root:7iu7Wi0@localhost/biometricssa')
 db = SQLAlchemy(app)
 oauth = OAuth(app)
 Base = declarative_base()

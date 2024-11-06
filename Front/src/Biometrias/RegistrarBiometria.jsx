@@ -27,10 +27,11 @@ function RegistrarBiometria() {
     const intervalo = setInterval(() => {
       const fechaactual = (new Date().toLocaleDateString());
 
-      const [dia, mes, año] = fechaactual.split('-');
-      const fechaFormateada = `${año}:${mes}:${dia}`
+      const [dia, mes, año] = fechaactual.split('/');
+      const fechaFormateada = `${año}:${mes}:${dia}` 
+
       setfecha(fechaFormateada)
-      setHora(new Date().toLocaleTimeString());
+      setHora(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second:"2-digit", hour12: false  }));
     }, 1000); 
 
     return () => clearInterval(intervalo);
@@ -191,6 +192,7 @@ function RegistrarBiometria() {
       </select>
 
       <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
+                  
         </div>
   );
 }

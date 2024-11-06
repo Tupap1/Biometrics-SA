@@ -6,12 +6,13 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import './components/styles/LandingPage.css';
+import Menu from "./components/ui/Menu";
 
 function Inicio() {
   return (
  
       <div className="col">
-        <SideBar />
+        <Menu/>
       </div>  
   );
 }
