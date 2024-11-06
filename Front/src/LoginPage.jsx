@@ -1,13 +1,13 @@
-import './components/styles/Login.css'
+import "./components/styles/Login.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from './AuthContext';
+import { useAuth } from "./AuthContext";
 import { useLocation } from "react-router-dom";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  
+
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
@@ -18,14 +18,14 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const success = await login({ 
-        email, 
-        contrasena 
+      const success = await login({
+        email,
+        contrasena,
       });
 
       if (success) {
-        const ruta = localStorage.getItem('redirectTo')
-        navigate(ruta)
+        const ruta = localStorage.getItem("redirectTo");
+        navigate(ruta);
       } else {
         setError("Error durante el login. Por favor intente nuevamente.");
       }
@@ -41,7 +41,7 @@ export default function LoginPage() {
         <div className="container-fluid h-custom">
           <div className="row ">
             <div className="col"></div>
-            <div className="col">
+            <div className="forms">
               <form onSubmit={handleLogin}>
                 {error && (
                   <div className="alert alert-danger" role="alert">
@@ -49,27 +49,21 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <div >
-                <h1>Ingresa a Biometrics SA|
-
-
-                  
-                </h1>
+                <div>
+                  <p id="leyenda">Iniciar Sesion</p>
                 </div>
-
+                <div className="formularios">
                 <div className="form-outline mb-4">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    id="form3Example3"
+                    id="email"
                     className="form-control form-control-lg"
                     placeholder="Ingresa tu Email"
                     required
                   />
-                  <label className="form-label" htmlFor="form3Example3">
-                    Email 
-                  </label>
+
                 </div>
 
                 <div className="form-outline mb-3">
@@ -77,24 +71,20 @@ export default function LoginPage() {
                     type="password"
                     value={contrasena}
                     onChange={(e) => setContrasena(e.target.value)}
-                    id="form3Example4"
+                    id="contrasena"
                     className="form-control form-control-lg"
                     placeholder="Ingresa la contraseña"
                     required
                   />
-                  <label className="form-label" htmlFor="form3Example4">
-                    Contraseña
-                  </label>
+
+                </div>
                 </div>
 
-                <div className="text-center text-lg-start mt-4 pt-2">
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-lg"
-                  >
+                <div className="">
+                  <button type="submit" className="loginbtn">
                     Login
                   </button>
-                  <p className="small fw-bold mt-2 pt-1 mb-0">
+                  <p className="registrate">
                     No tienes una cuenta en Biometrics?{" "}
                     <a href="/register" className="link-danger">
                       Registrate
