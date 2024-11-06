@@ -37,11 +37,11 @@ export default function LoginPage() {
 
   return (
     <div className="root">
-      <div className="root">
+      <div className="HOLA">
         <div className="container-fluid h-custom">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-md-9 col-lg-6 col-xl-5"></div>
-            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <div className="row ">
+            <div className="col"></div>
+            <div className="col">
               <form onSubmit={handleLogin}>
                 {error && (
                   <div className="alert alert-danger" role="alert">
@@ -49,8 +49,12 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                  <p className="lead fw-normal mb-0 me-3">Ingresa a Biometrics SA</p>
+                <div >
+                <h1>Ingresa a Biometrics SA|
+
+
+                  
+                </h1>
                 </div>
 
                 <div className="form-outline mb-4">
