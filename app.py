@@ -735,9 +735,7 @@ def borraralimentacion(id):
     return jsonify({'mensaje': 'Alimentación eliminada con éxito'})
 
 
+from app import app, db
+
 if __name__ == '__main__':
-    svc_name = 'MyFlaskService'
-    svc_display_name = 'My Flask Service'
-    svc_description_ = "This is my custom Windows service."
-    svc_obj = windowsservice.service(svc_name, svc_display_name)
-    svc_obj.start()
+    app.run(debug=True, host='0.0.0.0')

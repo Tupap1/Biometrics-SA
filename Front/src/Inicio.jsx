@@ -12,7 +12,7 @@ function Inicio() {
   return (
  
       <div className="col">
-        <Menu/>
+        <SideBar/>
       </div>  
   );
 }
