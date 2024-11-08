@@ -23,20 +23,20 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from windowsservice import BaseService
 
 
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root7iu7Wi0:@localhost/biometricssa'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/biometricssa'
 CORS(app, origins=['http://localhost:5173'])
-engine = create_engine('mysql://root:7iu7Wi0@localhost/biometricssa')
+engine = create_engine('mysql://root:@localhost/biometricssa')
 db = SQLAlchemy(app)
 oauth = OAuth(app)
 Base = declarative_base()
 app.config["JWT_SECRET_KEY"] = "asdfasuhfige4123y79hdasbndc7812gebjaksd82f3rgwfsgeedagyuf"
 app.secret_key = 'asiofjnwohrNuH)"#BI()#ROBNER/)BAJKSBD)/Q"Bbnfba'
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)
 
 migrate = Migrate(app, db)
@@ -733,3 +733,11 @@ def borraralimentacion(id):
     db.session.commit()
 
     return jsonify({'mensaje': 'Alimentación eliminada con éxito'})
+
+
+if __name__ == '__main__':
+    svc_name = 'MyFlaskService'
+    svc_display_name = 'My Flask Service'
+    svc_description_ = "This is my custom Windows service."
+    svc_obj = windowsservice.service(svc_name, svc_display_name)
+    svc_obj.start()
