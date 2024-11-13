@@ -51,10 +51,10 @@ const Layout = ({ children }) => {
     <div className="row">
       {isAuthenticated && !isPublicRoute && (
         <div className="col">
-          <Menu />
+          <Inicio />
         </div>
       )}
-      <div className={isAuthenticated && !isPublicRoute ? "col" : "col"}>
+      <div className={isAuthenticated && !isPublicRoute ? "col-9" : "col-12"}>
         {children}
       </div>
     </div>
