@@ -1,72 +1,52 @@
-body{
-    background: rgba(82, 222, 247, 0.15);
-background-blend-mode: plus-darker;
-    
+body {
+  background: rgba(82, 222, 247, 0.15);
+  background-blend-mode: plus-darker;
 }
 .menu1 {
-    background: linear-gradient(0deg, rgba(91, 177, 238, 0.30) 0%, rgba(91, 177, 238, 0.30) 100%), #FFF;
-    margin: 0; line-height: normal;
-    width: 100%;
-    position: relative;
-    border-radius: 10px;
-
-    height: 950px;
+  background: linear-gradient(
+      0deg,
+      rgba(91, 177, 238, 0.3) 0%,
+      rgba(91, 177, 238, 0.3) 100%
+    ),
+    #fff;
+  margin: 0;
+  line-height: normal;
+  width: 1243px;
+  height: 950px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 10px;
+  margin-top: 37px;
 }
-.Biometriastittle{
-    color: #4EABED;
-text-align: center;
-font-family: "Public Sans";
-font-size: 40px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-margin-left: -70px;
+.Biometriastittle {
+  color: #4eabed;
+  text-align: center;
+  font-family: "Public Sans";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: -70px;
 }
 
-
-
-
-.logo{
-    
-    
-        width: 100%;
-        height: 229px;
-        position: sticky;
-        max-width: 100%;
-        overflow: hidden;
-        right: -499px;
-        object-fit: cover;
-        mix-blend-mode: normal;
-        margin-left: 470px;
-
- 
-  
-  
-
-
+.logo {
+  width: 100%;
+  height: 229px;
+  position: sticky;
+  max-width: 100%;
+  overflow: hidden;
+  right: -499px;
+  object-fit: cover;
+  mix-blend-mode: normal;
+  margin-left: 470px;
 }
-.logo img{
-    width: ;
-    height: 229px;
-
-}
-#btnbio{
-    border: 0px;
-background: rgba(78, 171, 237, 0.70);
-width: 380px;
-height: 180px;
-flex-shrink: 0; 
-margin-left: 150px;
-margin-top: 30px;
-font-size: 30px;
-}
-#btnbio1{
-    border: 0px;
-    background: rgba(78, 171, 237, 0.70);
-    width: 380px;
-    height: 180px;
-    flex-shrink: 0;
-    margin-left: 850px;
-    margin-top: -200px;
-font-size: 30px;
+#btnbio {
+  border: 0px;
+  background: rgba(78, 171, 237, 0.7);
+  width: 380px;
+  height: 180px;
+  flex-shrink: 0;
+  margin-left: 150px;
+  margin-top: 30px;
+  font-size: 30px;
 }

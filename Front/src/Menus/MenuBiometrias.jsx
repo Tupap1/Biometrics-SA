@@ -2,6 +2,7 @@ import React from "react";
 import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 import "../components/styles/Menubiometrias.css";
+import logo from "../assets/LOGO.png"
 
 
 function MenuBiometrias() {
@@ -11,14 +12,14 @@ function MenuBiometrias() {
     <div className="menu1 ">
         <div className="buttonvolver "><Volver /></div>
           <div className="logo">
-             <img src={linklogo} alt="" /> 
+             <img src={logo} /> 
           </div>
         <div className="Biometriastittle "> <center><h1>Biometrias</h1></center></div>
 
-      
+        <div className="botones">
           <Boton id="btnbio"text="Registrar Biometria" to="/Biometria" />
-          <Boton id="btnbio1"text="Ver Biometrias" to="/VerBiometria" />
-          
+          <Boton id="btnbio"text="Ver Biometrias" to="/VerBiometria" />
+        </div>  
           </div>
     </div>
       

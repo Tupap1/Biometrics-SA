@@ -36,7 +36,7 @@ oauth = OAuth(app)
 Base = declarative_base()
 app.config["JWT_SECRET_KEY"] = "asdfasuhfige4123y79hdasbndc7812gebjaksd82f3rgwfsgeedagyuf"
 app.secret_key = 'asiofjnwohrNuH)"#BI()#ROBNER/)BAJKSBD)/Q"Bbnfba'
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+app.config["JWT_SECRET_KEY"] = "super-secret" 
 jwt = JWTManager(app)
 
 migrate = Migrate(app, db)
@@ -214,7 +214,6 @@ def login_user():
 
     except Exception as e:  
         print(f"Error during login: {e}")
-        # Imprimir más detalles del error para debugging
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
