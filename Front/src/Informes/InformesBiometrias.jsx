@@ -2,7 +2,7 @@ import React from 'react'
 
 function InformesBiometrias() {
   return (
-    <div>InformesBiometrias</div>
+    <div>InfromesBiometrias</div>
   )
 }
 

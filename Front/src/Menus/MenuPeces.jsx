@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Signout from "../components/ui/Signout";
 import "../components/styles/Inicio.css";
-import pescado from "/src/assets/fotopescao.png";
 import "/src/Peces/crearpeces.css"
 
 

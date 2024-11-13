@@ -5,7 +5,6 @@ import Boton from "../components/ui/Boton";
 import { useState } from "react";
 import axios from "axios";
 import Volver from "../components/ui/Volver";
-import pescado from "/src/assets/fotopescao.png"
 import "/src/Estanques/registerponds.css"
 
 

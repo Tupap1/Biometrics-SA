@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Inicio from "./Inicio.jsx";
-
 import LoginPage from "./LoginPage.jsx";
 import RegisterPage from "./RegisterPage.jsx";
 import Biometria from "./Biometrias/Biometria.jsx";
@@ -23,8 +22,8 @@ import RegistrarAlimentacion from "./Alimentacion/RegistrarAlimentacion.jsx";
 import InformesAlimentacion from "../Informes/InformesAlimentacion.jsx";
 import InformesEstanque from "../Informes/InformesEstanque.jsx";
 import InformesBiometrias from "../Informes/InformesBiometrias.jsx";
-import CrearAlimento from "../alimentos/CrearAlimento.jsx";
-import VerAlimentos from "../alimentos/VerAlimentos.jsx";
+import CrearAlimento from "./alimentos/CrearAlimento.jsx";
+import VerAlimentos from "./alimentos/VerAlimentos.jsx";
 import MenuAlimentos from "./Menus/MenuAlimentos.jsx";
 import VerAlimentacion from "./Alimentacion/VerAlimentacion.jsx";
 import MenuPeces from "./Menus/MenuPeces.jsx";

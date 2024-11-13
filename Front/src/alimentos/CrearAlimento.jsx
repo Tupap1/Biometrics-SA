@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import Form from "../src/components/ui/Form";
-import Boton from "../src/components/ui/Boton";
-import Volver from "../src/components/ui/Volver";
 import axios from "axios";
-import pescado from "/src/assets/fotopescao.png"
+import Form from "../components/ui/Form";
+import Boton from "../components/ui/Boton";
+import Volver from "../components/ui/Volver";
+
 
 function CrearAlimento() {
   const [nombrealimento,setnombrealimento] = useState("");

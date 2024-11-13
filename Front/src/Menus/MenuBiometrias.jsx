@@ -2,7 +2,6 @@ import React from "react";
 import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 import "../components/styles/Menubiometrias.css";
-import logo from "../assets/LOGO.png"
 
 
 function MenuBiometrias() {

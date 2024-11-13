@@ -5,7 +5,7 @@ import Boton from "../components/ui/Boton";
 import Volver from "../components/ui/Volver";
 import axios from "axios";
 import "/src/Peces/crearpeces.css"
-import pescado from "/src/assets/fotopescao.png"
+import logo from '../assets/LogoAzul.png'
 
 function CrearPeces() {
   const [Raza, setRaza] = useState("");

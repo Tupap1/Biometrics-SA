@@ -26,6 +26,8 @@ export default function LoginPage() {
       if (success) {
         const ruta = localStorage.getItem("redirectTo");
         navigate(ruta);
+        if (ruta == null)
+          navigate(to="/MenuInicio")
       } else {
         setError("Error durante el login. Por favor intente nuevamente.");
       }

@@ -7,10 +7,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar si hay un token guardado
+
     const token = localStorage.getItem('token');
     if (token) {
-      // Aquí podrías verificar el token con el backend si lo deseas
+
       setUser({ token });
     }
     setLoading(false);

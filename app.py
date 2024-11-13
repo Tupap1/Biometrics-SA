@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, session
 from flask_migrate import Migrate
-from flask_session import Session
 from flask_cors import cross_origin, CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
@@ -11,20 +10,10 @@ from sqlalchemy import Column, Integer, ForeignKey,Date, Float,String, create_en
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship
 from authlib.integrations.flask_client import OAuth
-import json
-from os import environ as env
-from urllib.parse import quote_plus, urlencode
-from dotenv import find_dotenv, load_dotenv
-from flask import Flask, redirect, render_template, session, url_for
-import jwt
-import requests
-from functools import wraps
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-from windowsservice import BaseService
-
 
 
 
@@ -179,10 +168,6 @@ def gettoken():
 @app.route("/login", methods=["POST"])
 def login_user():
     try:
-
-        print("Request data:", request.get_json())
-        
- 
         data = request.get_json()
         if not data:
             return jsonify({"error": "No se recibieron datos"}), 400
@@ -241,6 +226,7 @@ def logout():
 
 
 @app.route('/biometria', methods=['POST'])
+@jwt_required()
 def agregar_biometria():
     data = request.get_json()
 
@@ -263,6 +249,7 @@ def agregar_biometria():
 
 
 @app.route('/consultarbiometrias', methods=['GET'])
+@jwt_required()
 def consultarbiometrias():
     biometrias = Biometria.query.join(Estanque, Biometria.id_estanque == Estanque.id_estanque).all()
 

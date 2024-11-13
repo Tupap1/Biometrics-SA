@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Signout from "../components/ui/Signout";
 import "../components/styles/Inicio.css";
-import pescado from "/src/assets/fotopescao.png";
 import "/src/Peces/crearpeces.css"
 import ButtonWithHover from "../components/ui/Menu";
 
@@ -55,7 +54,7 @@ function MenuInicio() {
             class="row "
           >
         <div id="pes">
-            <img id="fotopez" src={pescado} alt="" />
+            <img id="fotopez" src={"asd"} alt="" />
           </div>
           <div id="volver">
             <Volver></Volver>
@@ -80,7 +79,7 @@ function MenuInicio() {
               />
             </div>
             <div className="col">
-              <Boton className="boton" text="Peces" to="CrearPeces" />
+              <Boton className="boton" text="Peces" to="/CrearPeces" />
             </div>
             <div className="col">
               <Boton className="boton" text="Alimentos" to="/VerAlimento"/>

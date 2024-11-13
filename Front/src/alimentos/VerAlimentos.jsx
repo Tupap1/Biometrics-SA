@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Form from '../src/components/ui/Form';
-import Lista from '../src/components/ui/Lista';
-import Boton from '../src/components/ui/Boton';
+import Boton from '../components/ui/Boton';
+import Form from '../components/ui/Form';
 
 
 

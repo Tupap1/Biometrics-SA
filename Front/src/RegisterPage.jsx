@@ -65,12 +65,11 @@ export default function RegisterPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
-                    id="form3Example3"
                     className="form-control form-control-lg"
                     placeholder="Ingresa tu email"
                     
                   />
-                  <label className="form-label" for="form3Example3">
+                  <label className="form-label" htmlFor="form3Example3">
                     Email
                   </label>
                 </div>
@@ -80,11 +79,10 @@ export default function RegisterPage() {
                     type="password"
                     value={contrasena}
                     onChange={(e) => setcontrasena(e.target.value)}
-                    id="form3Example4"
                     className="form-control form-control-lg"
                     placeholder="Ingresa contrasena"
                   />
-                  <label className="form-label" for="form3Example4">
+                  <label className="form-label" htmlFor="form3Example4">
                     contrasena
                   </label>
                 </div>
@@ -94,11 +92,10 @@ export default function RegisterPage() {
                     type=""
                     value={nombres}
                     onChange={(e) => setnombres(e.target.value)}
-                    id="form3Example4"
                     className="form-control form-control-lg"
                     placeholder="Ingresa nombres del usuario"
                   />
-                  <label className="form-label" for="form3Example4">
+                  <label className="form-label" htmlFor="form3Example4">
                     Nombres
                   </label>
                 </div>
@@ -108,11 +105,10 @@ export default function RegisterPage() {
                     type=""
                     value={apellidos}
                     onChange={(e) => setapellidos(e.target.value)}
-                    id="form3Example4"
                     className="form-control form-control-lg"
                     placeholder="Ingresa apellidos del usuario"
                   />
-                  <label className="form-label" for="form3Example4">
+                  <label className="form-label" htmlFor="form3Example4">
                     apellidos
                   </label>
                 </div>
@@ -122,12 +118,11 @@ export default function RegisterPage() {
                     type=""
                     value={nuip}
                     onChange={(e) => setnuip(e.target.value)}
-                    id="form3Example4"
                     className="form-control form-control-lg"
                     placeholder="Ingresa NUIP del usuario"
-                    maxlength="10"
+                    maxLength="10"
                   />
-                  <label className="form-label" for="form3Example4">
+                  <label className="form-label" htmlFor="form3Example4">
                     NUIP
                   </label>
                 </div>
