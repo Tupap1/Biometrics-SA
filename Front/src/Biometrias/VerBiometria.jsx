@@ -12,9 +12,18 @@ function VerBiometrias() {
   const [biometriaSeleccionada, setBiometriaSeleccionada] = useState([estanque, muestra]);
   const [isEditing, setIsEditing] = useState(false);
 
+  const config = {
+    headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+};
+
+
   const fetchBiometrias = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/consultarbiometrias');
+      const response = await axios.get('http://127.0.0.1:5000/consultarbiometrias', config);
       setBiometrias(response.data);
     } catch (error) {
       console.error(error);

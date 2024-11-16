@@ -10,26 +10,10 @@ import ButtonWithHover from "../components/ui/Menu";
 
 
 function MenuInicio() {
-  const linklogo =
-    "https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/logo.png";
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:5000/user");
-        if (response.data) {
-          setIsLoggedIn(true);
-          setUserName(response.data.nombres);
-        }
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
 
   const handleLogin = async (email, password) => {
     try {
@@ -51,7 +35,7 @@ function MenuInicio() {
       <div className="padre">
         <div className="hijo">
           <div
-            class="row "
+            className="row "
           >
         <div id="pes">
             <img id="fotopez" src={"asd"} alt="" />

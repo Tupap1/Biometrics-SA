@@ -56,7 +56,6 @@ function MenuPeces() {
             <Volver></Volver>
           </div>
         <div id="pes">
-            <img id="fotopez" src={pescado} alt="" />
           </div>
           </div>
           

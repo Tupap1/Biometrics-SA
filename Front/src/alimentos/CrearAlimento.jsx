@@ -40,7 +40,6 @@ function CrearAlimento() {
         <Volver />
       </div>
       <div id="pes">
-        <img src={pescado} alt="" />
       </div>
       <div className="title">
       <h1>Crear Alimento</h1>
@@ -63,7 +62,6 @@ function CrearAlimento() {
           onChange={(e) => {setUnidad(e.target.value); setUnidad(e.target.value.toUpperCase()) }}
         />
       </div>
-      <h1>{Unidad}</h1>
       <div className="crear">
       <Boton id="crear2" className="btn btn-primary" text="Crear Alimento" onClickCustom={Enviar} />
       </div>

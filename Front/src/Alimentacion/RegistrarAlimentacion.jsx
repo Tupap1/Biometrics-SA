@@ -7,7 +7,7 @@ import axios from 'axios'
 
 function RegistrarAlimentacion() {
   const [Estanque, setEstanque] = useState("");
-  const [Alimento, setAlimento] = useState("");
+  const [Alimento, setAlimento] = useState(" 1");
   const [Informacion, setInformacion] = useState("");
   const [cantidad, setcantidad] = useState("");
   const [fecha, setfecha] = useState("");
@@ -40,7 +40,7 @@ function RegistrarAlimentacion() {
     try {
       const response = await axios.get("http://127.0.0.1:5000/veralimentos");
       const matchingalimento = response.data.find((ali) => ali.id === parseInt(Alimento));
-
+      console.log(matchingalimento)
       if (matchingalimento) {
         setAlimentodisponible(matchingalimento.cantidad);
         setUnidadalimento(matchingalimento.unidad);
@@ -84,6 +84,7 @@ function RegistrarAlimentacion() {
     catch(error){
       console.log( error)
       console.log("no se pudo crear la alimentacion")
+      alert("Error al crear la alimentacion")
     }
   }
   

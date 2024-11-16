@@ -11,7 +11,7 @@ function MenuBiometrias() {
     <div className="menu1 ">
         <div className="buttonvolver "><Volver /></div>
           <div className="logo">
-             <img src={logo} /> 
+
           </div>
         <div className="Biometriastittle "> <center><h1>Biometrias</h1></center></div>
 

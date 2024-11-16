@@ -14,7 +14,7 @@ function RegistrarBiometria() {
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [estanque, setEstanque] = useState(1);
+  const [estanque, setEstanque] = useState("");
   const [muestra, setMuestra] = useState("");
   const [fecha, setfecha] = useState("");
   const [hora, setHora] = useState("");
@@ -183,7 +183,7 @@ function RegistrarBiometria() {
 
       <div>
         <label htmlFor="">Seleciona el estanque</label>
-        <Lista onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa(e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
+        <Lista value={estanque} onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa(e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
         <label htmlFor="">Seleciona el tamaño de la muestra</label>
       
       <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>

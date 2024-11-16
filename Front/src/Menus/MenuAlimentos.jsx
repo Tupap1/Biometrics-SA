@@ -53,7 +53,6 @@ function MenuAlimentos() {
             class="row "
           >
         <div id="pes">
-            <img id="fotopez" src={pescado} alt="" />
           </div>
           <div id="volver">
             <Volver></Volver>

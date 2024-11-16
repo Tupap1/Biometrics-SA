@@ -5,43 +5,55 @@ import Boton from "../components/ui/Boton";
 import { useState } from "react";
 import axios from "axios";
 import Volver from "../components/ui/Volver";
-import "/src/Estanques/registerponds.css"
-
+import "/src/Estanques/registerponds.css";
+import { useEffect } from "react";
 
 function RegistrarEstanque() {
-const [nombreEstanque, setnombreEstanque] = useState("")
-const [tamanoEstanque,settamanoEstanque] =useState("")
-const [numeropeces, setnumeropeces] = useState("")
-const [id_pez,setid_pez] = useState("")
+  const [nombreEstanque, setnombreEstanque] = useState("");
+  const [tamanoEstanque, settamanoEstanque] = useState("");
+  const [numeropeces, setnumeropeces] = useState("");
+  const [id_pez, setid_pez] = useState("");
+
+  const [options, setOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
 
 
-const data = {
-  id_pez: id_pez,
-  tamanoestanque: tamanoEstanque,
-  numeropeces: numeropeces,
-  nombreEstanque: nombreEstanque
-};
+    const fetchData = async () => {
+      const response = await axios.get("http://127.0.0.1:5000/consultarpeces");
+      setOptions(response.data);
+      if (response.data.length === 4) {
+        setSelectedOption(data[0].value);
+      }
+    };
 
-const handleSubmit = async (e) => {
+    useEffect(() => {
+      fetchData();
+    });
+  
 
+  const data = {
+    id_pez: id_pez,
+    tamanoestanque: tamanoEstanque,
+    numeropeces: numeropeces,
+    nombreEstanque: nombreEstanque,
+  };
 
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:5000/crearestanque",
-      data
-    );
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-  setid_pez("")
-  setnombreEstanque("")
-  setnumeropeces("")
-  settamanoEstanque("")
-  alert("estanque creado")
-};
-
-
+  const handleSubmit = async (e) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/crearestanque",
+        data
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+    setid_pez("");
+    setnombreEstanque("");
+    setnumeropeces("");
+    settamanoEstanque("");
+    alert("estanque creado");
+  };
 
   return (
     <div className="madre">
@@ -50,24 +62,45 @@ const handleSubmit = async (e) => {
           {" "}
           <Volver />
         </div>
-        <div className="logo2">
-          <img src={pescado} alt="" />
+        <div className="logo2"></div>
+        <div className="title">
+          <h1>Registrar estanque</h1>
         </div>
-      <div className="title">
-        <h1>Registrar estanque</h1>
-      </div>
-      <div className="formulario">
-        <div className="frm">
-        <Form value={nombreEstanque} onChange={(e) =>setnombreEstanque(e.target.value)} placeholder="ingresa el nombre del estanque" />
-          <Form 
-          value={tamanoEstanque} onChange={(e) =>settamanoEstanque(e.target.value)} placeholder="Ingresa el tamaño del estanque m2"/>
-          <Form value={numeropeces} onChange={(e) => setnumeropeces(e.target.value)}  placeholder="Ingrese el numero de peces en el estanque" type="number"/>
-        <Lista onChange={(e) => setid_pez(e.target.value)} apiURL="http://127.0.0.1:5000/consultarpeces"/>
-          <h1>{id_pez}</h1>
+        <div className="formulario">
+          <div className="frm">
+            <Form
+              value={nombreEstanque}
+              onChange={(e) => setnombreEstanque(e.target.value)}
+              placeholder="ingresa el nombre del estanque"
+            />
+            <Form
+              value={tamanoEstanque}
+              onChange={(e) => settamanoEstanque(e.target.value)}
+              placeholder="Ingresa el tamaño del estanque m2"
+            />
+            <Form
+              value={numeropeces}
+              onChange={(e) => setnumeropeces(e.target.value)}
+              placeholder="Ingrese el numero de peces en el estanque"
+              type="number"
+            />
+             <Lista   onChange={(e) => setid_pez(e.target.value)} apiURL="http://127.0.0.1:5000/consultarpeces" onInit={(e) => setid_pez(e)} /> 
+            <h1>
+            </h1>
+            <h1>{id_pez}</h1>
           </div>
-          <div className="guardar"><Boton className="btn btn-primary" id="guardar2" onClickCustom={handleSubmit} text="Guardar estanque"/>
+        
+            
+
+          <div className="guardar">
+            <Boton
+              className="btn btn-primary"
+              id="guardar2"
+              onClickCustom={handleSubmit}
+              text="Guardar estanque"
+            />
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

@@ -41,7 +41,6 @@ function CrearPeces() {
         <Volver />
       </div>
       <div id="pes">
-        <img src={pescado} alt="" />
       </div>
       <div className="title">
       <h1>Registrar Peces</h1>
