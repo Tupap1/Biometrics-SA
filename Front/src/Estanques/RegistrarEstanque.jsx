@@ -87,7 +87,6 @@ function RegistrarEstanque() {
              <Lista   onChange={(e) => setid_pez(e.target.value)} apiURL="http://127.0.0.1:5000/consultarpeces" onInit={(e) => setid_pez(e)} /> 
             <h1>
             </h1>
-            <h1>{id_pez}</h1>
           </div>
         
             

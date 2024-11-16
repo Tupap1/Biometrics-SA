@@ -117,8 +117,8 @@ function DetallesEstanque({ estanqueId }) {
         <div id="modal" className="modal-container">
           <div className="modal-body">
             <h2>Editar estanque</h2>
-            <Form value={nombreEstanque} onChange={(e) => {setNombreEstanque(e.target.value)}} placeholder="Nombre estanque"></Form>
-            <Lista  value={pez} onChange={(e) => setPez(e.target.value)} apiURL={"http://127.0.0.1:5000/consultarpeces"}></Lista>
+            <Form  value={nombreEstanque} onChange={(e) => {setNombreEstanque(e.target.value)}} placeholder="Nombre estanque"></Form>
+            <Lista onInit={(e) => setPez(e)}  value={pez} onChange={(e) => setPez(e.target.value)} apiURL={"http://127.0.0.1:5000/consultarpeces"}></Lista>
             <Form value={numeropeces} onChange={(e) => {setNumeroPeces(e.target.value)}} placeholder="Numero Peces"></Form>
             <Form value={mortalidad} onChange={(e) => setMortalidad(e.target.value)} placeholder="Mortalidad"></Form>
             <Form value={tamano} onChange={(e => setTamano(e.target.value))} placeholder="tamaño estanque"></Form>

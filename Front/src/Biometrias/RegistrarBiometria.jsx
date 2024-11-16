@@ -183,9 +183,8 @@ function RegistrarBiometria() {
 
       <div>
         <label htmlFor="">Seleciona el estanque</label>
-        <Lista value={estanque} onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa(e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
+        <Lista onInit={(e) => setEstanque(e)} value={estanque} onChange={(e) => {setEstanque (e.target.value); fetchData(); calcularbiomasa(e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista></div>
         <label htmlFor="">Seleciona el tamaño de la muestra</label>
-      
       <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
         <option value="5">5%</option>
         <option value="10">10%</option>          

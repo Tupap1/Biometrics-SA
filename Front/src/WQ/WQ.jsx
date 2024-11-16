@@ -75,7 +75,7 @@
       </div>
         <div className="row" id="forms">
 
-          <Lista placeholder={"seleciona el estanque"} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+          <Lista onInit={(e) => setEstanque(e)} placeholder={"seleciona el estanque"} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
           <Form value={nitrogeno} onChange={(e) => setNitrogeno(e.target.value)} placeholder="Niveles de nitrogeno" />
           <Form value={Oxigeno} onChange={(e) => setOxigeno(e.target.value)} placeholder="Niveles de Oxigeno" />
           <Form value={Sulfuro} onChange={(e) => setSulfuro(e.target.value)} placeholder="Niveles de Sulfuro" />

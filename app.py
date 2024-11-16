@@ -31,7 +31,9 @@ def create_app():
     from Routes.Routes import pruebaroutes
     from Routes.peces import Peces
     from Routes.biometria import Biometria
+    from Routes.estanque import Estanque
 
+    app.register_blueprint(Estanque)
     app.register_blueprint(pruebaroutes)
     app.register_blueprint(Peces)
     app.register_blueprint(Biometria)
@@ -46,16 +48,6 @@ def create_app():
 
     return app
 
-
-
-
-
-
-
-""" engine = create_engine('mysql://root:@localhost/biometricssa')
-Base = declarative_base()
-Base.metadata.create_all(bind=engine)    
-print("Tablas creadas") """
 
 
 
