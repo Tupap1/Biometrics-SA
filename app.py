@@ -1,16 +1,24 @@
-from flask import Flask, request, jsonify, session
-from flask_migrate import Migrate
-from flask_cors import cross_origin, CORS
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import relationship
-from authlib.integrations.flask_client import OAuth
-from extensions import oauth,bcrypt,jwt, migrate
-from extensions import db 
+from flask import Flask
+from flask_cors import  CORS
+from extensions import oauth,bcrypt,jwt, migrate,db
+import win32event
+import win32serviceutil
 
 
 
+class biometricssa_service(win32serviceutil.ServiceFramework):
+    _svc_name_ = "biometricssa-service" 
+    _svc_display_name_ = "biometricssa-service"
+
+    def __init__(self, args):
+        win32serviceutil.ServiceFramework.__init__(self, args)
+        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
+        self.stop_requested = False
+
+    def SvcStop(self):
+        self.ReportServiceStatus(win32serviceutil.SERVICE_STOP_PENDING)
+        win32event.SetEvent(self.hWaitStop)
+        self.stop_requested = True
 
 def create_app():
     app = Flask(__name__)
@@ -27,14 +35,21 @@ def create_app():
     bcrypt.init_app(app)   
     jwt.init_app(app)
     migrate.init_app(app, db)
+    CORS(app)
 
-    from Routes.Routes import pruebaroutes
+    from Routes.usuarios import Usuarios
     from Routes.peces import Peces
     from Routes.biometria import Biometria
     from Routes.estanque import Estanque
+    from Routes.alimentos import Alimentos
+    from Routes.alimentaciones import Alimentacion
+    from Routes.wq import Wq
 
+    app.register_blueprint(Alimentacion)
+    app.register_blueprint(Wq)
+    app.register_blueprint(Alimentos)
     app.register_blueprint(Estanque)
-    app.register_blueprint(pruebaroutes)
+    app.register_blueprint(Usuarios)
     app.register_blueprint(Peces)
     app.register_blueprint(Biometria)
 

@@ -92,9 +92,9 @@ function RegistrarAlimentacion() {
     <div>
       <h1>Registar alimentacion</h1>
       <label htmlFor="">Seleciona el estanque de la alimentacion</label>
-      <Lista placeholder={"seleciona el estanque"} onChange={(e) => {setEstanque (e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+      <Lista onInit={e => setEstanque(e)} placeholder={"seleciona el estanque"} onChange={(e) => {setEstanque (e.target.value);} } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
       <label htmlFor="">Seleciona el tipo de alimento</label>
-      <Lista onChange={(e) => {setAlimento (e.target.value); consultarcantidadalimento(e.target.value); } } apiURL="http://127.0.0.1:5000/veralimentos"></Lista>
+      <Lista onInit={e => setAlimento(e)} placeholder={"seleciona el alimento"} onChange={(e) => {setAlimento (e.target.value); consultarcantidadalimento(e.target.value); } } apiURL="http://127.0.0.1:5000/veralimentos"></Lista>
 
       <div>
 

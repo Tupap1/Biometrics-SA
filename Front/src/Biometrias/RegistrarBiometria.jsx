@@ -51,6 +51,9 @@ function RegistrarBiometria() {
         if(event.key === 'Enter'){handleAddBiometria();}};
 
 
+  const elementoconfoco = document.activeElement;
+
+
   const calcularPromedio = (datos) => {
     const numeros = datos.filter((dato) => !isNaN(dato));
     if (numeros.length === 0) return 0;
@@ -191,7 +194,6 @@ function RegistrarBiometria() {
       </select>
 
       <Boton className="btn btn-primary" text="Enviar" onClickCustom={handleSubmit} />
-                  
         </div>
   );
 }

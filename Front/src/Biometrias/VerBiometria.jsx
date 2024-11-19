@@ -118,7 +118,7 @@ function VerBiometrias() {
         <div>
           <h2>Editando Biometria {biometriaSeleccionada.id}</h2>
           <label htmlFor="">Seleciona el nuevo estanque</label>
-          <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+          <Lista onInit={(e) => setEstanque(e)} value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
           <label htmlFor="">Seleciona el tamaño de la muestra</label>
           <select className='form-select' value={muestra} onChange={(e) => setMuestra(e.target.value)}>
         <option value="5">5%</option>

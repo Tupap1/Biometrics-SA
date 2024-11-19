@@ -1,6 +1,7 @@
 from flask import  request, jsonify, session, Blueprint, current_app
 from extensions import db
-from Models.Models import peces,alimentacion
+from Models.peces import peces
+from Models.alimentacion import alimentacion
 
 Peces = Blueprint('peces', __name__)
 @Peces.route("/registrarpeces", methods=["POST"])

@@ -14,22 +14,7 @@ function RegistrarEstanque() {
   const [numeropeces, setnumeropeces] = useState("");
   const [id_pez, setid_pez] = useState("");
 
-  const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
 
-
-    const fetchData = async () => {
-      const response = await axios.get("http://127.0.0.1:5000/consultarpeces");
-      setOptions(response.data);
-      if (response.data.length === 4) {
-        setSelectedOption(data[0].value);
-      }
-    };
-
-    useEffect(() => {
-      fetchData();
-    });
-  
 
   const data = {
     id_pez: id_pez,
@@ -48,7 +33,6 @@ function RegistrarEstanque() {
     } catch (error) {
       console.error(error);
     }
-    setid_pez("");
     setnombreEstanque("");
     setnumeropeces("");
     settamanoEstanque("");

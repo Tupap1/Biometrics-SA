@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import "../components/styles/modal.css";
 import Form from "../components/ui/Form";
 import Boton from "../components/ui/Boton";
@@ -10,6 +11,7 @@ import Card from "../components/ui/Card";
 
 function DetallesEstanque({ estanqueId }) {
   let params = useParams();
+  const navigate = useNavigate();
   const [estanque, setEstanque] = useState("");
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [nombreEstanque, setNombreEstanque] = useState("")
@@ -24,12 +26,29 @@ function DetallesEstanque({ estanqueId }) {
   }, [estanque.id]);
 
 
+  const handleDelete = async () => {
+    if (window.confirm("¿Estás seguro de eliminar este registro?")) {
+      try {
+        await axios.delete(`http://127.0.0.1:5000/borrarestanque/${estanque.id}`);
+        alert("Estanque eliminado con éxito");
+        closePopup();
+        navigate(to="/VerEstanques")
+      } catch (error) {
+        console.error(error);
+        alert("Error al eliminar el Estanque");
+        
+      }
+    }
+  };
+
   const openPopup = () => {
     setPopupOpen(true);
+    fetchEstanque();
   };
 
   const closePopup = () => {
     setPopupOpen(false);
+    fetchEstanque();
   };
 
 
@@ -66,7 +85,8 @@ function DetallesEstanque({ estanqueId }) {
       fetchEstanque()
       const response = await axios.put(`http://127.0.0.1:5000/estanque/${estanque.id}`, datosestanque);
       console.log(response);
-      fetchEstanque()
+      closePopup();
+      fetchEstanque();
       alert('Datos estanque editados con éxito');
     } catch (error) {
       console.error(error);
@@ -86,8 +106,8 @@ function DetallesEstanque({ estanqueId }) {
           <p>estanque: {estanque.nombre}</p>
           <p>Peces: {estanque.nombrepez}</p>
           <p>numero de peces: {estanque.numeropeces}</p>
-          <p> mortalidad: {estanque.mortalidad}</p>
-          <p> tamano: {estanque.tamano} m2</p>
+          <p>mortalidad: {estanque.mortalidad}</p>
+          <p>tamano: {estanque.tamano} m2</p>
 
           <button className="btn btn-primary" onClick={openPopup}>
             Editar Datos
@@ -132,7 +152,10 @@ function DetallesEstanque({ estanqueId }) {
                 Cerrar
               </button></div>
               <div className="col">
-              <Boton className="btn btn-primary" onClickCustom={handleSaveEdit} text="Actualizar Datos"></Boton></div>            </div>
+              <Boton className="btn btn-primary" onClickCustom={handleSaveEdit} text="Actualizar Datos"></Boton>
+              <Boton className="btn btn-danger" onClickCustom={handleDelete} text="Eliminar"></Boton>
+              </div>            </div>
+        
           </div>
         </div>
       )}

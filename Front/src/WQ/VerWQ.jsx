@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Lista from '../components/ui/Lista';
 import Boton from '../components/ui/Boton';
+import Form from '../components/ui/Form';
 
 function VerWQ() {
 
@@ -42,12 +43,12 @@ function VerWQ() {
     try {
       const response = await axios.put(`http://127.0.0.1:5000/wq/${wqseleccionada.id}`, datoswq);
       console.log(response);
-      alert('Biometria editada con éxito');
+      alert('WQ editada con éxito');
       setIsEditing(false);
       consultarwq();
     } catch (error) {
       console.error(error);
-      alert('Error al editar biometria');
+      alert('Error al editar WQ');
     }
   };
 
@@ -95,7 +96,8 @@ function VerWQ() {
         <div>
           <h2>Editando registro WQ {wqseleccionada.id}</h2>
           <label htmlFor="">Seleciona el nuevo estanque</label>
-          <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>          
+          <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
+                    
           <button onClick={handleSaveEdit}>Guardar</button>
           <button onClick={handleCancelEdit}>Cancelar</button>
         </div>

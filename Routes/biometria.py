@@ -3,8 +3,8 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from extensions import db
-from Models.Models import estanque  
-from Models.Models import biometria
+from Models.estanque import estanque  
+from Models.biometria import biometria
 
 Biometria = Blueprint('Biometria', __name__)
 

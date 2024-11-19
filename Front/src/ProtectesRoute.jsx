@@ -5,7 +5,7 @@ const ProtectedRoute = ({ children }) => {
   const { token, isAuthenticated } = useAuth();
   const location = useLocation();
   console.log("Ruta actual:", location.pathname);
-     console.log("Estado de autenticación:", isAuthenticated);
+  console.log("Estado de autenticación:", isAuthenticated);
 
   if (!isAuthenticated || !token) {
     localStorage.setItem('redirectTo', location.pathname);

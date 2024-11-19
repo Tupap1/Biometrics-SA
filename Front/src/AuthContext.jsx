@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('redirectTo');
     if (navigate) {
       navigate('/');
     }

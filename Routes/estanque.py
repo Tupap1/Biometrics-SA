@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
-from Models.Models import estanque, peces
+from Models.estanque import estanque
+from Models.peces import peces
 from extensions import db
 
 Estanque = Blueprint('Estanque', __name__)
@@ -50,10 +51,11 @@ def consultarestanque():
     return jsonify(estanques_json)
 
 
-@Estanque.route('/estanque/<int:id_estanque>')
-def get_estanque(id_estanque):
-    estanqueunico = estanque.query.get(id_estanque)
+@Estanque.route('/estanque/<int:id_estanquee>')
+def get_estanque(id_estanquee):
+    estanqueunico = estanque.query.get(id_estanquee)    
     if estanqueunico:
+        nombrepez = "hola"
         return jsonify({
             "id": estanqueunico.id_estanque,
             "nombre":estanqueunico.nombreEstanque,
@@ -61,7 +63,8 @@ def get_estanque(id_estanque):
             "numeropeces":estanqueunico.numeropeces,
             "mortalidad":estanqueunico.mortalidad,
             "idpez":estanqueunico.id_pez,
-            "nombrepez":estanqueunico.peces.nombre_cientifico      })
+            "nombrepez":estanqueunico.peces.nombre_cientifico
+            })
     else:
         return jsonify({'error': 'Estanque no encontrado'}), 404
     
@@ -72,7 +75,7 @@ def get_estanque(id_estanque):
 @Estanque.route('/estanque/<int:id_estanque>', methods=['PUT'])
 def actualizarestanque(id_estanque):
     data = request.get_json()
-    estanquee = estanque.query.get(id_estanque)
+    estanquee = estanque.query.get(id_estanque) 
     if estanquee:
         estanquee.nombreEstanque = data['nombreEstanque']
         estanquee.numeropeces = data['numeropeces']
@@ -84,7 +87,7 @@ def actualizarestanque(id_estanque):
     else:
         return jsonify({'error': 'estanque no encontrado'}), 404
     
-@Estanque.route('/borraralimento/<int:id_estanque>', methods=['DELETE'])
+@Estanque.route('/borrarestanque/<int:id_estanque>', methods=['DELETE'])
 def borraralimento(id_estanque):
 
 

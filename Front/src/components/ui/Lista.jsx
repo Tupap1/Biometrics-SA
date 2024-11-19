@@ -4,7 +4,7 @@ const Lista = ({ apiURL, value, onChange, onInit }) => {
   const [options, setOptions] = useState([]);
   
 
-  const fetchData = async () => {
+  const fetchData = async (e) => {
     try {
       const response = await fetch(apiURL);
       const data = await response.json();
@@ -27,9 +27,9 @@ const Lista = ({ apiURL, value, onChange, onInit }) => {
   return (
     <div className="w-full">
       <select 
-        value={value} 
+        value={value||''} 
         onChange={onChange}
-        className="w-full p-2 border rounded-md bg-white shadow-sm"
+      className='form-control'
       >
         {options.map((option) => (
           <option key={option.id} value={option.id}>

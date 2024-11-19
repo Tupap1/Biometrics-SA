@@ -1,6 +1,6 @@
 import "./components/styles/Login.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useLocation } from "react-router-dom";
 
@@ -26,8 +26,8 @@ export default function LoginPage() {
       if (success) {
         const ruta = localStorage.getItem("redirectTo");
         navigate(ruta);
-        if (ruta == null)
-          navigate(to="/MenuInicio")
+        if (ruta === null)
+          navigate("/MenuInicio");
       } else {
         setError("Error durante el login. Por favor intente nuevamente.");
       }
