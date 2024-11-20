@@ -10,7 +10,7 @@ function Calculadora() {
     const [numerocomidas, setNumerocomidas] = useState("")
     const [biomasa, setBiomasa] = useState("")
     const [idbiometria, setIdbiometria] = useState("")
-    const [datos, setDatos] = useState("")
+    const [datos, setDatos] = useState({})
     const [tasa, setTasa] = useState("")
     const [raciones, setRaciones] = useState()
     const [cantidadalimento ,setCantidadalimento] = useState()
@@ -42,7 +42,8 @@ function Calculadora() {
     <div>
         <h1>Calcular Comidas</h1>
         <label htmlFor="">Selecciona una Biometria</label>
-        <Lista onChange={(e) => setIdbiometria(e.target.value)} apiURL={"http://127.0.0.1:5000/consultarbiometrias"}></Lista>
+        <Lista oninit={(e) => setIdbiometria(e.target.value)} value={idbiometria} onChange={(e) => setIdbiometria(e.target.value)} apiURL={"http://127.0.0.1:5000/consultarbiometrias"}></Lista>
+        {datos && datos != "" ?(<h5>El peso promedio de tu biometria es de {datos.peso} gr</h5> ):("")}
         <Form type='number' value={numerocomidas} onChange={(e) => setNumerocomidas(e.target.value)} placeholder='Ingresa la cantidad de raciones'></Form>
         <Form type='number' value={tasa} onChange={(e) => setTasa(e.target.value)} placeholder='Ingresa tasa de alimentacion'></Form>
         <Boton className='btn btn-primary' onClickCustom={calcularRaciones} text='Calcular'></Boton>

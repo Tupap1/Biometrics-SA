@@ -1,24 +1,7 @@
 from flask import Flask
 from flask_cors import  CORS
 from extensions import oauth,bcrypt,jwt, migrate,db
-import win32event
-import win32serviceutil
 
-
-
-class biometricssa_service(win32serviceutil.ServiceFramework):
-    _svc_name_ = "biometricssa-service" 
-    _svc_display_name_ = "biometricssa-service"
-
-    def __init__(self, args):
-        win32serviceutil.ServiceFramework.__init__(self, args)
-        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
-        self.stop_requested = False
-
-    def SvcStop(self):
-        self.ReportServiceStatus(win32serviceutil.SERVICE_STOP_PENDING)
-        win32event.SetEvent(self.hWaitStop)
-        self.stop_requested = True
 
 def create_app():
     app = Flask(__name__)
@@ -62,6 +45,7 @@ def create_app():
 
 
     return app
+
 
 
 

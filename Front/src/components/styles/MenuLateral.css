@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "public sans", sans-serif;
+}
+
+.flex {
+  position: relative;
+  height: 80vh;
+}
+
+.sidebar {
+  position: fixed;
+  left: 35px;
+  top: 50%;
+  transform: translate(1%, -50%);
+  height: 852px;
+  background: #A6D5F6;
+  padding: 15px 10px;
+  transition: all 0.4s ease;
+  border-radius: 25px;
+}
+
+.sidebar.collapsed {
+  width: 65px;
+}
+
+.sidebar.expanded {
+  width: 300px;
+}
+
+.navigation {
+  padding: 7px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  list-style: none;
+  height: 55px;
+  position: relative;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar ul li a {
+  display: flex;
+  height: 100%;
+  width: calc(100% + 60px);
+  margin-left: -30px;
+  border-radius: 10px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .text {
+  display: none;
+}
+
+.sidebar.collapsed a {
+  width: calc(100% + 30px);
+  margin-left: -15px;
+  justify-content: center;
+}
+
+.sidebar.collapsed li.active a {
+  background: #fff;
+  width: calc(100% + 30px);
+  margin-left: -15px;
+}
+
+.sidebar ul li a:hover {
+  background: #fff;
+  width: calc(100% + 20px);
+}
+
+.sidebar ul li.active a {
+  background: #fff;
+  width: calc(100% + 10px);
+  margin-left: 5px;
+}
+
+.icon {
+  font-size: 22px;
+  min-width: 50px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.text {
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  margin-left: 10px;
+}
+
+.sidebar.collapsed .text {
+  opacity: 0;
+  width: 0;
+}
+
+
+.list.active a {
+  background: #fff;
+  color: #333;
+}
+
+.list.active .icon {
+  color: #333;
+}
+
+.usercontent {
+  margin-top: 410px;
+}
+
+a {
+  text-decoration: none;
+  color: #070707;
+  width: calc(100% + 10px);
+  width: calc(100% + 10px);
+  margin-left: 5px;
+}
+
+.sidebar.expanded a {
+  padding-left: 30px;
+}
+
+.sidebar.collapsed a {
+  padding: 0;
+}
+
+.user-icon{
+  width: 30px;
+  height: auto;
+  margin-left: 7px;
+  margin-bottom: 160px;
+}

@@ -57,15 +57,16 @@ def consultarbiometrias():
 def obtener_biometria(id_biometria):
 
 
-    biometria = Biometria.query.get(id_biometria)
+    biometriaindividual = biometria.query.get(id_biometria)
 
-    if biometria:
+    if biometriaindividual:
         return jsonify({
-            'id_biometria': biometria.id_biometria,
-            'id_estanque': biometria.id_estanque,
-            'fecha': str(biometria.fecha),
-            'hora': str(biometria.hora),
-            "biomasa":biometria.cantidad_biomasa
+            'id_biometria': biometriaindividual.id_biometria,
+            'id_estanque': biometriaindividual.id_estanque,
+            'fecha': str(biometriaindividual.fecha),
+            'hora': str(biometriaindividual.hora),
+            "biomasa":biometriaindividual.cantidad_biomasa,
+            "peso":biometriaindividual.peso,
         }), 200
     else:
         return jsonify({'mensaje': 'Biometría no encontrada'}), 404
