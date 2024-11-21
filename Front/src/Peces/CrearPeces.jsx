@@ -37,11 +37,8 @@ function CrearPeces() {
   return (
     <div className="padrastro">
       <div className="hija">
-      <div id="volver">
-        <Volver />
-      </div>
-      <div id="pes">
-      </div>
+
+
       <div className="title">
       <h1>Registrar Peces</h1>
       </div>

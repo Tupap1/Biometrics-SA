@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import AuthButton from './components/ui/Loginboton';
 import Boton from './components/ui/Boton';
 import './components/styles/LandingPage.css'
+import logo from './assets/LogoBlanco.png'
 
 const LandingPage = () => {
 
@@ -15,7 +16,7 @@ const LandingPage = () => {
         <AuthButton></AuthButton>
       </header>
       <div className="logo-container">
-        <img src="https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/logo_trial-removebg-preview%201.png  " alt="Biometrics SA" className="logo.png" />
+        <img src={logo} alt="Biometrics SA" className="logo.png" />
       </div>
 
       <div className="button-container">

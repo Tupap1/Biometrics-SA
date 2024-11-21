@@ -102,7 +102,7 @@ function RegistrarAlimentacion() {
       {cantidad && <p>Cantidad disponible: {alimentodisponible} {unidad}</p>}
     </div>
       <Form min={"0"} max={alimentodisponible} type='number' value={cantidad} onChange={(e) => setcantidad(e.target.value)} placeholder='Ingresa la cantidad de alimento distribuida'  ></Form>
-      <textarea className="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la jornada de alimencaion" rows="3"></textarea>
+      <textarea className="form-control" value={Informacion} onChange={(e) => setInformacion(e.target.value)} placeholder="Ingresa una descripcion de la jornada de alimentacion" rows="3"></textarea>
       <Boton text='Crear Alimentacion' className='btn btn-primary' onClickCustom={enviardatos}></Boton>
     </div>
   )

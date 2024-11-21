@@ -9,15 +9,18 @@ function MenuBiometrias() {
   return (
     <div className="menuee">
     <div className="menu1 ">
-        <div className="buttonvolver "><Volver /></div>
-          <div className="logo">
 
-          </div>
         <div className="Biometriastittle "> <center><h1>Biometrias</h1></center></div>
 
-        <div className="botones">
+        <div className="row">
+          <div className="col">
+          
           <Boton id="btnbio"text="Registrar Biometria" to="/Biometria" />
+          </div>
+          <div className="col">
+
           <Boton id="btnbio"text="Ver Biometrias" to="/VerBiometria" />
+          </div>
         </div>  
           </div>
     </div>

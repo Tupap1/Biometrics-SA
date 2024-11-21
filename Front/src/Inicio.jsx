@@ -1,12 +1,14 @@
 import React from "react";
-import './components/styles/LandingPage.css';
+import './components/styles/layout.css';
 import MenuLateral from "./components/ui/MenuLateral";
 
-function Inicio() {
+const Inicio = ({children}) => {
   return (
  
-      <div className="col">
-        <MenuLateral/>
+      <div>
+        <div><MenuLateral/></div>
+        <div className="content">{children}</div>
+        
       </div>  
   );
 }

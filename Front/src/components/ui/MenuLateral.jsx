@@ -73,7 +73,7 @@ function MenuLateral() {
             )}
             {isExpanded && (
               <div className="user-info">
-                <AuthButton></AuthButton>
+                <AuthButton idboton="btnlogin"></AuthButton>
               </div>
             )}
           

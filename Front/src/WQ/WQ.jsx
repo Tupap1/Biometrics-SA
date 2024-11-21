@@ -8,6 +8,8 @@ import axios from "axios";
 import Toggled from "../components/ui/Toggled";
 
 function WQ() {
+  const [enviandoDatos, setEnviandoDatos] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [estanque, setEstanque] = useState("");
   const [nitrogeno, setNitrogeno] = useState("");
   const [Oxigeno, setOxigeno] = useState("");
@@ -72,6 +74,11 @@ function WQ() {
     return () => clearInterval(intervalo);
   }, []);
 
+  const handleCancelEdit = () => {
+    setEstanque(null);
+    setIsEditing(false);
+  };
+
   const handleCheckboxChange = (e) => {
     setCategories({
       ...categories,
@@ -106,9 +113,10 @@ function WQ() {
   };
 
   return (
+  
     <div>
-      {console.log(categories)}
-      <div className="row">
+      {enviandoDatos === false ? (
+        <div className="row">
         <div className=" row">
           <div className="col">
             <div className="form-check form-switch">
@@ -533,17 +541,20 @@ function WQ() {
               </label>
             </div>
           </div>
-        </div>
-        <div>
+          </div>
+          <div>
           <Boton
             className="btn btn-primary"
             text="Registrar WQ"
-            onClickCustom={(e) => setRegistrar(true)}
+            onClickCustom={(e) => {setRegistrar(true), setEnviandoDatos(true);}}
           />
         </div>
-      </div>
+        </div>  
+          ):null}
+      
 
-      {registrar && (
+
+      {registrar && enviandoDatos === true ? (
         <div className="col">
           <div className="row">
             <div id="registrarWQ">Registrar WQ</div>
@@ -553,6 +564,7 @@ function WQ() {
               onInit={(e) => setEstanque(e)}
               placeholder={"seleciona el estanque"}
               onChange={(e) => setEstanque(e.target.value)}
+              value={estanque}
               apiURL="http://127.0.0.1:5000/consultarestanque"
             ></Lista>
             <Form
@@ -583,16 +595,20 @@ function WQ() {
               rows="3"
             ></textarea>
           </div>
-          <div className="ingresar">
+          <div className="row">
+            <div className="col">
             <Boton
               onClickCustom={enviardatos}
               id="ingresar"
-              className="ingresar"
+              className="btn btn-primary"
               text="Ingresar"
-            />
+            /></div>
+            <div className="col">
+            <Boton onClickCustom={() => setEnviandoDatos(false)} className="btn btn-primary" text="Cambiar parametros"></Boton>
+            </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

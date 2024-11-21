@@ -7,7 +7,6 @@ import Signout from "../components/ui/Signout";
 import "../components/styles/Inicio.css";
 import "/src/Peces/crearpeces.css"
 
-
 function MenuAlimentos() {
   const linklogo =
     "https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/logo.png";
@@ -49,21 +48,14 @@ function MenuAlimentos() {
     <div>
       <div className="padre">
         <div className="hijo">
-          <div
-            class="row "
-          >
-        <div id="pes">
-          </div>
-          <div id="volver">
-            <Volver></Volver>
-          </div>
-          </div>
-          
-  
-
+          <div class="row "></div>
           <div className="row">
             <div className="col">
-              <Boton className="boton" text="Crear Alimentos" to="/CrearAlimento" />
+              <Boton
+                className="boton"
+                text="Crear Alimentos"
+                to="/CrearAlimento"
+              />
             </div>
             <div className="col">
               <Boton className="boton" text="Ver Alimentos" to="/VerAlimento" />
@@ -75,14 +67,14 @@ function MenuAlimentos() {
                 to="/VerAlimentacion"
               />
             </div>
-            
+
             <div className="col">
               <Boton
                 className="boton"
                 text="Crear Alimentacion"
                 to="/RegistrarAlimentacion"
               />
-             </div>
+            </div>
           </div>
         </div>
       </div>

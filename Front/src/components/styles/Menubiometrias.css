@@ -1,7 +1,4 @@
-body {
-  background: rgba(82, 222, 247, 0.15);
-  background-blend-mode: plus-darker;
-}
+
 .menu1 {
   background: linear-gradient(
       0deg,
@@ -21,7 +18,6 @@ body {
 .Biometriastittle {
   color: #4eabed;
   text-align: center;
-  font-family: "Public Sans";
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -41,12 +37,18 @@ body {
   margin-left: 470px;
 }
 #btnbio {
-  border: 0px;
-  background: rgba(78, 171, 237, 0.7);
-  width: 380px;
+  width: 220px;
   height: 180px;
   flex-shrink: 0;
-  margin-left: 150px;
-  margin-top: 30px;
-  font-size: 30px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(78, 171, 237, 0.70);
+  color: #FFF;
+  text-align: center;
+  font-family: "Public Sans";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none;
 }

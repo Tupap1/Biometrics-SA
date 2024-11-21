@@ -131,10 +131,6 @@ function RegistrarBiometria() {
   return (
     <div className="main">
       <div className="row mt-3 mx-auto">
-        <div className="col">
-          {" "}
-          <Volver />
-        </div>
         <div className="col mx-auto">
           <h2>Registrar Biometria</h2>
         </div>

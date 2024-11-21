@@ -18,17 +18,20 @@ line-height: normal;
   margin-left: 200px;
 }
 #bt1{
-  border: 0px;
-  background: rgba(78, 171, 237, 0.70);
-  width: 380px;
+  width: 220px;
   height: 180px;
   flex-shrink: 0;
-  margin-left: 850px;
-  margin-top: -200px;
-font-size: 30px;
-margin-top: 10px;
-
-position: sticky;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(78, 171, 237, 0.70);
+  color: #FFF;
+  text-align: center;
+  font-family: "Public Sans";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none;
 
 }
 #bt2{

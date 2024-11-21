@@ -19,15 +19,15 @@ import MenuEstanques from "./Menus/MenuEstanques.jsx";
 import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
 import VerEstanques from "./Estanques/VerEstanques.jsx";
 import CrearPeces from "./Peces/CrearPeces.jsx";
-import Estanque from "./Estanques/Estanque.jsx";
 import VerBiometrias2 from "./Biometrias/VerBiometriasCard.jsx";
 import RegistrarBiometria from "./Biometrias/RegistrarBiometria.jsx";
 import { Auth0Provider } from "@auth0/auth0-react";
+import './components/styles/App.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-
+      <div className="App">
       <App></App>
-
+      </div>
   </StrictMode>
 );

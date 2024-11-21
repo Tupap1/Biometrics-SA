@@ -14,7 +14,7 @@ def create_measurement():
         nitrogeno=data['Nitrogeno'],
         oxigeno=data['Oxigeno'],
         sulfuro=data['Sulfuro'],
-        nitratos=data['Nitratos'],
+        nitritos=data['Nitratos'],
         informacion=data['Informacion'],
         hora = data['hora'],
         fecha = data['fecha']
@@ -44,9 +44,9 @@ def consultarwq():
 @Wq.route('/wq/<int:wq_id>', methods=['PUT'])
 def actualizarwq(wq_id):
     data = request.get_json()
-    wq = wq.query.get(wq_id)
-    if wq:
-        wq.id_estanque = data['idestanque']
+    wqeditada = wq.query.get(wq_id)
+    if wqeditada:
+        wqeditada.id_estanque = data['idestanque']
         db.session.commit()
         return jsonify({'message': 'WQ actualizada correctamente'}), 200
     else:

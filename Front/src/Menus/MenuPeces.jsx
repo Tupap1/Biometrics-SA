@@ -52,9 +52,7 @@ function MenuPeces() {
           <div
             class="row "
           >
-          <div id="volver">
-            <Volver></Volver>
-          </div>
+
         <div id="pes">
           </div>
           </div>

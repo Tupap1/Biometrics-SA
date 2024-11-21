@@ -14,7 +14,6 @@ import MenuEstanques from "./Menus/MenuEstanques.jsx";
 import RegistrarEstanque from "./Estanques/RegistrarEstanque.jsx";
 import VerEstanques from "./Estanques/VerEstanques.jsx";
 import CrearPeces from "./Peces/CrearPeces.jsx";
-import Estanque from "./Estanques/Estanque.jsx";
 import VerBiometrias2 from "./Biometrias/VerBiometriasCard.jsx";
 import RegistrarBiometria from "./Biometrias/RegistrarBiometria.jsx";
 import MenuInformes from "./Menus/MenuInformes.jsx";
@@ -36,24 +35,39 @@ import { useLocation } from "react-router-dom";
 import Calculadora from "./Calculadora.jsx";
 import LandingPage from "./LandingPage.jsx";
 import Menu from "./components/ui/Menu.jsx";
-
+import "./components/styles/App.css";
+import Volver from "./components/ui/Volver.jsx";
+import logo from "./assets/LogoAzul.png";
 
 const Layout = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  const location = useLocation(); 
-  
-  
-  const publicRoutes = ['/', '/login', '/register'];
+  const location = useLocation();
+
+  const publicRoutes = ["/", "/login", "/register"];
   const isPublicRoute = publicRoutes.includes(location.pathname);
 
   return (
-    <div className="row">
+    <div id="padre" className="row">
       {isAuthenticated && !isPublicRoute && (
         <div className="col">
           <Inicio />
         </div>
       )}
-      <div className={isAuthenticated && !isPublicRoute ? "col-9" : "col-12"}>
+      <div
+        id="content"
+        className={isAuthenticated && !isPublicRoute ? "col-9" : "col-12"}
+      >
+        {isAuthenticated && !isPublicRoute && (
+          <div className="">
+            <div id="volver" className="col">
+              <Volver></Volver>
+            </div>
+            <div id="logocontainer" className="col">
+              <img id="logo" src={logo} alt="" />
+            </div>
+          </div>
+        )}
+
         {children}
       </div>
     </div>
@@ -66,7 +80,6 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
-
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -88,7 +101,7 @@ function App() {
               }
             />
 
-<Route
+            <Route
               path="/Calculadora"
               element={
                 <ProtectedRoute>
@@ -184,14 +197,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/Estanque"
-              element={
-                <ProtectedRoute>
-                  <Estanque />
-                </ProtectedRoute>
-              }
-            />
+
             <Route
               path="/editarestanque/:id"
               element={
@@ -288,7 +294,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
 
             <Route
               path="*"

@@ -53,7 +53,7 @@ function VerWQ() {
   };
 
   const handleCancelEdit = () => {
-    setBiometriaSeleccionada(null);
+    setwqseleccionada(null);
     setIsEditing(false);
   };
 
@@ -84,7 +84,7 @@ function VerWQ() {
               <td>{wq.fecha}</td>
               <td>{wq.hora}</td>
               <td>
-                <button onClick={() => handleEdit(wq)}>Editar</button>
+                <button className='btn btn-primary' onClick={() => handleEdit(wq)}>Editar</button>
               </td>
             </tr>
           ))}
@@ -98,8 +98,8 @@ function VerWQ() {
           <label htmlFor="">Seleciona el nuevo estanque</label>
           <Lista value={estanque} onChange={(e) => setEstanque (e.target.value) } apiURL="http://127.0.0.1:5000/consultarestanque"></Lista>
                     
-          <button onClick={handleSaveEdit}>Guardar</button>
-          <button onClick={handleCancelEdit}>Cancelar</button>
+          <button className='btn btn-primary' onClick={handleSaveEdit}>Guardar</button>
+          <button className='btn btn-danger' onClick={handleCancelEdit}>Cancelar</button>
         </div>
         )
 }

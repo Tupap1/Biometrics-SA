@@ -9,8 +9,7 @@
 }
 
 .flex {
-  position: relative;
-  height: 80vh;
+  height: 100px;
 }
 
 .sidebar {
@@ -18,7 +17,7 @@
   left: 35px;
   top: 50%;
   transform: translate(1%, -50%);
-  height: 852px;
+  height: 80vh;
   background: #A6D5F6;
   padding: 15px 10px;
   transition: all 0.4s ease;
@@ -80,13 +79,14 @@
 
 .sidebar ul li a:hover {
   background: #fff;
-  width: calc(100% + 20px);
+  width: calc(100% + 30px);
+  margin-left: -15px;
 }
 
 .sidebar ul li.active a {
   background: #fff;
-  width: calc(100% + 10px);
-  margin-left: 5px;
+  width: calc(100% + 30px);
+  margin-left: -15px;
 }
 
 .icon {
@@ -103,7 +103,6 @@
   white-space: nowrap;
   opacity: 1;
   transition: opacity 0.4s ease;
-  margin-left: 10px;
 }
 
 .sidebar.collapsed .text {
@@ -122,7 +121,8 @@
 }
 
 .usercontent {
-  margin-top: 410px;
+  position: fixed;
+  margin-top: 34vh;
 }
 
 a {
@@ -145,5 +145,6 @@ a {
   width: 30px;
   height: auto;
   margin-left: 7px;
-  margin-bottom: 160px;
 }
+
+#btnlogin{width: 275px;}

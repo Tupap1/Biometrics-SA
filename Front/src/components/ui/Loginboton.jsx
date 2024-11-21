@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogIn, LogOut } from 'lucide-react';
 import { useAuth } from '../../AuthContext';
 
-const AuthButton = () => {
+const AuthButton = ({idboton}) => {
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -16,10 +16,10 @@ const AuthButton = () => {
   };
 
   return (
-    <button className="btn btn-primary" onClick={handleClick}>
+    <button className="btn btn-primary" id={idboton} onClick={handleClick}>
       {isAuthenticated ? (
         <>
-          <LogOut className="mr-2" />
+          <LogOut  className="mr-2" />
           Cerrar Sesión {user?.username && `(${user.username})`}
         </>
       ) : (

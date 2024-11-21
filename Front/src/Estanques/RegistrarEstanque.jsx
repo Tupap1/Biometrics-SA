@@ -42,11 +42,6 @@ function RegistrarEstanque() {
   return (
     <div className="madre">
       <div className="hijo">
-        <div id="back" className="col">
-          {" "}
-          <Volver />
-        </div>
-        <div className="logo2"></div>
         <div className="title">
           <h1>Registrar estanque</h1>
         </div>

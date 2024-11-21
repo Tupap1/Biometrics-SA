@@ -37,7 +37,6 @@ function Card({ apiURL, text, textboton, title, info, text2, info2, link, textbo
               <p className="card-text">
                 {text} {dato[info]} {text2} {dato[info2]}{texto2}
               </p>
-              <Boton className="btn btn-primary" onClickCustom={accion} text={textboton} to={link} />
             </div>
           </div>
         ))}

@@ -9,9 +9,8 @@
     justify-content: space-between;
     align-items: center;
     background-blend-mode: multiply;
-    background: url("https://raw.githubusercontent.com/Tupap1/Biometrics-SA/refs/heads/master/piscicultura%202.png") ;
+    background: url("../../assets/Fondo.png");
     background-color: rgba(0, 0, 0, 0.5);
-    border-left: -293;
 
     
   }
