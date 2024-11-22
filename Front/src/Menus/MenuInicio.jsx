@@ -6,7 +6,6 @@ import axios from "axios";
 import Signout from "../components/ui/Signout";
 import "../components/styles/Inicio.css";
 import "/src/Peces/crearpeces.css";
-import ButtonWithHover from "../components/ui/Menu";
 
 function MenuInicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

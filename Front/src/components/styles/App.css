@@ -1,20 +1,20 @@
 
 #padre{
     background: rgba(82, 222, 247, 0.15);
-
     height: 100vh;
 }
 #content{
     background: linear-gradient(0deg, rgba(91, 177, 238, 0.30) 0%, rgba(91, 177, 238, 0.30) 100%), #FFF;
     border-radius: 10px;
     margin-top: 2vh;
-    margin-right: 10vh;
+    margin-right: 5vh;
     height: 90vh;
+    width: 137vh;
 }
 
 .volver{
     padding: 10px;
-    margin-top: 5vh;
+    margin-top: 10px;
     margin-left: 2vh;
 }
 

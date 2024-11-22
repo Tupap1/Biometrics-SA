@@ -11,9 +11,7 @@ function MenuEstanques() {
         <div id="fondo">
           <div></div>
           <div id="title">
-            <center>
               <h1>Estanques</h1>
-            </center>
           </div>
           <div>
             <div className="row">

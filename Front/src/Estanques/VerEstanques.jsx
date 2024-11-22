@@ -1,5 +1,4 @@
 import React from 'react'
-import Card from '../components/ui/Card'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Boton from '../components/ui/Boton';

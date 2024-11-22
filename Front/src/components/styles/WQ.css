@@ -1,7 +1,6 @@
 #fondo2{
   background: linear-gradient(0deg, rgba(91, 177, 238, 0.30) 0%, rgba(91, 177, 238, 0.30) 100%), #FFF;
-  width: 1400px;
-  height: 950px;
+  width: 100%;
   flex-shrink: 0;
 }
 .titlee{

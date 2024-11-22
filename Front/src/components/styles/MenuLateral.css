@@ -14,7 +14,7 @@
 
 .sidebar {
   position: fixed;
-  left: 35px;
+  left: 20px;
   top: 50%;
   transform: translate(1%, -50%);
   height: 80vh;

@@ -1,13 +1,10 @@
 import React from "react";
-import Volver from "../components/ui/Volver";
 import Form from "../components/ui/Form";
 import { useState, useEffect, useRef } from "react";
 import Boton from "../components/ui/Boton";
 import "../components/styles/Biometria.css";
 import Lista from "../components/ui/Lista";
 import axios from "axios";
-import VerBiometriasCard from "./VerBiometriasCard";
-import GetApiData from "../components/ui/GetApiData";
 
 function RegistrarBiometria() {
   const [Pesos, setPesos] = useState([]);
