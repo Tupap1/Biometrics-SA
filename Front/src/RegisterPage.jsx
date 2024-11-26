@@ -30,23 +30,25 @@ export default function RegisterPage() {
       });
       console.log(response);
       navigate("/");
+      alert("Usuario creado con éxito");
+          setemail("");
+    setcontrasena("");
+    setnombres("");
+    setnuip("");
+    setapellidos("");
     } catch (error) {
       console.error(error, "error");
       if (error.response?.status === 401) {
         alert("Invalid credentials");
       }
-      else if (email.length === 0){
-        return alert("Email has left Blank!");
+      else if (email.length === 0 || contrasena.length === 0 || nombres.length === 0 || nuip.length === 0 || apellidos.length === 0 || rol.length === 0){
+        return alert("Falta completar algun campo!");
     }}
 
 
-    alert("Usuario creado con éxito");
+    
 
-    setemail("");
-    setcontrasena("");
-    setnombres("");
-    setnuip("");
-    setapellidos("");
+
   };
 
   return (
@@ -67,7 +69,7 @@ export default function RegisterPage() {
                     onChange={(e) => setemail(e.target.value)}
                     className="form-control form-control-lg"
                     placeholder="Ingresa tu email"
-                    
+                    required
                   />
                   <label className="form-label" htmlFor="form3Example3">
                     Email
@@ -81,6 +83,7 @@ export default function RegisterPage() {
                     onChange={(e) => setcontrasena(e.target.value)}
                     className="form-control form-control-lg"
                     placeholder="Ingresa contrasena"
+                    required  
                   />
                   <label className="form-label" htmlFor="form3Example4">
                     contrasena
@@ -94,6 +97,7 @@ export default function RegisterPage() {
                     onChange={(e) => setnombres(e.target.value)}
                     className="form-control form-control-lg"
                     placeholder="Ingresa nombres del usuario"
+                    required
                   />
                   <label className="form-label" htmlFor="form3Example4">
                     Nombres
@@ -107,6 +111,7 @@ export default function RegisterPage() {
                     onChange={(e) => setapellidos(e.target.value)}
                     className="form-control form-control-lg"
                     placeholder="Ingresa apellidos del usuario"
+                    required
                   />
                   <label className="form-label" htmlFor="form3Example4">
                     apellidos
@@ -121,6 +126,7 @@ export default function RegisterPage() {
                     className="form-control form-control-lg"
                     placeholder="Ingresa NUIP del usuario"
                     maxLength="10"
+                    required
                   />
                   <label className="form-label" htmlFor="form3Example4">
                     NUIP
@@ -142,7 +148,7 @@ export default function RegisterPage() {
 
                 <div className="text-center text-lg-start mt-4 pt-2">
                   <button
-                    type="button"
+                    type="submit"
                     className="btn btn-primary btn-lg"
                     onClick={registerUser}
                   >

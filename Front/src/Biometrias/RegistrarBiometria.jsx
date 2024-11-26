@@ -3,28 +3,31 @@ import Form from "../components/ui/Form";
 import { useState, useEffect, useRef } from "react";
 import Boton from "../components/ui/Boton";
 import "../components/styles/Biometria.css";
-import Lista from "../components/ui/Lista";
 import axios from "axios";
+import Estanques from '../components/ui/Estanques.jsx'
 
 function RegistrarBiometria() {
   const [Pesos, setPesos] = useState([]);
   const [Longitudes, setLongitudes] = useState([]);
   const [peso, setPeso] = useState("");
   const [longitud, setLongitud] = useState("");
-  const [estanque, setEstanque] = useState("");
+  const [estanque, setEstanque] = useState(1);
   const [muestra, setMuestra] = useState("");
   const [fecha, setfecha] = useState("");
   const [hora, setHora] = useState("");
   const [biomasa, setBiomasa] = useState(0);
   const [estanqueData, setEstanqueData] = useState([]);
+  const [editingCell, setEditingCell] = useState(null);
+  const [editValue, setEditValue] = useState("");
+
+  
+
 
   useEffect(() => {
     const intervalo = setInterval(() => {
       const fechaactual = new Date().toLocaleDateString();
-
       const [dia, mes, año] = fechaactual.split("/");
       const fechaFormateada = `${año}:${mes}:${dia}`;
-
       setfecha(fechaFormateada);
       setHora(
         new Date().toLocaleTimeString([], {
@@ -40,35 +43,68 @@ function RegistrarBiometria() {
   }, []);
 
   const handleAddBiometria = () => {
-    if (peso === '' || longitud === '') {
-      alert('Por favor, completa todos los campos');
+    if (peso === "" || longitud === "") {
+      alert("Por favor, completa todos los campos");
       return;
-    }else{
-      setPesos([...Pesos, parseFloat(peso)]);
-      setLongitudes([...Longitudes, parseFloat(longitud)]);
-      setPeso("");
-      setLongitud("");      
     }
+    setPesos([...Pesos, parseFloat(peso)]);
+    setLongitudes([...Longitudes, parseFloat(longitud)]);
+    setPeso("");
+    setLongitud("");
+  };
 
+  const handleCellClick = (index, type, value) => {
+    setEditingCell({ index, type });
+    setEditValue(value.toString());
+  };
+
+  const handleCellEdit = (e) => {
+    setEditValue(e.target.value);
+  };
+
+  const handleCellBlur = () => {
+    if (editingCell && editValue !== "") {
+      const newValue = parseFloat(editValue);
+      if (!isNaN(newValue)) {
+        if (editingCell.type === "peso") {
+          const newPesos = [...Pesos];
+          newPesos[editingCell.index] = newValue;
+          setPesos(newPesos);
+        } else {
+          const newLongitudes = [...Longitudes];
+          newLongitudes[editingCell.index] = newValue;
+          setLongitudes(newLongitudes);
+        }
+      }
+    }
+    setEditingCell(null);
+    setEditValue("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleCellBlur();
+    } else if (e.key === "Escape") {
+      setEditingCell(null);
+      setEditValue("");
+    }
   };
 
   const keyDown = (event) => {
     if (event.key === "Enter") {
-      const formulariopeso = document.getElementById('formpeso');
-      const formulariolongitud = document.getElementById('formlongitud');
-      
-      if(document.activeElement === formulariopeso){
+      const formulariopeso = document.getElementById("formpeso");
+      const formulariolongitud = document.getElementById("formlongitud");
+
+      if (document.activeElement === formulariopeso) {
         formulariolongitud.focus();
-      } else if(document.activeElement === formulariolongitud){
+      } else if (document.activeElement === formulariolongitud) {
         handleAddBiometria();
         formulariopeso.focus();
       } else {
         handleAddBiometria();
       }
-
     }
   };
-
 
   const calcularPromedio = (datos) => {
     const numeros = datos.filter((dato) => !isNaN(dato));
@@ -79,15 +115,13 @@ function RegistrarBiometria() {
   const promedioPeso = calcularPromedio(Pesos);
   const promedioLongitud = calcularPromedio(Longitudes);
 
-  const fetchData = async () => {
+  const fetchData = async (e) => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:5000/consultarestanque"
+        `http://127.0.0.1:5000/estanque/${estanque}`
       );
-      const matchingEstanque = response.data.find(
-        (est) => est.id_estanque === parseInt(estanque)
-      );
-      setEstanqueData(matchingEstanque);
+
+      setEstanqueData(response);
     } catch (error) {
       console.error(error);
     }
@@ -95,8 +129,9 @@ function RegistrarBiometria() {
 
   const calcularbiomasa = () => {
     fetchData();
-    const numeropecesestanque = estanqueData.numeropeces;
-    const biomasabiometria = parseFloat(numeropecesestanque) * parseFloat(promedioPeso);
+    const numeropecesestanque = estanqueData.data.numeropeces;
+    const biomasabiometria = parseInt(numeropecesestanque) * parseFloat(promedioPeso);
+    console.log("biomasa")
     setBiomasa(parseFloat(biomasabiometria));
   };
 
@@ -117,12 +152,29 @@ function RegistrarBiometria() {
         data
       );
       console.log(response);
+      setPesos([]);
+      setLongitudes([]);
+      alert("biometria registrada con exito");
     } catch (error) {
       console.error(error);
     }
-    setPesos([]);
-    setLongitudes([]);
-    alert("biometria registrada con exito");
+  };
+
+  const TableCell = ({ value, isEditing, onChange, onKeyDown }) => {
+    return isEditing ? (
+      <input
+        type="number"
+        value={editValue}
+        onChange={onChange}
+        onBlur={handleCellBlur}
+        onKeyDown={onKeyDown}
+        autoFocus
+        className="form-control form-control-sm"
+        style={{ width: "80px" }}
+      />
+    ) : (
+      <span className="editable-cell">{value}</span>
+    );
   };
 
   return (
@@ -168,11 +220,11 @@ function RegistrarBiometria() {
                 />
               </div>
             </div>
-            <div className="col-4">
-              <div></div>
-              <table>
+            <div id="datos" className="col-4">
+              <table className="table table-bordered">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Peso (gr)</th>
                     <th>Longitud (mm)</th>
                   </tr>
@@ -180,8 +232,37 @@ function RegistrarBiometria() {
                 <tbody>
                   {Pesos.map((peso, index) => (
                     <tr key={index}>
-                      <td>{peso}</td>
-                      <td>{Longitudes[index]}</td>
+                      <td>{index + 1}</td>
+                      <td
+                        onClick={() => handleCellClick(index, "peso", peso)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <TableCell
+                          value={peso}
+                          isEditing={
+                            editingCell?.index === index &&
+                            editingCell?.type === "peso"
+                          }
+                          onChange={handleCellEdit}
+                          onKeyDown={handleKeyDown}
+                        />
+                      </td>
+                      <td
+                        onClick={() =>
+                          handleCellClick(index, "longitud", Longitudes[index])
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        <TableCell
+                          value={Longitudes[index]}
+                          isEditing={
+                            editingCell?.index === index &&
+                            editingCell?.type === "longitud"
+                          }
+                          onChange={handleCellEdit}
+                          onKeyDown={handleKeyDown}
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -199,16 +280,7 @@ function RegistrarBiometria() {
 
       <div>
         <label htmlFor="">Seleciona el estanque</label>
-        <Lista
-          onInit={(e) => setEstanque(e)}
-          value={estanque}
-          onChange={(e) => {
-            setEstanque(e.target.value);
-            fetchData();
-            calcularbiomasa(e.target.value);
-          }}
-          apiURL="http://127.0.0.1:5000/consultarestanque"
-        ></Lista>
+        <Estanques onInit={(e) =>{setEstanque(e); fetchData(e);}} onChange={(e) => {setEstanque(e.target.value); fetchData(e.target.value); calcularbiomasa(e.target.value);}} value={estanque} apiURL={"http://127.0.0.1:5000/consultarestanque"}></Estanques>
       </div>
       <label htmlFor="">Seleciona el tamaño de la muestra</label>
       <select
@@ -225,6 +297,7 @@ function RegistrarBiometria() {
         text="Enviar"
         onClickCustom={handleSubmit}
       />
+      <h1>{estanque}</h1>
     </div>
   );
 }

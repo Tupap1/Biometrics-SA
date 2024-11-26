@@ -8,23 +8,23 @@ import { FaTachometerAlt } from "react-icons/fa";
 import { FaFish } from "react-icons/fa";
 import { GiOpenedFoodCan } from "react-icons/gi";
 import { useEffect } from "react";
-import {jwtDecode} from 'jwt-decode';
 import AuthButton from "./Loginboton";
+import axios from "axios";
 
 function MenuLateral() {
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
   const [userdata, setUserdata] = useState({});
 
-
+  const datosUser = async () => {
+    const response = await axios.get(`http://127.0.0.1:5000/users/${iduser}`)
+    console.log(response.data)
+    setUserdata(response.data)    
+  }
 
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {      
-      const decodedToken = jwtDecode(token);
-      setUserdata(decodedToken.user);
-    }
+    datosUser();  
   }, []);
 
   const menuItems = [
@@ -43,6 +43,7 @@ function MenuLateral() {
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
       >
+        {console.log()}
         <div className="navigation">
           <ul>
             {menuItems.map((item, index) => (

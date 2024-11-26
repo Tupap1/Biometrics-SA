@@ -121,8 +121,8 @@
 }
 
 .usercontent {
-  position: fixed;
-  margin-top: 34vh;
+  position: relative;
+  margin-top: 29vh;
 }
 
 a {

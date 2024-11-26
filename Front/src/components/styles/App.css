@@ -2,6 +2,7 @@
 #padre{
     background: rgba(82, 222, 247, 0.15);
     height: 100vh;
+    
 }
 #content{
     background: linear-gradient(0deg, rgba(91, 177, 238, 0.30) 0%, rgba(91, 177, 238, 0.30) 100%), #FFF;

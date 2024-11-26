@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
       )}
       <div
         id="content"
-        className={isAuthenticated && !isPublicRoute ? "col-9" : "col-12"}
+        className={isAuthenticated && !isPublicRoute ? "col-12" : "col-12"}
       >
         {isAuthenticated && !isPublicRoute && (
           <div className="">

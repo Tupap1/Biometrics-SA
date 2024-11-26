@@ -112,6 +112,21 @@ def logout():
     return 200 
 
 
+@Usuarios.route("/users/<id>", methods=["GET"])
+def get_user(id):
+    user = usuario.query.get(id)
+    if user:
+        return jsonify({
+            "id": user.iduser,
+            "email": user.email,
+            "nombres": user.nombres,
+            "apellidos": user.apellidos,
+            "nuip": user.nuip,
+            "rol": user.rol
+        }), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+
 
 
 

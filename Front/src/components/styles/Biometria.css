@@ -29,3 +29,19 @@ flex-shrink: 0;
 height: 129px;
 flex-shrink: 0;
 }
+
+#datos{
+    overflow-y: auto;
+    width: 50vh;
+    max-height: 20vh;
+}
+#datos::-webkit-scrollbar {
+    width: 10px;
+    color: #4EABED;
+    width: 30px;
+  }
+
+#datos::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+
+} 
