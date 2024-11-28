@@ -297,7 +297,6 @@ function RegistrarBiometria() {
         text="Enviar"
         onClickCustom={handleSubmit}
       />
-      <h1>{estanque}</h1>
     </div>
   );
 }

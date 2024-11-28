@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "flask": "^0.2.10"
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.3.3",
+    "flask": "^0.2.10",
+    "reactstrap": "^9.2.3"
   }
 }

@@ -4,12 +4,14 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [iduser, setIduser] = useState(localStorage.getItem('iduser'));
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
+      localStorage.setItem('iduser', iduser);
       setIsAuthenticated(true);
     } else {
       localStorage.removeItem('token');
@@ -37,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       if (data.access_token) {
         setToken(data.access_token);
         setUser(data.user || {});
+        setIduser(data.user.id || {});
         setIsAuthenticated(true);
         return true;
       } else {
